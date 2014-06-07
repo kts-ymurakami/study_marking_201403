@@ -29,7 +29,7 @@ public class KadaiException extends Exception {
 	 * @return errorCode
 	 */
 	public int getErrorCode() {
-		return this.errorCode.gerErrorCode();
+		return this.errorCode.getErrorCode();
 	}
 
 }

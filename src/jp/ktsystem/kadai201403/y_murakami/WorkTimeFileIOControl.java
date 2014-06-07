@@ -36,7 +36,7 @@ public class WorkTimeFileIOControl {
 	 * 入力チェック用　正規表現Pattern
 	 */
 	private final Pattern DATA_PATTERN = Pattern
-			.compile(SystemConstant.REGULAR_EXPRESSION_DATE);
+			.compile(SystemConstant.REGULAR_EXPRESSION_DATA);
 
 	/**
 	 * 入力ファイルパス
@@ -47,11 +47,6 @@ public class WorkTimeFileIOControl {
 	 * 出力ファイルパス
 	 */
 	private String outputFilePath = null;
-
-	/**
-	 * 出力ファイル書き込み用文字列リスト
-	 */
-	private ArrayList<String[]> outputList = null;
 
 	/**
 	 * 読み込みファイル文字列
@@ -71,7 +66,7 @@ public class WorkTimeFileIOControl {
 	/**
 	 * 読み込みデータのリスト（レベル２）
 	 */
-	private List<WorkTimeMonth> WorkTimeMonthList = null;
+	private List<WorkTimeMonth> WorkTimeMonthList = new ArrayList<WorkTimeMonth>();
 
 	/**
 	 * コンストラクタ
@@ -119,9 +114,21 @@ public class WorkTimeFileIOControl {
 
 			int readChar;// 読み込み文字
 			this.readStr = new StringBuilder();// 読み込み文字列
+			boolean bomCheck = true;
 
 			// 入力ファイル読み込み　（制御コードエラーが出たらそこで打ち切り）
 			while (-1 != (readChar = bfRead.read())) {
+
+				// BOM読み飛ばし
+				if (bomCheck && 65533 == readChar) {
+					if (!CommonUtil.checkBom(bfRead)) {
+						this.controlCodeError = true;
+						break;
+					}
+					readChar = bfRead.read();
+				}
+				bomCheck = false;
+
 				// 制御文字エラーチェック
 				if (ErrorUtil.isControlCode((char) readChar)) {
 					this.controlCodeError = true;
@@ -215,19 +222,17 @@ public class WorkTimeFileIOControl {
 		if (this.controlCodeError) {
 			throw new KadaiException(ErrorCode.IS_CTRL_CODE);
 		}
-
 	}
 
 	/**
-	 * ファイル読み込みを行い、出力文字列リストを作成する　TODO
+	 * ファイル読み込みを行い、出力文字列リストを作成する　
 	 *
 	 * @throws KadaiException
 	 */
 	public void readInputFileLv2() throws KadaiException {
 
 		BufferedReader bfRead = null;
-		// 月データの保持
-		List<WorkTime> workTimeMonth = new ArrayList<WorkTime>();
+		String month = null;// 月
 
 		// 入力ファイルの読み込み
 		try {
@@ -236,26 +241,24 @@ public class WorkTimeFileIOControl {
 					new FileInputStream(this.inputFilePath)));
 
 			StringBuilder sb = new StringBuilder();// キーorバリュー
-			String month = null;// 月
 
 			// 次のJsonコントロール文字
 			int jsonControlChar = '{';
 
 			// 読み込み
-			int ch = scanInputChar(bfRead, false);
+			int readChar = scanInputChar(bfRead, false, true);
 			boolean skipFlag = false;
-
-			while (-1 != ch) {
+			while (-1 != readChar) {
 				// Json制御文字が来た場合
-				if (ch != jsonControlChar) {
+				if (readChar != jsonControlChar) {
 					if (':' == jsonControlChar || ']' == jsonControlChar) {
 						// 追加
-						sb.append((char) ch);
-						if (ch == '"') {
+						sb.append((char) readChar);
+						if (readChar == '"') {
 							// "以降は文字列読み込み
 							skipFlag = !skipFlag;
 						}
-						ch = scanInputChar(bfRead, skipFlag);
+						readChar = scanInputChar(bfRead, skipFlag,false);
 						continue;// 読み込んで次の文字へ
 					} else {
 						throw new KadaiException(ErrorCode.ILLEGAL_INPUT_TIME);
@@ -267,33 +270,29 @@ public class WorkTimeFileIOControl {
 					jsonControlChar = ':';
 				} else if (':' == jsonControlChar) {
 					// 月を取得
-					month = sb.toString();// TODO
+					month = sb.toString().replace('"', ' ').trim();
 					sb = new StringBuilder();// 　初期化
 					jsonControlChar = '[';
 				} else if ('[' == jsonControlChar) {
 					jsonControlChar = ']';
 				} else if (']' == jsonControlChar) {
 
-					WorkTimeMonth monthData = new WorkTimeMonth(month);
+					// 一か月分のデータを処理する
+					WorkTimeMonth monthData = new WorkTimeMonth(month,
+							sb.toString());
+					monthData.scanInputData();// データの読み込み
 
-					String date = null;
-					String workTime = null;
-					String total = null;
-
-					WorkTime dateData = new WorkTime(date, workTime, total);
-					monthData.addDate(dateData);
+					// 読み込み済みデータに追加
 					this.WorkTimeMonthList.add(monthData);
-
-					System.out.println(sb.toString());
 
 					sb = new StringBuilder();
 
 					// 次のデータを読む
-					ch = scanInputChar(bfRead, false);
-					if (',' == ch) {
+					readChar = scanInputChar(bfRead, false,false);
+					if (',' == readChar) {
 						// 次データがある場合
 						jsonControlChar = ':';
-					} else if ('}' == ch) {
+					} else if ('}' == readChar) {
 						// 1レコード読み込み終了
 						jsonControlChar = '{';
 					} else {
@@ -304,7 +303,7 @@ public class WorkTimeFileIOControl {
 				}
 
 				// 次の文字を読み込み
-				ch = scanInputChar(bfRead, false);
+				readChar = scanInputChar(bfRead, false, false);
 			}
 		} catch (FileNotFoundException ex) {
 			// 入力ファイルが存在している時
@@ -314,7 +313,7 @@ public class WorkTimeFileIOControl {
 			}
 			throw new KadaiException(ErrorCode.NOT_EXIST_INPUT_FILE);
 		} catch (KadaiException ex) {
-			throw ex; // 存在しないキー、制御コード
+			throw ex;// 制御コード
 		} catch (Exception ex) {
 			// ファイル読み込みに失敗した時
 			throw new KadaiException(ErrorCode.FAILE_READ_INPUT_FILE);
@@ -346,17 +345,7 @@ public class WorkTimeFileIOControl {
 		BufferedWriter bfWrite = null;// 出力ファイル制御用変数
 
 		try {
-			// ファイルが存在するかどうか
-			if (checkExistFile(this.outputFilePath)) {
-				// 存在している場合は追記モードでオープン
-				bfWrite = new BufferedWriter(new FileWriter(
-						this.outputFilePath, true));
-			} else {
-				// 存在しない場合は新規作成
-				bfWrite = new BufferedWriter(
-						new FileWriter(this.outputFilePath));
-			}
-
+			bfWrite = new BufferedWriter(new FileWriter(this.outputFilePath));
 			// 出力用文字列リストの作成
 			ArrayList<String> outList = new ArrayList<String>();
 			outList.add("[");
@@ -383,7 +372,6 @@ public class WorkTimeFileIOControl {
 				bfWrite.write(String.valueOf(errorCode));
 				bfWrite.newLine();
 			}
-
 		} catch (Exception ex) {
 			// 出力失敗
 			throw new KadaiException(ErrorCode.FAILE_FILE_OUT);
@@ -399,57 +387,142 @@ public class WorkTimeFileIOControl {
 		}
 	}
 
+	/**
+	 * Lv2用ファイル書き出し
+	 *
+	 * @throws KadaiException
+	 */
+	public void writeOutPutFileLv2(String dirPath) throws KadaiException {
+
+		for (WorkTimeMonth workTimeMonth : this.WorkTimeMonthList) {
+
+			BufferedWriter bfWrite = null;
+			String month = workTimeMonth.getMonth();
+			String fullPath = String.format("%s//%s.txt", dirPath, month);// 書き込みパス
+			int errorCode = workTimeMonth.getErrorCode();// errorCodeの取得
+
+			try {
+
+				// ディレクトリが存在しない場合は作成する
+				File dir = new File(dirPath);
+				if (!dir.exists()) {
+					dir.mkdirs();
+				}
+
+				bfWrite = new BufferedWriter(new FileWriter(fullPath));
+
+				// 出力用文字列リストの作成
+				ArrayList<String> outList = new ArrayList<String>();
+				List<WorkTime> workTimeList = workTimeMonth.getWorkTimeList();
+
+				// 日付順でソート
+				for (int i = 0; i < workTimeList.size() - 1; ++i) {
+					WorkTime wt1 = workTimeList.get(i);
+					WorkTime wt2 = workTimeList.get(i + 1);
+					if (0 < wt1.getDate().compareTo(wt2.getDate())) {
+						WorkTime wtTemp = wt1;
+						workTimeList.set(i, wt2);
+						workTimeList.set(i + 1, wtTemp);
+					}
+				}
+
+				// 出力文字列の作成
+				int total = 0;
+				outList.add("[");
+				for (int i = 0; i < workTimeList.size(); ++i) {
+
+					// totalを設定する
+					WorkTime wt = workTimeList.get(i);
+					int workTime = Integer.parseInt(wt.getWorkTime());
+					wt.setTotal(String.valueOf(total += workTime));
+
+					// 書き込みJson文字列の作成
+					StringBuilder line = new StringBuilder(workTimeList.get(i)
+							.createJsonStr());
+					if (workTimeList.size() - 1 != i) {
+						line.append(",");
+					}
+					outList.add(line.toString());
+				}
+				outList.add("]");
+
+				// 出力
+				for (String line : outList) {
+					// 書き込み
+					bfWrite.write(line);
+					bfWrite.newLine();
+				}
+
+				// 読み込み時エラーコードの書き込み(6,7,8は出力ファイル自体が存在しないため記述しない)
+				if (-1 != errorCode && errorCode != 6 && errorCode != 7
+						&& errorCode != 8) {
+					bfWrite.write(String.valueOf(errorCode));
+					bfWrite.newLine();
+				}
+
+			} catch (Exception ex) {
+				// 出力失敗
+				throw new KadaiException(ErrorCode.FAILE_FILE_OUT);
+			} finally {
+				// ファイルクローズ
+				if (null != bfWrite) {
+					try {
+						bfWrite.close();
+					} catch (IOException ex) {
+						throw new KadaiException(ErrorCode.FAILE_FILE_OUT);
+					}
+				}
+			}
+			// errorが存在したら終了
+			if (0 < errorCode) {
+				break;
+			}
+		}
+	}
 
 	/**
 	 * 次の文字を読む
-	 * @param bfRead　ファイルリーダー
-	 * @param skipFlag　不要文字を読み飛ばすかどうか　
+	 *
+	 * @param bfRead
+	 *            ファイルリーダー
+	 * @param skipFlag
+	 *            不要文字を読み飛ばすかどうか　
 	 * @return
 	 * @throws KadaiException
 	 * @throws IOException
 	 */
-	private int scanInputChar(BufferedReader bfRead, boolean skipFlag)
-			throws KadaiException, IOException {
+	private int scanInputChar(BufferedReader bfRead, boolean skipFlag,
+			boolean bomCheck) throws KadaiException, IOException {
 
-		int ch = bfRead.read(); // 読み込み
+		int readChar = bfRead.read(); // 読み込み
 		if (skipFlag) {
 			// 制御コードチェック
-			if (ErrorUtil.isControlCode((char) ch)) {
+			if (ErrorUtil.isControlCode((char) readChar)) {
 				throw new KadaiException(ErrorCode.ILLEGAL_INPUT_TIME);
 			}
-			return ch;
+			return readChar;
 		} else {
 			// 空白を読み飛ばす
-			while (-1 != ch) {
-				// 空白コードチェック
-				if (!CommonUtil.isSkipCode(ch)) {
-					// 制御コードチェック
-					if (ErrorUtil.isControlCode((char) ch)) {
-						throw new KadaiException(ErrorCode.ILLEGAL_INPUT_TIME);
+			while (-1 != readChar) {
+				// 初回のみBOMチェック
+				if (bomCheck && 65533 == readChar) {
+					if (!CommonUtil.checkBom(bfRead)) {
+						throw new KadaiException(
+								ErrorCode.IS_CTRL_CODE);
 					}
-					return ch;
+					readChar = bfRead.read();
 				}
-				ch = bfRead.read();
+				// 空白コードチェック
+				if (!CommonUtil.isSkipCode(readChar)) {
+					// 制御コードチェック
+					if (ErrorUtil.isControlCode((char) readChar)) {
+						throw new KadaiException(ErrorCode.IS_CTRL_CODE);
+					}
+					return readChar;
+				}
+				readChar = bfRead.read();
 			}
-			return ch;
+			return readChar;
 		}
 	}
-
-	/**
-	 * ファイルが存在しているかどうか
-	 *
-	 * @param filePath
-	 * @return true/false
-	 */
-	private boolean checkExistFile(String filePath) {
-
-		File f = new File(filePath);
-
-		if (f.exists()) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 }

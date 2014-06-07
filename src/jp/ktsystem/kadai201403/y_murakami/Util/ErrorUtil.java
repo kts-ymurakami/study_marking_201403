@@ -174,6 +174,15 @@ public class ErrorUtil {
 	}
 
 	/**
+	 * nullと空文字をチェックする
+	 * @param str
+	 * @return
+	 */
+	public static boolean isNullorEmpty(String str){
+		return null == str || "".equals(str);
+	}
+
+	/**
 	 * パターンと文字列からMatchesの結果を返す
 	 *
 	 * @param ptr

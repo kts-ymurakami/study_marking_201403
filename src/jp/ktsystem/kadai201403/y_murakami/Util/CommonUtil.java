@@ -1,5 +1,8 @@
 package jp.ktsystem.kadai201403.y_murakami.Util;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+
 /**
  * ‹¤’ÊUtillƒNƒ‰ƒX
  *
@@ -47,6 +50,25 @@ public class CommonUtil {
 
 		return false;
 
+	}
+
+	/**
+	 * BOM‚Ì“Ç‚Ý”ò‚Î‚µ
+	 * @param bfRead
+	 * @return
+	 * @throws IOException
+	 */
+	public static boolean checkBom(BufferedReader bfRead) throws IOException{
+		int b2 = 0;
+		int b3 = 0;
+		if (-1 != (b2 = (byte) bfRead.read())
+				&& ((byte) 65403 == b2)) {
+			if (-1 != (b3 = (byte) bfRead.read())
+					&& ((byte) 65407 == b3)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 

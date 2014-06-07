@@ -33,9 +33,9 @@ public class Kadai {
 		} catch (KadaiException ex) {
 			int eCode = ex.getErrorCode();
 			// 出力ファイルの作成が必要ないエラーコードの場合
-			if (ErrorCode.NULL_INPUT_FILE_PATH.gerErrorCode() == eCode
-					|| ErrorCode.NOT_EXIST_INPUT_FILE.gerErrorCode() == eCode
-					|| ErrorCode.FAILE_READ_INPUT_FILE.gerErrorCode() == eCode) {
+			if (ErrorCode.NULL_INPUT_FILE_PATH.getErrorCode() == eCode
+					|| ErrorCode.NOT_EXIST_INPUT_FILE.getErrorCode() == eCode
+					|| ErrorCode.FAILE_READ_INPUT_FILE.getErrorCode() == eCode) {
 				throw ex;
 			}
 			// 読み込めている分だけ書き出し(読み込み中のエラーの場合はエラーコード出力)
@@ -50,7 +50,6 @@ public class Kadai {
 
 	/**
 	 * Lv2 月、日付、開始時間、終了時間がJson形式で記述されたファイルを読み込み、 勤務時間をファイルに出力する
-	 * TODO
 	 * @param anInputPath
 	 *            入力ファイルパス
 	 * @param anOutputPath
@@ -64,25 +63,29 @@ public class Kadai {
 		WorkTimeFileIOControl workTimeFile = new WorkTimeFileIOControl(
 				anInputPath, anOutputPath);
 
+		boolean controlErrFlag = false;
 		// ファイル読み込み
 		try {
+			// ファイルの読み込み
 			workTimeFile.readInputFileLv2();
 		} catch (KadaiException ex) {
-			int eCode = ex.getErrorCode();
 			// 出力ファイルの作成が必要ないエラーコードの場合
-			if (ErrorCode.NULL_INPUT_FILE_PATH.gerErrorCode() == eCode
-					|| ErrorCode.NOT_EXIST_INPUT_FILE.gerErrorCode() == eCode
-					|| ErrorCode.FAILE_READ_INPUT_FILE.gerErrorCode() == eCode) {
+			if (ErrorCode.NULL_INPUT_FILE_PATH.getErrorCode() == ex.getErrorCode()
+					|| ErrorCode.NOT_EXIST_INPUT_FILE.getErrorCode() == ex.getErrorCode()
+					|| ErrorCode.FAILE_READ_INPUT_FILE.getErrorCode() == ex.getErrorCode()) {
 				throw ex;
 			}
-			// 読み込めている分だけ書き出し(読み込み中のエラーの場合はエラーコード出力)
-			workTimeFile.writeOutputFile(eCode);
-			return;// 正常系として終了
+			// 制御文字が混入していた場合
+			if(ErrorCode.IS_CTRL_CODE.getErrorCode() == ex.getErrorCode()){
+				controlErrFlag = true;
+			}
 		}
+		// 書き出し
+		workTimeFile.writeOutPutFileLv2(anOutputPath);
 
-		// 入力ファイル読み込みが全て上手くいった場合書き出し
-		workTimeFile.writeOutputFile(-1);
-
+		if(controlErrFlag){
+			throw new KadaiException(ErrorCode.IS_CTRL_CODE);
+		}
 	}
 
 	/**

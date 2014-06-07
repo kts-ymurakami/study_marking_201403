@@ -1,0 +1,4 @@
+[
+{"date":"20140201","workTime":480,"total":480},
+{"date":"20140202","workTime":330,"total":810}
+]

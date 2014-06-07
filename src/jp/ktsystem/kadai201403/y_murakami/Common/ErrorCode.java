@@ -25,7 +25,7 @@ public enum ErrorCode {
 		this.errorCode = errorCode;
 	}
 
-	public int gerErrorCode() {
+	public int getErrorCode() {
 		return errorCode;
 	}
 

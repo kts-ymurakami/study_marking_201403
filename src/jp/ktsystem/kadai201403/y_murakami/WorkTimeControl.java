@@ -7,6 +7,7 @@ import jp.ktsystem.kadai201403.y_murakami.Util.ErrorUtil;
 
 /**
  * 勤務時間制御クラス
+ *
  * @author y_murakami
  *
  */
@@ -17,14 +18,18 @@ public class WorkTimeControl {
 
 	/**
 	 * コンストラクタ 出社時刻と退社時刻をメンバに設定する
-	 * @param startTime　出社時間コントロール
-	 * @param endTime　退社時間コントロール
+	 *
+	 * @param startTime
+	 *            出社時間コントロール
+	 * @param endTime
+	 *            退社時間コントロール
 	 * @throws KadaiException
 	 */
-	public WorkTimeControl(KadaiTime startTime, KadaiTime endTime) throws KadaiException {
+	public WorkTimeControl(KadaiTime startTime, KadaiTime endTime)
+			throws KadaiException {
 
 		// エラーチェック 退社時間が出社時間より前かどうか
-		if(!ErrorUtil.endTimeBeforeStartTime(startTime, endTime)){
+		if (!ErrorUtil.endTimeBeforeStartTime(startTime, endTime)) {
 			throw new KadaiException(ErrorCode.END_BEFOR_START);
 		}
 
@@ -39,6 +44,7 @@ public class WorkTimeControl {
 
 	/**
 	 * 勤務時間を文字列で返す　総分を返す
+	 *
 	 * @return 勤務時間文字列　HHmm
 	 */
 	public String returnWorkTime() {
@@ -48,7 +54,8 @@ public class WorkTimeControl {
 		// 勤務時間　分
 		int workMinute = returnIntWorkMinute();
 		// 勤務総合時間　分
-		int workTime = workHour * SystemConstant.MINUTE_OF_ONE_HOUR + workMinute;
+		int workTime = workHour * SystemConstant.MINUTE_OF_ONE_HOUR
+				+ workMinute;
 
 		// 休憩時間をひく
 		workTime -= calcRestTime();
@@ -59,6 +66,7 @@ public class WorkTimeControl {
 
 	/**
 	 * 勤務時間の「時」部分を返す
+	 *
 	 * @return　勤務時間　時
 	 */
 	private int returnIntWorkHour() {
@@ -90,6 +98,7 @@ public class WorkTimeControl {
 
 	/**
 	 * 勤務時間の「分」部分を返す
+	 *
 	 * @return　勤務時間　分
 	 */
 	private int returnIntWorkMinute() {
@@ -120,6 +129,7 @@ public class WorkTimeControl {
 
 	/**
 	 * 休憩時間を計算する
+	 *
 	 * @return 休憩時間
 	 */
 	private int calcRestTime() {
@@ -139,24 +149,22 @@ public class WorkTimeControl {
 					restTime += SystemConstant.REST_TIME_NOON;
 				}
 				// 退社時刻が夕方休憩より後の時
-				if ((SystemConstant.REST_HOUR_EVE == endHour
-						&& SystemConstant.START_EVE_MINUTE <= endMinute)
+				if ((SystemConstant.REST_HOUR_EVE == endHour && SystemConstant.START_EVE_MINUTE <= endMinute)
 						|| SystemConstant.REST_HOUR_EVE < endHour) {
 					// 休憩時間に夕方休憩時間を足す
 					restTime += SystemConstant.REST_TIME_EVE;
 				}
 			}
-			
-			else if(SystemConstant.REST_HOUR_EVE > startHour){
+
+			else if (SystemConstant.REST_HOUR_EVE > startHour) {
 				// 出社時刻がお昼休みより後、夕方休憩より前
 				// 退社時刻が夕方休憩より後の時
-				if ((SystemConstant.REST_HOUR_EVE == endHour
-						&& SystemConstant.START_EVE_MINUTE <= endMinute)
+				if ((SystemConstant.REST_HOUR_EVE == endHour && SystemConstant.START_EVE_MINUTE <= endMinute)
 						|| SystemConstant.REST_HOUR_EVE < endHour) {
 					// 休憩時間に夕方休憩時間を足す
 					restTime += SystemConstant.REST_TIME_EVE;
-				}				
-			}			
+				}
+			}
 		}
 
 		return restTime;
@@ -170,14 +178,15 @@ public class WorkTimeControl {
 
 		if (null != this.startTime && null != this.endTime) {
 
-			/**********出社時刻調整**********/
+			/********** 出社時刻調整 **********/
 			int startHour = this.startTime.getIntHour();// 出社時　時
 			int startMinute = this.startTime.getIntMinute();// 出社時　分
 
 			// 出社時刻が始業時間より前の時
 			if (SystemConstant.WORK_START_HOUR_MORNING > startHour) {
 				// 出社時刻を始業時間に調整
-				this.startTime.setIntHour(SystemConstant.WORK_START_HOUR_MORNING);
+				this.startTime
+						.setIntHour(SystemConstant.WORK_START_HOUR_MORNING);
 				this.startTime.setIntMinute(SystemConstant.MINIMUM_TIME);
 
 				// 出社時間がお昼休憩時間中の時
@@ -193,7 +202,7 @@ public class WorkTimeControl {
 				this.startTime.setIntMinute(SystemConstant.START_EVE_MINUTE);
 			}
 
-			/**********退社時刻調整**********/
+			/********** 退社時刻調整 **********/
 			int endHour = this.endTime.getIntHour();// 退社　時
 			int endMinute = this.endTime.getIntMinute();// 退社　分
 

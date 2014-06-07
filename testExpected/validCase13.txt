@@ -1,0 +1,9 @@
+[
+{"date":"20140101","workTime":480,"total":480},
+{"date":"20140102","workTime":480,"total":960},
+{"date":"20140103","workTime":120,"total":1080},
+{"date":"20140104","workTime":60,"total":1140},
+{"date":"20140105","workTime":210,"total":1350},
+{"date":"20140106","workTime":120,"total":1470},
+{"date":"20140107","workTime":360,"total":1830}
+]

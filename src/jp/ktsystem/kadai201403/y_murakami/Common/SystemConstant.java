@@ -74,17 +74,14 @@ public class SystemConstant {
 	/**
 	 * 対象データの取り出し用　正規表現文字列
 	 */
-	public static final String REGULAR_EXPRESSION_DATE = "[\\s]*\"([a-zA-z]*)\"[\\s]*:[\\s]*\"([\\d]*)\"";
+	public static final String REGULAR_EXPRESSION_DATA = "[\\s]*\"([a-zA-z]*)\"[\\s]*:[\\s]*\"(.*?)\"";
+
 
 	/**
-	 * start 対象データの取り出し用　正規表現文字列
+	 * ""内のデータを取り出す　正規表現文字列
 	 */
-	public static final String REGULAR_EXPRESSION_START = "\\{[\\s\\S]*?\\}";
+	public static final String REGULAR_EXPRESSION_DOUBLE_QUOTATION = "\"(.*?)\"";
 
-	/**
-	 * end 対象データの取り出し用　正規表現文字列
-	 */
-	public static final String REGULAR_EXPRESSION_END = "\\{[\\s\\S]*?\\}";
 
 	/**
 	 * 入力ファイルの項目数　日付　出社時刻　退社時刻　
