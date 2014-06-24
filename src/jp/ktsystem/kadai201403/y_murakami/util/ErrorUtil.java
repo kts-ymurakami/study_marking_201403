@@ -73,7 +73,7 @@ public class ErrorUtil {
 	 * @throws KadaiException
 	 *             �ｿｽ@�ｿｽG�ｿｽ�ｿｽ�ｿｽ[�ｿｽR�ｿｽ[�ｿｽh3
 	 */
-	public static boolean endTimeBeforeStartTime(KadaiTime startTime,
+	public static boolean startTimeBeforeEndTime(KadaiTime startTime,
 			KadaiTime endTime) {
 
 		int startHour = startTime.getIntHour();// �ｿｽo�ｿｽﾐ趣ｿｽ

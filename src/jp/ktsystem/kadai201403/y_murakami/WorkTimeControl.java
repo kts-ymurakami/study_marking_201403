@@ -6,7 +6,7 @@ import jp.ktsystem.kadai201403.y_murakami.common.SystemConstant;
 import jp.ktsystem.kadai201403.y_murakami.util.ErrorUtil;
 
 /**
- * �Ζ����Ԑ���N���X
+ * �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔ撰ｿｽ�ｿｽ�ｿｽN�ｿｽ�ｿｽ�ｿｽX
  *
  * @author y_murakami
  *
@@ -17,47 +17,47 @@ public class WorkTimeControl {
 	private KadaiTime endTime = null;
 
 	/**
-	 * �R���X�g���N�^ �o�Ў����ƑގЎ����������o�ɐݒ肷��
+	 * �ｿｽR�ｿｽ�ｿｽ�ｿｽX�ｿｽg�ｿｽ�ｿｽ�ｿｽN�ｿｽ^ �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ�ｿｽ�ｿｽﾆ退社趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽo�ｿｽﾉ設定す�ｿｽ�ｿｽ
 	 *
 	 * @param startTime
-	 *            �o�Ў��ԃR���g���[��
+	 *            �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽﾔコ�ｿｽ�ｿｽ�ｿｽg�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ
 	 * @param endTime
-	 *            �ގЎ��ԃR���g���[��
+	 *            �ｿｽﾞ社趣ｿｽ�ｿｽﾔコ�ｿｽ�ｿｽ�ｿｽg�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ
 	 * @throws KadaiException
 	 */
 	public WorkTimeControl(KadaiTime startTime, KadaiTime endTime)
 			throws KadaiException {
 
-		// �G���[�`�F�b�N �ގЎ��Ԃ��o�Ў��Ԃ��O���ǂ���
-		if (!ErrorUtil.endTimeBeforeStartTime(startTime, endTime)) {
+		// �ｿｽG�ｿｽ�ｿｽ�ｿｽ[�ｿｽ`�ｿｽF�ｿｽb�ｿｽN �ｿｽﾞ社趣ｿｽ�ｿｽﾔゑｿｽ�ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽﾔゑｿｽ�ｿｽO�ｿｽ�ｿｽ�ｿｽﾇゑｿｽ�ｿｽ�ｿｽ
+		if (!ErrorUtil.startTimeBeforeEndTime(startTime, endTime)) {
 			throw new KadaiException(ErrorCode.END_BEFOR_START);
 		}
 
-		// �����o�ɐݒ�
+		// �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽo�ｿｽﾉ設抵ｿｽ
 		this.startTime = startTime;
 		this.endTime = endTime;
 
-		// �o�Ў����ƑގЎ����̒������s��
+		// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ�ｿｽ�ｿｽﾆ退社趣ｿｽ�ｿｽ�ｿｽ�ｿｽﾌ抵ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽs�ｿｽ�ｿｽ
 		adjustStartEndTime();
 
 	}
 
 	/**
-	 * �Ζ����Ԃ𕶎���ŕԂ��@������Ԃ�
+	 * �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔを文趣ｿｽ�ｿｽ�ｿｽﾅ返ゑｿｽ�ｿｽ@�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾔゑｿｽ
 	 *
-	 * @return �Ζ����ԕ�����@HHmm
+	 * @return �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔ包ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ@HHmm
 	 */
 	public String returnWorkTime() {
 
-		// �Ζ����ԁ@��
+		// �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔ　�ｿｽ�ｿｽ
 		int workHour = returnIntWorkHour();
-		// �Ζ����ԁ@��
+		// �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔ　�ｿｽ�ｿｽ
 		int workMinute = returnIntWorkMinute();
-		// �Ζ��������ԁ@��
+		// �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾔ　�ｿｽ�ｿｽ
 		int workTime = workHour * SystemConstant.MINUTE_OF_ONE_HOUR
 				+ workMinute;
 
-		// �x�e���Ԃ��Ђ�
+		// �ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔゑｿｽ�ｿｽﾐゑｿｽ
 		workTime -= calcRestTime();
 
 		return String.valueOf(workTime);
@@ -65,25 +65,25 @@ public class WorkTimeControl {
 	}
 
 	/**
-	 * �Ζ����Ԃ́u���v������Ԃ�
+	 * �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔの「�ｿｽ�ｿｽ�ｿｽv�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾔゑｿｽ
 	 *
-	 * @return�@�Ζ����ԁ@��
+	 * @return�ｿｽ@�ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔ　�ｿｽ�ｿｽ
 	 */
 	private int returnIntWorkHour() {
 
-		// �Ζ����ԁ@��
+		// �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔ　�ｿｽ�ｿｽ
 		int workHour = 0;
 
 		if (null != this.startTime && null != this.endTime) {
-			// �o�Ў��ƑގЎ��̍������Ƃ�
+			// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽﾆ退社趣ｿｽ�ｿｽﾌ搾ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾆゑｿｽ
 			workHour = this.endTime.getIntHour() - this.startTime.getIntHour();
 
-			// �����̏ꍇ��0��Ԃ�
+			// �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌ場合�ｿｽ�ｿｽ0�ｿｽ�ｿｽﾔゑｿｽ
 			if (0 == workHour) {
 				return workHour;
 			}
 
-			// �o�Е��̕����ގЕ���菬�����ꍇ��1�f�N�������g����
+			// �ｿｽo�ｿｽﾐ包ｿｽ�ｿｽﾌ包ｿｽ�ｿｽ�ｿｽ�ｿｽﾞ社包ｿｽ�ｿｽ�ｿｽ闖ｬ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ鼾�ｿｽ�ｿｽ1�ｿｽf�ｿｽN�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽg�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 			if (this.endTime.getIntMinute() < this.startTime.getIntMinute()) {
 				workHour--;
 			}
@@ -97,13 +97,13 @@ public class WorkTimeControl {
 	}
 
 	/**
-	 * �Ζ����Ԃ́u���v������Ԃ�
+	 * �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔの「�ｿｽ�ｿｽ�ｿｽv�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾔゑｿｽ
 	 *
-	 * @return�@�Ζ����ԁ@��
+	 * @return�ｿｽ@�ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔ　�ｿｽ�ｿｽ
 	 */
 	private int returnIntWorkMinute() {
 
-		// �Ζ����ԁ@��
+		// �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔ　�ｿｽ�ｿｽ
 		int workMinute = 0;
 
 		if (null != this.startTime && null != this.endTime) {
@@ -111,10 +111,10 @@ public class WorkTimeControl {
 			int startMinute = this.startTime.getIntMinute();
 			int endMinute = this.endTime.getIntMinute();
 
-			// �o�ЂƑގЂ̍������Ƃ�
+			// �ｿｽo�ｿｽﾐと退社の搾ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾆゑｿｽ
 			workMinute = endMinute - startMinute;
 
-			// ���������̐��̎���60�������ċΖ��������߂�
+			// �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌ撰ｿｽ�ｿｽﾌ趣ｿｽ�ｿｽ�ｿｽ60�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾄ勤厄ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾟゑｿｽ
 			if (0 > workMinute) {
 				workMinute += SystemConstant.MINUTE_OF_ONE_HOUR;
 			}
@@ -128,40 +128,40 @@ public class WorkTimeControl {
 	}
 
 	/**
-	 * �x�e���Ԃ��v�Z����
+	 * �ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔゑｿｽ�ｿｽv�ｿｽZ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 	 *
-	 * @return �x�e����
+	 * @return �ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 	 */
 	private int calcRestTime() {
 
-		int restTime = 0;// �x�e����
+		int restTime = 0;// �ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 
 		if (null != this.startTime && null != this.endTime) {
-			int startHour = this.startTime.getIntHour();// �o�Ў�
-			int endHour = this.endTime.getIntHour();// �ގЎ�
-			int endMinute = this.endTime.getIntMinute();// �ގЕ�
+			int startHour = this.startTime.getIntHour();// �ｿｽo�ｿｽﾐ趣ｿｽ
+			int endHour = this.endTime.getIntHour();// �ｿｽﾞ社趣ｿｽ
+			int endMinute = this.endTime.getIntMinute();// �ｿｽﾞ社包ｿｽ
 
-			// �����x�݂��ȑO�ɏo�Ђ��Ă���ꍇ
+			// �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽx�ｿｽﾝゑｿｽ�ｿｽﾈ前�ｿｽﾉ出�ｿｽﾐゑｿｽ�ｿｽﾄゑｿｽ�ｿｽ�ｿｽ鼾�
 			if (SystemConstant.START_REST_HOUR_NOON > startHour) {
-				// �ގЎ����������x�e����̎�
+				// �ｿｽﾞ社趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌ趣ｿｽ
 				if (SystemConstant.START_HOUR_NOON <= endHour) {
-					// �x�e���Ԃɂ����x�e���Ԃ𑫂�
+					// �ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔにゑｿｽ�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔを足ゑｿｽ
 					restTime += SystemConstant.REST_TIME_NOON;
 				}
-				// �ގЎ������[���x�e����̎�
+				// �ｿｽﾞ社趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌ趣ｿｽ
 				if ((SystemConstant.REST_HOUR_EVE == endHour && SystemConstant.START_EVE_MINUTE <= endMinute)
 						|| SystemConstant.REST_HOUR_EVE < endHour) {
-					// �x�e���Ԃɗ[���x�e���Ԃ𑫂�
+					// �ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔに夕�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔを足ゑｿｽ
 					restTime += SystemConstant.REST_TIME_EVE;
 				}
 			}
 
 			else if (SystemConstant.REST_HOUR_EVE > startHour) {
-				// �o�Ў����������x�݂���A�[���x�e���O
-				// �ގЎ������[���x�e����̎�
+				// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽx�ｿｽﾝゑｿｽ�ｿｽ�ｿｽA�ｿｽ[�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽO
+				// �ｿｽﾞ社趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌ趣ｿｽ
 				if ((SystemConstant.REST_HOUR_EVE == endHour && SystemConstant.START_EVE_MINUTE <= endMinute)
 						|| SystemConstant.REST_HOUR_EVE < endHour) {
-					// �x�e���Ԃɗ[���x�e���Ԃ𑫂�
+					// �ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔに夕�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔを足ゑｿｽ
 					restTime += SystemConstant.REST_TIME_EVE;
 				}
 			}
@@ -172,54 +172,54 @@ public class WorkTimeControl {
 	}
 
 	/**
-	 * �o�Ў����ƑގЎ����̒������s��
+	 * �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ�ｿｽ�ｿｽﾆ退社趣ｿｽ�ｿｽ�ｿｽ�ｿｽﾌ抵ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽs�ｿｽ�ｿｽ
 	 */
 	private void adjustStartEndTime() {
 
 		if (null != this.startTime && null != this.endTime) {
 
-			/********** �o�Ў������� **********/
-			int startHour = this.startTime.getIntHour();// �o�Ў��@��
-			int startMinute = this.startTime.getIntMinute();// �o�Ў��@��
+			/********** �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ **********/
+			int startHour = this.startTime.getIntHour();// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ@�ｿｽ�ｿｽ
+			int startMinute = this.startTime.getIntMinute();// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ@�ｿｽ�ｿｽ
 
-			// �o�Ў������n�Ǝ��Ԃ��O�̎�
+			// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽn�ｿｽﾆ趣ｿｽ�ｿｽﾔゑｿｽ�ｿｽO�ｿｽﾌ趣ｿｽ
 			if (SystemConstant.WORK_START_HOUR_MORNING > startHour) {
-				// �o�Ў������n�Ǝ��Ԃɒ���
+				// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽn�ｿｽﾆ趣ｿｽ�ｿｽﾔに抵ｿｽ�ｿｽ�ｿｽ
 				this.startTime
 						.setIntHour(SystemConstant.WORK_START_HOUR_MORNING);
 				this.startTime.setIntMinute(SystemConstant.MINIMUM_TIME);
 
-				// �o�Ў��Ԃ������x�e���Ԓ��̎�
+				// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽﾔゑｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔ抵ｿｽ�ｿｽﾌ趣ｿｽ
 			} else if (SystemConstant.START_REST_HOUR_NOON == startHour) {
-				// �o�Ў��Ԃ������x�e��ɒ���
+				// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽﾔゑｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽﾉ抵ｿｽ�ｿｽ�ｿｽ
 				this.startTime.setIntHour(startHour + 1);
 				this.startTime.setIntMinute(SystemConstant.MINIMUM_TIME);
 
-				// �o�Ў������[���x�e���Ԓ��̎�
+				// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔ抵ｿｽ�ｿｽﾌ趣ｿｽ
 			} else if (SystemConstant.REST_HOUR_EVE == startHour
 					&& SystemConstant.START_EVE_MINUTE > startMinute) {
-				// �o�Ў�����[���x�e��ɒ���
+				// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽﾉ抵ｿｽ�ｿｽ�ｿｽ
 				this.startTime.setIntMinute(SystemConstant.START_EVE_MINUTE);
 			}
 
-			/********** �ގЎ������� **********/
-			int endHour = this.endTime.getIntHour();// �ގЁ@��
-			int endMinute = this.endTime.getIntMinute();// �ގЁ@��
+			/********** �ｿｽﾞ社趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ **********/
+			int endHour = this.endTime.getIntHour();// �ｿｽﾞ社　�ｿｽ�ｿｽ
+			int endMinute = this.endTime.getIntMinute();// �ｿｽﾞ社　�ｿｽ�ｿｽ
 
 			if (SystemConstant.WORK_START_HOUR_MORNING > endHour) {
 				this.endTime.setIntHour(SystemConstant.WORK_START_HOUR_MORNING);
 				this.endTime.setIntMinute(SystemConstant.MINIMUM_TIME);
 			}
-			// �����x�e���Ԓ��ɑގЂ�����
+			// �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔ抵ｿｽ�ｿｽﾉ退社ゑｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 			else if (SystemConstant.START_REST_HOUR_NOON == endHour) {
-				// �����n�Ǝ��Ԃɒ���
+				// �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽn�ｿｽﾆ趣ｿｽ�ｿｽﾔに抵ｿｽ�ｿｽ�ｿｽ
 				this.endTime.setIntHour(endHour + 1);
 				this.endTime.setIntMinute(SystemConstant.MINIMUM_TIME);
 			}
-			// �[���x�e���Ԓ��ɑގЂ�����
+			// �ｿｽ[�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔ抵ｿｽ�ｿｽﾉ退社ゑｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 			else if (SystemConstant.REST_HOUR_EVE == endHour
 					&& SystemConstant.START_EVE_MINUTE > endMinute) {
-				// �[���n�Ǝ��Ԃɒ���
+				// �ｿｽ[�ｿｽ�ｿｽ�ｿｽn�ｿｽﾆ趣ｿｽ�ｿｽﾔに抵ｿｽ�ｿｽ�ｿｽ
 				this.endTime.setIntMinute(SystemConstant.START_EVE_MINUTE);
 			}
 
