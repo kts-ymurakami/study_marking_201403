@@ -202,9 +202,7 @@ public class WorkTimeFileIOControl {
 				throw new KadaiException(ErrorCode.FAILE_READ_INPUT_FILE);
 			}
 			throw new KadaiException(ErrorCode.NOT_EXIST_INPUT_FILE);
-		} catch (KadaiException ex) {
-			throw ex; // �ｿｽ�ｿｽ�ｿｽﾝゑｿｽ�ｿｽﾈゑｿｽ�ｿｽL�ｿｽ[�ｿｽA�ｿｽ�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh
-		} catch (Exception ex) {
+		} catch (IOException ex) {
 			// �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽﾇみ搾ｿｽ�ｿｽﾝに趣ｿｽ�ｿｽs�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 			throw new KadaiException(ErrorCode.FAILE_READ_INPUT_FILE);
 		} finally {
@@ -312,9 +310,7 @@ public class WorkTimeFileIOControl {
 				throw new KadaiException(ErrorCode.FAILE_READ_INPUT_FILE);
 			}
 			throw new KadaiException(ErrorCode.NOT_EXIST_INPUT_FILE);
-		} catch (KadaiException ex) {
-			throw ex;// �ｿｽ�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh
-		} catch (Exception ex) {
+		} catch (IOException ex) {
 			// �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽﾇみ搾ｿｽ�ｿｽﾝに趣ｿｽ�ｿｽs�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 			throw new KadaiException(ErrorCode.FAILE_READ_INPUT_FILE);
 		} finally {
