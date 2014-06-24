@@ -22,19 +22,19 @@ public class ErrorUtil {
 	 * ���̓`�F�b�N�p�@���K�\��Pattern
 	 */
 	public static final Pattern INPUT_TIME_PATTERN = Pattern
-			.compile(SystemConstant.REGULAR_EXPRESSION_STR);
+			.compile("^[0-9][0-9][0-9][0-9]$");
 
 	/**
 	 * �o�Ў��ԓ��̓`�F�b�N�p�@���K�\��Pattern
 	 */
 	public static final Pattern INPUT_TIME_START_PATTERN = Pattern
-			.compile(SystemConstant.REGULAR_EXPRESSION_STR_START_TIME);
+			.compile("^([0-1][0-9]|[2][0-3])[0-5][0-9]$");
 
 	/**
 	 * �ގЎ��ԓ��̓`�F�b�N�p�@���K�\��Pattern
 	 */
 	public static final Pattern INPUT_TIME_END_PATTERN = Pattern
-			.compile(SystemConstant.REGULAR_EXPRESSION_STR_END_TIME);
+			.compile("^([0-2][0-9]|[3][0-2])[0-5][0-9]$");
 
 	/**
 	 * ���K�\����p���ē��͎��������񂪎d�l�ʂ肩�`�F�b�N����
