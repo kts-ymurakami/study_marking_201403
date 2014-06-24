@@ -15,9 +15,9 @@ import org.junit.Test;
 
 public class TestClass {
 
-	private static final String INPUT_DIR_PATH = "testInput\\";// “ü—ÍƒfƒBƒŒƒNƒgƒŠƒpƒX
-	private static final String OUTPUT_DIR_PATH = "testOutput\\";// o—ÍƒfƒBƒŒƒNƒgƒŠƒpƒX
-	private static final String EXPECTED_DIR_PATH = "testExpected\\";// Šú‘ÒŒ‹‰ÊƒfƒBƒŒƒNƒgƒŠƒpƒX
+	private static final String INPUT_DIR_PATH = "testInput\\";// ï¿½ï¿½ï¿½Íƒfï¿½Bï¿½ï¿½ï¿½Nï¿½gï¿½ï¿½ï¿½pï¿½X
+	private static final String OUTPUT_DIR_PATH = "testOutput\\";// ï¿½oï¿½Íƒfï¿½Bï¿½ï¿½ï¿½Nï¿½gï¿½ï¿½ï¿½pï¿½X
+	private static final String EXPECTED_DIR_PATH = "testExpected\\";// ï¿½ï¿½ï¿½ÒŒï¿½ï¿½Êƒfï¿½Bï¿½ï¿½ï¿½Nï¿½gï¿½ï¿½ï¿½pï¿½X
 
 	private InputStream createExpectedStream(String fileName)
 			throws IOException {
@@ -37,7 +37,7 @@ public class TestClass {
 
 
 	/**
-	 * ³íŒnƒeƒXƒgƒNƒ‰ƒX
+	 * ï¿½ï¿½ï¿½ï¿½nï¿½eï¿½Xï¿½gï¿½Nï¿½ï¿½ï¿½X
 	 *
 	 * @param inputPath
 	 * @param outputPath
@@ -61,14 +61,14 @@ public class TestClass {
 			outputStrm = createExpectedStream(expectResultFilePath);
 			compareFile(inputStrm, outputStrm);
 		} catch (KadaiException ex) {
-			fail("—\Šú‚¹‚ÊƒGƒ‰[BƒGƒ‰[ƒR[ƒhF" + ex.getErrorCode());
+			fail("" + ex.getErrorCode());
 		} catch (Exception ex) {
-			fail("—\Šú‚¹‚ÊƒGƒ‰[BƒGƒ‰[ƒƒbƒZ[ƒWF" + ex.getMessage());
+			fail("" + ex.getMessage());
 		}
 	}
 
 	/**
-	 * ˆÙíŒnƒeƒXƒgƒNƒ‰ƒX
+	 * ï¿½Ùï¿½nï¿½eï¿½Xï¿½gï¿½Nï¿½ï¿½ï¿½X
 	 *
 	 * @param inputPath
 	 * @param outPutFilePath
@@ -84,18 +84,18 @@ public class TestClass {
 				Kadai.parseWorkTimeDataLv2(INPUT_DIR_PATH + inputPath,
 						OUTPUT_DIR_PATH + outPutFilePath);
 			}
-			fail("—\Šú‚¹‚ÊƒGƒ‰[");// ƒGƒ‰[ƒR[ƒh‚ªthrow‚³‚ê‚é‚Í‚¸‚È‚Ì‚Å‚±‚±‚Ífail
+			fail("ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ÊƒGï¿½ï¿½ï¿½[");// ï¿½Gï¿½ï¿½ï¿½[ï¿½Rï¿½[ï¿½hï¿½ï¿½throwï¿½ï¿½ï¿½ï¿½ï¿½Í‚ï¿½ï¿½È‚Ì‚Å‚ï¿½ï¿½ï¿½ï¿½ï¿½fail
 		} catch (KadaiException ex) {
 			assertEquals(expectedErrCode, ex.getErrorCode());
 		} catch (Exception ex) {
-			fail("—\Šú‚¹‚ÊƒGƒ‰[BƒGƒ‰[ƒƒbƒZ[ƒWF" + ex.getMessage());
+			fail("ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ÊƒGï¿½ï¿½ï¿½[ï¿½Bï¿½Gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½F" + ex.getMessage());
 		}
 	}*/
 
 
 
 	/**
-	 * ‚Q‚Â‚Ìƒtƒ@ƒCƒ‹‚ğ”äŠr‚·‚é
+	 * ï¿½Qï¿½Â‚Ìƒtï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½rï¿½ï¿½ï¿½ï¿½
 	 *
 	 * @param inputStrm
 	 * @param outputStrm
