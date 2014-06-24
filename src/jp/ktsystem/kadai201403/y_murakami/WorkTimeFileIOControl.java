@@ -406,7 +406,7 @@ public class WorkTimeFileIOControl {
 
 			BufferedWriter bfWrite = null;
 			String month = workTimeMonth.getMonth();
-			String fullPath = String.format("%s//%s.txt", dirPath, month);// �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾝパ�ｿｽX
+			String fullPath = String.format(SystemConstant.CREATE_FILE_PATH_FORMAT, dirPath, month);// �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾝパ�ｿｽX
 			int errorCode = workTimeMonth.getErrorCode();// errorCode�ｿｽﾌ取得
 
 			try {
