@@ -36,6 +36,9 @@ public class ErrorUtil {
 	public static final Pattern INPUT_TIME_END_PATTERN = Pattern
 			.compile("^([0-2][0-9]|[3][0-2])[0-5][0-9]$");
 
+	private static DateFormat df = new SimpleDateFormat(SystemConstant.INPUT_DATA_FORMAT);
+
+
 	/**
 	 * 出勤時間と退勤時間のエラーチェック
 	 * @param startTime
@@ -106,8 +109,6 @@ public class ErrorUtil {
 		if (null == inputDate) {
 			return false;
 		}
-
-		DateFormat df = new SimpleDateFormat(SystemConstant.INPUT_DATA_FORMAT);
 		df.setLenient(false);// �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾉチ�ｿｽF�ｿｽb�ｿｽN
 
 		try {
