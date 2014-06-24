@@ -20,106 +20,106 @@ import jp.ktsystem.kadai201403.y_murakami.util.CommonUtil;
 import jp.ktsystem.kadai201403.y_murakami.util.ErrorUtil;
 
 /**
- * �Ζ����Ԃ̃t�@�C�����o�͂𐧌䂷��N���X
+ * �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔのフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽo�ｿｽﾍを制御す�ｿｽ�ｿｽN�ｿｽ�ｿｽ�ｿｽX
  *
  * @author y_murakami
  */
 public class WorkTimeFileIOControl {
 
 	/**
-	 * ���̓`�F�b�N�p�@���K�\��Pattern
+	 * �ｿｽ�ｿｽ�ｿｽﾍチ�ｿｽF�ｿｽb�ｿｽN�ｿｽp�ｿｽ@�ｿｽ�ｿｽ�ｿｽK�ｿｽ\�ｿｽ�ｿｽPattern
 	 */
 	private final Pattern SUBSTR_FILE_PATTERN = Pattern
 			.compile(SystemConstant.REGULAR_EXPRESSION_STR_INPUT_FILE);
 
 	/**
-	 * ���̓`�F�b�N�p�@���K�\��Pattern
+	 * �ｿｽ�ｿｽ�ｿｽﾍチ�ｿｽF�ｿｽb�ｿｽN�ｿｽp�ｿｽ@�ｿｽ�ｿｽ�ｿｽK�ｿｽ\�ｿｽ�ｿｽPattern
 	 */
 	private final Pattern DATA_PATTERN = Pattern
 			.compile(SystemConstant.REGULAR_EXPRESSION_DATA);
 
 	/**
-	 * ���̓t�@�C���p�X
+	 * �ｿｽ�ｿｽ�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽp�ｿｽX
 	 */
 	private String inputFilePath = null;
 
 	/**
-	 * �o�̓t�@�C���p�X
+	 * �ｿｽo�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽp�ｿｽX
 	 */
 	private String outputFilePath = null;
 
 	/**
-	 * �ǂݍ��݃t�@�C��������
+	 * �ｿｽﾇみ搾ｿｽ�ｿｽﾝフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 	 */
 	private StringBuilder readStr = null;
 
 	/**
-	 * �ǂݍ��݃f�[�^�̃��X�g
+	 * �ｿｽﾇみ搾ｿｽ�ｿｽﾝデ�ｿｽ[�ｿｽ^�ｿｽﾌ�ｿｽ�ｿｽX�ｿｽg
 	 */
 	private ArrayList<WorkTime> workTimeList = null;
 
 	/**
-	 * ����R�[�h�̃G���[�����������ǂ���
+	 * �ｿｽ�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh�ｿｽﾌエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾇゑｿｽ�ｿｽ�ｿｽ
 	 */
 	private boolean controlCodeError = false;
 
 	/**
-	 * �ǂݍ��݃f�[�^�̃��X�g�i���x���Q�j
+	 * �ｿｽﾇみ搾ｿｽ�ｿｽﾝデ�ｿｽ[�ｿｽ^�ｿｽﾌ�ｿｽ�ｿｽX�ｿｽg�ｿｽi�ｿｽ�ｿｽ�ｿｽx�ｿｽ�ｿｽ�ｿｽQ�ｿｽj
 	 */
 	private List<WorkTimeMonth> WorkTimeMonthList = new ArrayList<WorkTimeMonth>();
 
 	/**
-	 * �R���X�g���N�^
+	 * �ｿｽR�ｿｽ�ｿｽ�ｿｽX�ｿｽg�ｿｽ�ｿｽ�ｿｽN�ｿｽ^
 	 *
 	 * @param inputFilePath
-	 *            ���̓t�@�C���p�X
+	 *            �ｿｽ�ｿｽ�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽp�ｿｽX
 	 * @param outputFilePath
-	 *            �o�̓t�@�C���p�X
+	 *            �ｿｽo�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽp�ｿｽX
 	 * @throws KadaiException
-	 *             �ۑ��O
+	 *             �ｿｽﾛ托ｿｽ�ｿｽO
 	 */
 	public WorkTimeFileIOControl(String inputFilePath, String outputFilePath)
 			throws KadaiException {
 
-		// ���̓t�@�C���p�X��null�A�������͋󕶎��̎�
-		if (!ErrorUtil.checkNullOrEmpty(inputFilePath)) {
+		// �ｿｽ�ｿｽ�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽp�ｿｽX�ｿｽ�ｿｽnull�ｿｽA�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾍ空文趣ｿｽ�ｿｽﾌ趣ｿｽ
+		if (null == inputFilePath || inputFilePath.isEmpty()) {
 			throw new KadaiException(ErrorCode.NULL_INPUT_FILE_PATH);
 		}
 
-		// �o�̓t�@�C���p�X��null�������͋󕶎��̎�
-		if (!ErrorUtil.checkNullOrEmpty(outputFilePath)) {
+		// �ｿｽo�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽp�ｿｽX�ｿｽ�ｿｽnull�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾍ空文趣ｿｽ�ｿｽﾌ趣ｿｽ
+		if (null == outputFilePath || outputFilePath.isEmpty()) {
 			throw new KadaiException(ErrorCode.NULL_OUTPUT_FILE_PATH);
 		}
 
-		// �t�@�C���p�X�������o�ɐݒ�
+		// �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽp�ｿｽX�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽo�ｿｽﾉ設抵ｿｽ
 		this.inputFilePath = inputFilePath;
 		this.outputFilePath = outputFilePath;
 
 	}
 
 	/**
-	 * �t�@�C���ǂݍ��݂��s���A�o�͕����񃊃X�g���쐬����
+	 * �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽﾇみ搾ｿｽ�ｿｽﾝゑｿｽ�ｿｽs�ｿｽ�ｿｽ�ｿｽA�ｿｽo�ｿｽﾍ包ｿｽ�ｿｽ�ｿｽ�ｿｽ潟X�ｿｽg�ｿｽ�ｿｽ�ｿｽ�成�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 	 *
 	 * @throws KadaiException
 	 */
 	public void readInputFile() throws KadaiException {
 
-		// ���̓t�@�C���ǂݍ��ݗp�ϐ�
+		// �ｿｽ�ｿｽ�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽﾇみ搾ｿｽ�ｿｽﾝ用�ｿｽﾏ撰ｿｽ
 		BufferedReader bfRead = null;
 
 		try {
-			// �t�@�C���I�[�v��
+			// �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽI�ｿｽ[�ｿｽv�ｿｽ�ｿｽ
 			bfRead = new BufferedReader(new InputStreamReader(
 					new FileInputStream(this.inputFilePath)));
 
-			int readChar;// �ǂݍ��ݕ���
-			this.readStr = new StringBuilder();// �ǂݍ��ݕ�����
+			int readChar;// �ｿｽﾇみ搾ｿｽ�ｿｽﾝ包ｿｽ�ｿｽ�ｿｽ
+			this.readStr = new StringBuilder();// �ｿｽﾇみ搾ｿｽ�ｿｽﾝ包ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 			boolean bomCheck = true;
 
-			// ���̓t�@�C���ǂݍ��݁@�i����R�[�h�G���[���o���炻���őł��؂�j
+			// �ｿｽ�ｿｽ�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽﾇみ搾ｿｽ�ｿｽﾝ　�ｿｽi�ｿｽ�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh�ｿｽG�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽo�ｿｽ�ｿｽ�ｿｽ轤ｻ�ｿｽ�ｿｽ�ｿｽﾅ打ゑｿｽ�ｿｽﾘゑｿｽj
 			while (-1 != (readChar = bfRead.read())) {
 
-				// BOM�ǂݔ�΂�
+				// BOM�ｿｽﾇみ費ｿｽﾎゑｿｽ
 				if (bomCheck && 65533 == readChar) {
 					if (!CommonUtil.checkBom(bfRead)) {
 						this.controlCodeError = true;
@@ -129,7 +129,7 @@ public class WorkTimeFileIOControl {
 				}
 				bomCheck = false;
 
-				// ���䕶���G���[�`�F�b�N
+				// �ｿｽ�ｿｽ�ｿｽ苺ｶ�ｿｽ�ｿｽ�ｿｽG�ｿｽ�ｿｽ�ｿｽ[�ｿｽ`�ｿｽF�ｿｽb�ｿｽN
 				if (ErrorUtil.isControlCode((char) readChar)) {
 					this.controlCodeError = true;
 					break;
@@ -137,7 +137,7 @@ public class WorkTimeFileIOControl {
 				this.readStr.append((char) readChar);
 			}
 
-			// Matcher����͕����񂩂琶�� �u{�v�ł͂��܂��āu�p�v�ŏI��镔�����擾
+			// Matcher�ｿｽ�ｿｽ�ｿｽ�ｿｽﾍ包ｿｽ�ｿｽ�ｿｽ�ｿｽｩら生�ｿｽ�ｿｽ �ｿｽu{�ｿｽv�ｿｽﾅはゑｿｽ�ｿｽﾜゑｿｽ�ｿｽﾄ「�ｿｽp�ｿｽv�ｿｽﾅ終�ｿｽ�ｿｽ髟費ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ謫ｾ
 			Matcher inputMatcher = this.SUBSTR_FILE_PATTERN
 					.matcher(this.readStr.toString());
 			ArrayList<String> dataList = new ArrayList<String>();
@@ -145,11 +145,11 @@ public class WorkTimeFileIOControl {
 				dataList.add(inputMatcher.group());
 			}
 
-			// workTimeList�𐶐�
+			// workTimeList�ｿｽｶ撰ｿｽ
 			this.workTimeList = new ArrayList<WorkTime>();
-			int sumWorkTime = 0;// ���Ζ�����
+			int sumWorkTime = 0;// �ｿｽ�ｿｽ�ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 
-			// �擾�f�[�^����Adate,start,end�𒊏o����
+			// �ｿｽ謫ｾ�ｿｽf�ｿｽ[�ｿｽ^�ｿｽ�ｿｽ�ｿｽ�ｿｽAdate,start,end�ｿｽ鰹o�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 			for (String data : dataList) {
 
 				String date = null;
@@ -158,12 +158,12 @@ public class WorkTimeFileIOControl {
 
 				Matcher dataMatcher = this.DATA_PATTERN.matcher(data);
 
-				int count = 0;// find��
+				int count = 0;// find�ｿｽ�ｿｽ
 				while (dataMatcher.find()) {
 					count++;
 					String key = dataMatcher.group(1);
 					String value = dataMatcher.group(2);
-					// key�ɂ��ꍇ����
+					// key�ｿｽﾉゑｿｽ�ｿｽ鼾�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 					if (SystemConstant.KEY_DATE.equals(key)) {
 						date = value;
 						if (!ErrorUtil.checkDate(date)) {
@@ -179,36 +179,36 @@ public class WorkTimeFileIOControl {
 					}
 				}
 
-				// ���������L�[�̐���3�ȊO�Ȃ�G���[
+				// �ｿｽ�ｿｽ�ｿｽﾂゑｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽL�ｿｽ[�ｿｽﾌ撰ｿｽ�ｿｽ�ｿｽ3�ｿｽﾈ外�ｿｽﾈゑｿｽG�ｿｽ�ｿｽ�ｿｽ[
 				if (3 != count) {
 					throw new KadaiException(ErrorCode.INPUT_FILE_ERROR);
 				}
 
-				// �Ζ����ԁ@�G���[������ꍇ�͂����ł�KadaiException���X���[�����
+				// �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔ　�ｿｽG�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ鼾�ｿｽﾍゑｿｽ�ｿｽ�ｿｽ�ｿｽﾅゑｿｽKadaiException�ｿｽ�ｿｽ�ｿｽX�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 				String workTime = Kadai.calcWorkTime(start, end);
-				// ���Ζ�����
+				// �ｿｽ�ｿｽ�ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 				sumWorkTime += Integer.parseInt(workTime);
 
-				// workTime�I�u�W�F�N�g�𐶐����ďo�͗p�Ƀ��X�g�֒ǉ�
+				// workTime�ｿｽI�ｿｽu�ｿｽW�ｿｽF�ｿｽN�ｿｽg�ｿｽｶ撰ｿｽ�ｿｽ�ｿｽ�ｿｽﾄ出�ｿｽﾍ用�ｿｽﾉ�ｿｽ�ｿｽX�ｿｽg�ｿｽﾖ追会ｿｽ
 				WorkTime workTimeModel = new WorkTime(date, workTime,
 						String.valueOf(sumWorkTime));
 				this.workTimeList.add(workTimeModel);
 			}
 
 		} catch (FileNotFoundException ex) {
-			// ���̓t�@�C�������݂��Ă��鎞
+			// �ｿｽ�ｿｽ�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾝゑｿｽ�ｿｽﾄゑｿｽ�ｿｽ骼�
 			File f = new File(this.inputFilePath);
 			if (f.exists()) {
 				throw new KadaiException(ErrorCode.FAILE_READ_INPUT_FILE);
 			}
 			throw new KadaiException(ErrorCode.NOT_EXIST_INPUT_FILE);
 		} catch (KadaiException ex) {
-			throw ex; // ���݂��Ȃ��L�[�A����R�[�h
+			throw ex; // �ｿｽ�ｿｽ�ｿｽﾝゑｿｽ�ｿｽﾈゑｿｽ�ｿｽL�ｿｽ[�ｿｽA�ｿｽ�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh
 		} catch (Exception ex) {
-			// �t�@�C���ǂݍ��݂Ɏ��s������
+			// �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽﾇみ搾ｿｽ�ｿｽﾝに趣ｿｽ�ｿｽs�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 			throw new KadaiException(ErrorCode.FAILE_READ_INPUT_FILE);
 		} finally {
-			// �t�@�C���N���[�Y
+			// �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽN�ｿｽ�ｿｽ�ｿｽ[�ｿｽY
 			if (null != bfRead) {
 				try {
 					bfRead.close();
@@ -218,82 +218,82 @@ public class WorkTimeFileIOControl {
 			}
 		}
 
-		// ����R�[�h�ł̃G���[���������ꍇ
+		// �ｿｽ�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh�ｿｽﾅのエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ鼾�
 		if (this.controlCodeError) {
 			throw new KadaiException(ErrorCode.IS_CTRL_CODE);
 		}
 	}
 
 	/**
-	 * �t�@�C���ǂݍ��݂��s���A�o�͕����񃊃X�g���쐬����@
+	 * �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽﾇみ搾ｿｽ�ｿｽﾝゑｿｽ�ｿｽs�ｿｽ�ｿｽ�ｿｽA�ｿｽo�ｿｽﾍ包ｿｽ�ｿｽ�ｿｽ�ｿｽ潟X�ｿｽg�ｿｽ�ｿｽ�ｿｽ�成�ｿｽ�ｿｽ�ｿｽ�ｿｽ@
 	 *
 	 * @throws KadaiException
 	 */
 	public void readInputFileLv2() throws KadaiException {
 
 		BufferedReader bfRead = null;
-		String month = null;// ��
+		String month = null;// �ｿｽ�ｿｽ
 
-		// ���̓t�@�C���̓ǂݍ���
+		// �ｿｽ�ｿｽ�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽﾌ読み搾ｿｽ�ｿｽ�ｿｽ
 		try {
-			// �t�@�C���I�[�v��
+			// �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽI�ｿｽ[�ｿｽv�ｿｽ�ｿｽ
 			bfRead = new BufferedReader(new InputStreamReader(
 					new FileInputStream(this.inputFilePath)));
 
-			StringBuilder sb = new StringBuilder();// �L�[or�o�����[
+			StringBuilder sb = new StringBuilder();// �ｿｽL�ｿｽ[or�ｿｽo�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ[
 
-			// ����Json�R���g���[������
+			// �ｿｽ�ｿｽ�ｿｽ�ｿｽJson�ｿｽR�ｿｽ�ｿｽ�ｿｽg�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 			int jsonControlChar = '{';
 
-			// �ǂݍ���
+			// �ｿｽﾇみ搾ｿｽ�ｿｽ�ｿｽ
 			int readChar = scanInputChar(bfRead, false, true);
 			boolean skipFlag = false;
 			while (-1 != readChar) {
-				// Json���䕶���������ꍇ
+				// Json�ｿｽ�ｿｽ�ｿｽ苺ｶ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ鼾�
 				if (readChar != jsonControlChar) {
 					if (':' == jsonControlChar || ']' == jsonControlChar) {
-						// �ǉ�
+						// �ｿｽﾇ会ｿｽ
 						sb.append((char) readChar);
 						if (readChar == '"') {
-							// "�ȍ~�͕�����ǂݍ���
+							// "�ｿｽﾈ降�ｿｽﾍ包ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾇみ搾ｿｽ�ｿｽ�ｿｽ
 							skipFlag = !skipFlag;
 						}
 						readChar = scanInputChar(bfRead, skipFlag,false);
-						continue;// �ǂݍ���Ŏ��̕�����
+						continue;// �ｿｽﾇみ搾ｿｽ�ｿｽ�ｿｽﾅ趣ｿｽ�ｿｽﾌ包ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 					} else {
 						throw new KadaiException(ErrorCode.ILLEGAL_INPUT_TIME);
 					}
 				}
 
-				// Json���䕶���ɂ�镪��
+				// Json�ｿｽ�ｿｽ�ｿｽ苺ｶ�ｿｽ�ｿｽ�ｿｽﾉゑｿｽ髟ｪ�ｿｽ�ｿｽ
 				if ('{' == jsonControlChar) {
 					jsonControlChar = ':';
 				} else if (':' == jsonControlChar) {
-					// �����擾
+					// �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ謫ｾ
 					month = sb.toString().replace('"', ' ').trim();
-					sb = new StringBuilder();// �@������
+					sb = new StringBuilder();// �ｿｽ@�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 					jsonControlChar = '[';
 				} else if ('[' == jsonControlChar) {
 					jsonControlChar = ']';
 				} else if (']' == jsonControlChar) {
 
-					// �ꂩ�����̃f�[�^����������
+					// �ｿｽ黷ｩ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌデ�ｿｽ[�ｿｽ^�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 					WorkTimeMonth monthData = new WorkTimeMonth(month,
 							sb.toString());
-					monthData.scanInputData();// �f�[�^�̓ǂݍ���
+					monthData.scanInputData();// �ｿｽf�ｿｽ[�ｿｽ^�ｿｽﾌ読み搾ｿｽ�ｿｽ�ｿｽ
 
-					// �ǂݍ��ݍς݃f�[�^�ɒǉ�
+					// �ｿｽﾇみ搾ｿｽ�ｿｽﾝ済みデ�ｿｽ[�ｿｽ^�ｿｽﾉ追会ｿｽ
 					this.WorkTimeMonthList.add(monthData);
 
 					sb = new StringBuilder();
 
-					// ���̃f�[�^��ǂ�
+					// �ｿｽ�ｿｽ�ｿｽﾌデ�ｿｽ[�ｿｽ^�ｿｽ�ｿｽﾇゑｿｽ
 					readChar = scanInputChar(bfRead, false,false);
 					if (',' == readChar) {
-						// ���f�[�^������ꍇ
+						// �ｿｽ�ｿｽ�ｿｽf�ｿｽ[�ｿｽ^�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ鼾�
 						jsonControlChar = ':';
 					} else if ('}' == readChar) {
-						// 1���R�[�h�ǂݍ��ݏI��
+						// 1�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh�ｿｽﾇみ搾ｿｽ�ｿｽﾝ終�ｿｽ�ｿｽ
 						jsonControlChar = '{';
 					} else {
 						throw new KadaiException(ErrorCode.ILLEGAL_INPUT_TIME);
@@ -302,23 +302,23 @@ public class WorkTimeFileIOControl {
 					throw new KadaiException(ErrorCode.ILLEGAL_INPUT_TIME);
 				}
 
-				// ���̕�����ǂݍ���
+				// �ｿｽ�ｿｽ�ｿｽﾌ包ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾇみ搾ｿｽ�ｿｽ�ｿｽ
 				readChar = scanInputChar(bfRead, false, false);
 			}
 		} catch (FileNotFoundException ex) {
-			// ���̓t�@�C�������݂��Ă��鎞
+			// �ｿｽ�ｿｽ�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾝゑｿｽ�ｿｽﾄゑｿｽ�ｿｽ骼�
 			File f = new File(this.inputFilePath);
 			if (f.exists()) {
 				throw new KadaiException(ErrorCode.FAILE_READ_INPUT_FILE);
 			}
 			throw new KadaiException(ErrorCode.NOT_EXIST_INPUT_FILE);
 		} catch (KadaiException ex) {
-			throw ex;// ����R�[�h
+			throw ex;// �ｿｽ�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh
 		} catch (Exception ex) {
-			// �t�@�C���ǂݍ��݂Ɏ��s������
+			// �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽﾇみ搾ｿｽ�ｿｽﾝに趣ｿｽ�ｿｽs�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 			throw new KadaiException(ErrorCode.FAILE_READ_INPUT_FILE);
 		} finally {
-			// �t�@�C���N���[�Y
+			// �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽN�ｿｽ�ｿｽ�ｿｽ[�ｿｽY
 			if (null != bfRead) {
 				try {
 					bfRead.close();
@@ -330,10 +330,10 @@ public class WorkTimeFileIOControl {
 	}
 
 	/**
-	 * �ǂݍ��ݓ��e�̏����o��
+	 * �ｿｽﾇみ搾ｿｽ�ｿｽﾝ難ｿｽ�ｿｽe�ｿｽﾌ擾ｿｽ�ｿｽ�ｿｽ�ｿｽo�ｿｽ�ｿｽ
 	 *
 	 * @param errorCode
-	 *            �ǂݍ��ݎ��ɃG���[���������ꍇ�̃G���[�R�[�h(�K�v�Ȃ��ꍇ��-1��ݒ肵�Ă�������)
+	 *            �ｿｽﾇみ搾ｿｽ�ｿｽﾝ趣ｿｽ�ｿｽﾉエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ鼾�ｿｽﾌエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽR�ｿｽ[�ｿｽh(�ｿｽK�ｿｽv�ｿｽﾈゑｿｽ�ｿｽ鼾�ｿｽ�ｿｽ-1�ｿｽ�ｿｽﾝ定し�ｿｽﾄゑｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ)
 	 * @throws KadaiException
 	 */
 	public void writeOutputFile(int errorCode) throws KadaiException {
@@ -342,11 +342,11 @@ public class WorkTimeFileIOControl {
 			return;
 		}
 
-		BufferedWriter bfWrite = null;// �o�̓t�@�C������p�ϐ�
+		BufferedWriter bfWrite = null;// �ｿｽo�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽp�ｿｽﾏ撰ｿｽ
 
 		try {
 			bfWrite = new BufferedWriter(new FileWriter(this.outputFilePath));
-			// �o�͗p�����񃊃X�g�̍쐬
+			// �ｿｽo�ｿｽﾍ用�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ潟X�ｿｽg�ｿｽﾌ作成
 			ArrayList<String> outList = new ArrayList<String>();
 			outList.add("[");
 			for (int i = 0; i < this.workTimeList.size(); ++i) {
@@ -359,24 +359,24 @@ public class WorkTimeFileIOControl {
 			}
 			outList.add("]");
 
-			// �o��
+			// �ｿｽo�ｿｽ�ｿｽ
 			for (String line : outList) {
-				// ��������
+				// �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 				bfWrite.write(line);
 				bfWrite.newLine();
 			}
 
-			// �ǂݍ��ݎ��G���[�R�[�h�̏�������(6,7,8�͏o�̓t�@�C�����̂����݂��Ȃ����ߋL�q���Ȃ�)
+			// �ｿｽﾇみ搾ｿｽ�ｿｽﾝ趣ｿｽ�ｿｽG�ｿｽ�ｿｽ�ｿｽ[�ｿｽR�ｿｽ[�ｿｽh�ｿｽﾌ擾ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ(6,7,8�ｿｽﾍ出�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌゑｿｽ�ｿｽ�ｿｽ�ｿｽﾝゑｿｽ�ｿｽﾈゑｿｽ�ｿｽ�ｿｽ�ｿｽﾟ記�ｿｽq�ｿｽ�ｿｽ�ｿｽﾈゑｿｽ)
 			if (-1 != errorCode && errorCode != 6 && errorCode != 7
 					&& errorCode != 8) {
 				bfWrite.write(String.valueOf(errorCode));
 				bfWrite.newLine();
 			}
 		} catch (Exception ex) {
-			// �o�͎��s
+			// �ｿｽo�ｿｽﾍ趣ｿｽ�ｿｽs
 			throw new KadaiException(ErrorCode.FAILE_FILE_OUT);
 		} finally {
-			// �t�@�C���N���[�Y
+			// �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽN�ｿｽ�ｿｽ�ｿｽ[�ｿｽY
 			if (null != bfWrite) {
 				try {
 					bfWrite.close();
@@ -388,7 +388,7 @@ public class WorkTimeFileIOControl {
 	}
 
 	/**
-	 * Lv2�p�t�@�C�������o��
+	 * Lv2�ｿｽp�ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽo�ｿｽ�ｿｽ
 	 *
 	 * @throws KadaiException
 	 */
@@ -398,12 +398,12 @@ public class WorkTimeFileIOControl {
 
 			BufferedWriter bfWrite = null;
 			String month = workTimeMonth.getMonth();
-			String fullPath = String.format("%s//%s.txt", dirPath, month);// �������݃p�X
-			int errorCode = workTimeMonth.getErrorCode();// errorCode�̎擾
+			String fullPath = String.format("%s//%s.txt", dirPath, month);// �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾝパ�ｿｽX
+			int errorCode = workTimeMonth.getErrorCode();// errorCode�ｿｽﾌ取得
 
 			try {
 
-				// �f�B���N�g�������݂��Ȃ��ꍇ�͍쐬����
+				// �ｿｽf�ｿｽB�ｿｽ�ｿｽ�ｿｽN�ｿｽg�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾝゑｿｽ�ｿｽﾈゑｿｽ�ｿｽ鼾�ｿｽﾍ作成�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 				File dir = new File(dirPath);
 				if (!dir.exists()) {
 					dir.mkdirs();
@@ -411,11 +411,11 @@ public class WorkTimeFileIOControl {
 
 				bfWrite = new BufferedWriter(new FileWriter(fullPath));
 
-				// �o�͗p�����񃊃X�g�̍쐬
+				// �ｿｽo�ｿｽﾍ用�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ潟X�ｿｽg�ｿｽﾌ作成
 				ArrayList<String> outList = new ArrayList<String>();
 				List<WorkTime> workTimeList = workTimeMonth.getWorkTimeList();
 
-				// ���t���Ń\�[�g
+				// �ｿｽ�ｿｽ�ｿｽt�ｿｽ�ｿｽ�ｿｽﾅソ�ｿｽ[�ｿｽg
 				for (int i = 0; i < workTimeList.size() - 1; ++i) {
 					WorkTime wt1 = workTimeList.get(i);
 					WorkTime wt2 = workTimeList.get(i + 1);
@@ -426,17 +426,17 @@ public class WorkTimeFileIOControl {
 					}
 				}
 
-				// �o�͕�����̍쐬
+				// �ｿｽo�ｿｽﾍ包ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌ作成
 				int total = 0;
 				outList.add("[");
 				for (int i = 0; i < workTimeList.size(); ++i) {
 
-					// total��ݒ肷��
+					// total�ｿｽ�ｿｽﾝ定す�ｿｽ�ｿｽ
 					WorkTime wt = workTimeList.get(i);
 					int workTime = Integer.parseInt(wt.getWorkTime());
 					wt.setTotal(String.valueOf(total += workTime));
 
-					// ��������Json������̍쐬
+					// �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽJson�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌ作成
 					StringBuilder line = new StringBuilder(workTimeList.get(i)
 							.createJsonStr());
 					if (workTimeList.size() - 1 != i) {
@@ -446,14 +446,14 @@ public class WorkTimeFileIOControl {
 				}
 				outList.add("]");
 
-				// �o��
+				// �ｿｽo�ｿｽ�ｿｽ
 				for (String line : outList) {
-					// ��������
+					// �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 					bfWrite.write(line);
 					bfWrite.newLine();
 				}
 
-				// �ǂݍ��ݎ��G���[�R�[�h�̏�������(6,7,8�͏o�̓t�@�C�����̂����݂��Ȃ����ߋL�q���Ȃ�)
+				// �ｿｽﾇみ搾ｿｽ�ｿｽﾝ趣ｿｽ�ｿｽG�ｿｽ�ｿｽ�ｿｽ[�ｿｽR�ｿｽ[�ｿｽh�ｿｽﾌ擾ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ(6,7,8�ｿｽﾍ出�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌゑｿｽ�ｿｽ�ｿｽ�ｿｽﾝゑｿｽ�ｿｽﾈゑｿｽ�ｿｽ�ｿｽ�ｿｽﾟ記�ｿｽq�ｿｽ�ｿｽ�ｿｽﾈゑｿｽ)
 				if (-1 != errorCode && errorCode != 6 && errorCode != 7
 						&& errorCode != 8) {
 					bfWrite.write(String.valueOf(errorCode));
@@ -461,10 +461,10 @@ public class WorkTimeFileIOControl {
 				}
 
 			} catch (Exception ex) {
-				// �o�͎��s
+				// �ｿｽo�ｿｽﾍ趣ｿｽ�ｿｽs
 				throw new KadaiException(ErrorCode.FAILE_FILE_OUT);
 			} finally {
-				// �t�@�C���N���[�Y
+				// �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽN�ｿｽ�ｿｽ�ｿｽ[�ｿｽY
 				if (null != bfWrite) {
 					try {
 						bfWrite.close();
@@ -473,7 +473,7 @@ public class WorkTimeFileIOControl {
 					}
 				}
 			}
-			// error�����݂�����I��
+			// error�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾝゑｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽI�ｿｽ�ｿｽ
 			if (0 < errorCode) {
 				break;
 			}
@@ -481,12 +481,12 @@ public class WorkTimeFileIOControl {
 	}
 
 	/**
-	 * ���̕�����ǂ�
+	 * �ｿｽ�ｿｽ�ｿｽﾌ包ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾇゑｿｽ
 	 *
 	 * @param bfRead
-	 *            �t�@�C�����[�_�[
+	 *            �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ_�ｿｽ[
 	 * @param skipFlag
-	 *            �s�v������ǂݔ�΂����ǂ����@
+	 *            �ｿｽs�ｿｽv�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾇみ費ｿｽﾎゑｿｽ�ｿｽ�ｿｽ�ｿｽﾇゑｿｽ�ｿｽ�ｿｽ�ｿｽ@
 	 * @return
 	 * @throws KadaiException
 	 * @throws IOException
@@ -494,17 +494,17 @@ public class WorkTimeFileIOControl {
 	private int scanInputChar(BufferedReader bfRead, boolean skipFlag,
 			boolean bomCheck) throws KadaiException, IOException {
 
-		int readChar = bfRead.read(); // �ǂݍ���
+		int readChar = bfRead.read(); // �ｿｽﾇみ搾ｿｽ�ｿｽ�ｿｽ
 		if (skipFlag) {
-			// ����R�[�h�`�F�b�N
+			// �ｿｽ�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh�ｿｽ`�ｿｽF�ｿｽb�ｿｽN
 			if (ErrorUtil.isControlCode((char) readChar)) {
 				throw new KadaiException(ErrorCode.ILLEGAL_INPUT_TIME);
 			}
 			return readChar;
 		} else {
-			// �󔒂�ǂݔ�΂�
+			// �ｿｽ窒�ｿｽﾇみ費ｿｽﾎゑｿｽ
 			while (-1 != readChar) {
-				// ����̂�BOM�`�F�b�N
+				// �ｿｽ�ｿｽ�ｿｽ�ｿｽﾌゑｿｽBOM�ｿｽ`�ｿｽF�ｿｽb�ｿｽN
 				if (bomCheck && 65533 == readChar) {
 					if (!CommonUtil.checkBom(bfRead)) {
 						throw new KadaiException(
@@ -512,9 +512,9 @@ public class WorkTimeFileIOControl {
 					}
 					readChar = bfRead.read();
 				}
-				// �󔒃R�[�h�`�F�b�N
+				// �ｿｽ茶R�ｿｽ[�ｿｽh�ｿｽ`�ｿｽF�ｿｽb�ｿｽN
 				if (!CommonUtil.isSkipCode(readChar)) {
-					// ����R�[�h�`�F�b�N
+					// �ｿｽ�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh�ｿｽ`�ｿｽF�ｿｽb�ｿｽN
 					if (ErrorUtil.isControlCode((char) readChar)) {
 						throw new KadaiException(ErrorCode.IS_CTRL_CODE);
 					}

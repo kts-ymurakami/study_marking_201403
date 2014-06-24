@@ -50,7 +50,7 @@ public class ErrorUtil {
 			throws KadaiException {
 
 		// null or �ｿｽｶ趣ｿｽ�ｿｽ@�ｿｽ`�ｿｽF�ｿｽN
-		if (!checkNullOrEmpty(startTime) || !checkNullOrEmpty(endTime)) {
+		if ((null == (startTime) || startTime.isEmpty()) || (null == (endTime) || endTime.isEmpty())) {
 			throw new KadaiException(ErrorCode.NULL_OR_EMPTY);
 		}
 
@@ -121,24 +121,6 @@ public class ErrorUtil {
 	}
 
 	/**
-	 * null or Empty �ｿｽ`�ｿｽF�ｿｽb�ｿｽN
-	 *
-	 * @param checkStr
-	 * @return true/false
-	 */
-	public static boolean checkNullOrEmpty(String checkStr) {
-
-		// null�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽfalse
-		if (null == checkStr) {
-			return false;
-		}
-		// �ｿｽｾゑｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽfalse
-
-		return !checkStr.isEmpty();
-
-	}
-
-	/**
 	 * �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ苺ｶ�ｿｽ�ｿｽ�ｿｽi�ｿｽ�ｿｽ�ｿｽs�ｿｽA�ｿｽ秩A�ｿｽ^�ｿｽu�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽj�ｿｽ�ｿｽ�ｿｽﾇゑｿｽ�ｿｽ�ｿｽ�ｿｽｻ断�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 	 *
 	 * @param ch
@@ -161,15 +143,6 @@ public class ErrorUtil {
 			return true;
 		}
 		return false;
-	}
-
-	/**
-	 * null�ｿｽﾆ空文趣ｿｽ�ｿｽ�ｿｽ�ｿｽ`�ｿｽF�ｿｽb�ｿｽN�ｿｽ�ｿｽ�ｿｽ�ｿｽ
-	 * @param str
-	 * @return
-	 */
-	public static boolean isNullorEmpty(String str){
-		return null == str || "".equals(str);
 	}
 
 	/**
