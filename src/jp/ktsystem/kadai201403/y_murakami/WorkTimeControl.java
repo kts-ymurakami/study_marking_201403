@@ -45,7 +45,7 @@ public class WorkTimeControl {
 	/**
 	 * �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔを文趣ｿｽ�ｿｽ�ｿｽﾅ返ゑｿｽ�ｿｽ@�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾔゑｿｽ
 	 *
-	 * @return �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔ包ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ@HHmm
+	 * @return 勤務時間を返す
 	 */
 	public String returnWorkTime() {
 
