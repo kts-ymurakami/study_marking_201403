@@ -97,17 +97,6 @@ public class ErrorUtil {
 	}
 
 	/**
-	 * null�ｿｽ`�ｿｽF�ｿｽb�ｿｽN
-	 *
-	 * @param checkStr
-	 * @return
-	 */
-	public static boolean checkNull(String checkStr) {
-
-		return !(null == checkStr);
-	}
-
-	/**
 	 * 日付かどうかチェックする
 	 * @param inputDate　チェック対象文字列
 	 * @return
@@ -139,7 +128,7 @@ public class ErrorUtil {
 	public static boolean checkNullOrEmpty(String checkStr) {
 
 		// null�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽfalse
-		if (!checkNull(checkStr)) {
+		if (null == checkStr) {
 			return false;
 		}
 		// �ｿｽｾゑｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽfalse
