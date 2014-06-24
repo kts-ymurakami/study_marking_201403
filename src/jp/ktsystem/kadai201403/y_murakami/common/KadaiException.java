@@ -1,13 +1,13 @@
-package jp.ktsystem.kadai201403.y_murakami.Common;
+package jp.ktsystem.kadai201403.y_murakami.common;
 
 /**
- * ‰Û‘è—pException
+ * ï¿½Û‘ï¿½pException
  * @author y_murakami
  */
 public class KadaiException extends Exception {
 
 	/**
-	 * ƒVƒŠƒAƒ‰ƒCƒYVerID
+	 * ï¿½Vï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½Cï¿½YVerID
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -17,7 +17,7 @@ public class KadaiException extends Exception {
 	private ErrorCode errorCode;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^@ƒGƒ‰[ƒR[ƒh‚ğƒƒ“ƒo‚Éİ’è‚·‚é
+	 * ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^ï¿½@ï¿½Gï¿½ï¿½ï¿½[ï¿½Rï¿½[ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½Éİ’è‚·ï¿½ï¿½
 	 * @param errorCode
 	 */
 	public KadaiException(ErrorCode errorCode) {
@@ -25,7 +25,7 @@ public class KadaiException extends Exception {
 	}
 
 	/**
-	 * errorCode‚ğ•Ô‚·
+	 * errorCodeï¿½ï¿½Ô‚ï¿½
 	 * @return errorCode
 	 */
 	public int getErrorCode() {

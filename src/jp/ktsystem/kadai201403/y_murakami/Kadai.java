@@ -1,86 +1,86 @@
 package jp.ktsystem.kadai201403.y_murakami;
 
-import jp.ktsystem.kadai201403.y_murakami.Common.ErrorCode;
-import jp.ktsystem.kadai201403.y_murakami.Common.KadaiException;
-import jp.ktsystem.kadai201403.y_murakami.Util.ErrorUtil;
+import jp.ktsystem.kadai201403.y_murakami.common.ErrorCode;
+import jp.ktsystem.kadai201403.y_murakami.common.KadaiException;
+import jp.ktsystem.kadai201403.y_murakami.util.ErrorUtil;
 
 /**
- * ‰Û‘èƒNƒ‰ƒX
+ * ï¿½Û‘ï¿½Nï¿½ï¿½ï¿½X
  *
  * @author y_murakami
  */
 public class Kadai {
 
 	/**
-	 * Lv1 “ú•tAŠJnŠÔAI—¹ŠÔ‚ªJsonŒ`®‚Å‹Lq‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚İA ‹Î–±ŠÔ‚ğƒtƒ@ƒCƒ‹‚Éo—Í‚·‚é
+	 * Lv1 ï¿½ï¿½ï¿½tï¿½Aï¿½Jï¿½nï¿½ï¿½ï¿½ÔAï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½Jsonï¿½`ï¿½ï¿½ï¿½Å‹Lï¿½qï¿½ï¿½ï¿½ê‚½ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½İA ï¿½Î–ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Éoï¿½Í‚ï¿½ï¿½ï¿½
 	 *
 	 * @param anInputPath
-	 *            “ü—Íƒtƒ@ƒCƒ‹ƒpƒX
+	 *            ï¿½ï¿½ï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½pï¿½X
 	 * @param anOutputPath
-	 *            o—Íƒtƒ@ƒCƒ‹ƒpƒX
+	 *            ï¿½oï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½pï¿½X
 	 * @throws KadaiException
 	 */
 	public static void parseWorkTimeData(String anInputPath, String anOutputPath)
 			throws KadaiException {
 
-		// ‹Î–±ŠÔƒtƒ@ƒCƒ‹“Ç‚İ‘‚«§ŒäƒIƒuƒWƒFƒNƒg‚Ì¶¬
+		// ï¿½Î–ï¿½ï¿½ï¿½ï¿½Ôƒtï¿½@ï¿½Cï¿½ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½Ìï¿½ï¿½ï¿½
 		WorkTimeFileIOControl workTimeFile = new WorkTimeFileIOControl(
 				anInputPath, anOutputPath);
 
-		// ƒtƒ@ƒCƒ‹“Ç‚İ‚İ
+		// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
 		try {
 			workTimeFile.readInputFile();
 		} catch (KadaiException ex) {
 			int eCode = ex.getErrorCode();
-			// o—Íƒtƒ@ƒCƒ‹‚Ìì¬‚ª•K—v‚È‚¢ƒGƒ‰[ƒR[ƒh‚Ìê‡
+			// ï¿½oï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½Ìì¬ï¿½ï¿½ï¿½Kï¿½vï¿½È‚ï¿½ï¿½Gï¿½ï¿½ï¿½[ï¿½Rï¿½[ï¿½hï¿½Ìê‡
 			if (ErrorCode.NULL_INPUT_FILE_PATH.getErrorCode() == eCode
 					|| ErrorCode.NOT_EXIST_INPUT_FILE.getErrorCode() == eCode
 					|| ErrorCode.FAILE_READ_INPUT_FILE.getErrorCode() == eCode) {
 				throw ex;
 			}
-			// “Ç‚İ‚ß‚Ä‚¢‚é•ª‚¾‚¯‘‚«o‚µ(“Ç‚İ‚İ’†‚ÌƒGƒ‰[‚Ìê‡‚ÍƒGƒ‰[ƒR[ƒho—Í)
+			// ï¿½Ç‚İï¿½ï¿½ß‚Ä‚ï¿½ï¿½é•ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½(ï¿½Ç‚İï¿½ï¿½İ’ï¿½ï¿½ÌƒGï¿½ï¿½ï¿½[ï¿½Ìê‡ï¿½ÍƒGï¿½ï¿½ï¿½[ï¿½Rï¿½[ï¿½hï¿½oï¿½ï¿½)
 			workTimeFile.writeOutputFile(eCode);
-			return;// ³íŒn‚Æ‚µ‚ÄI—¹
+			return;// ï¿½ï¿½ï¿½ï¿½nï¿½Æ‚ï¿½ï¿½ÄIï¿½ï¿½
 		}
 
-		// “ü—Íƒtƒ@ƒCƒ‹“Ç‚İ‚İ‚ª‘S‚Äãè‚­‚¢‚Á‚½ê‡‘‚«o‚µ
+		// ï¿½ï¿½ï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½Ç‚İï¿½ï¿½İ‚ï¿½ï¿½Sï¿½Äï¿½è‚­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½
 		workTimeFile.writeOutputFile(-1);
 
 	}
 
 	/**
-	 * Lv2 ŒA“ú•tAŠJnŠÔAI—¹ŠÔ‚ªJsonŒ`®‚Å‹Lq‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚İA ‹Î–±ŠÔ‚ğƒtƒ@ƒCƒ‹‚Éo—Í‚·‚é
+	 * Lv2 ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½tï¿½Aï¿½Jï¿½nï¿½ï¿½ï¿½ÔAï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½Jsonï¿½`ï¿½ï¿½ï¿½Å‹Lï¿½qï¿½ï¿½ï¿½ê‚½ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½İA ï¿½Î–ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Éoï¿½Í‚ï¿½ï¿½ï¿½
 	 * @param anInputPath
-	 *            “ü—Íƒtƒ@ƒCƒ‹ƒpƒX
+	 *            ï¿½ï¿½ï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½pï¿½X
 	 * @param anOutputPath
-	 *            o—ÍƒfƒBƒŒƒNƒgƒŠƒpƒX
+	 *            ï¿½oï¿½Íƒfï¿½Bï¿½ï¿½ï¿½Nï¿½gï¿½ï¿½ï¿½pï¿½X
 	 * @throws KadaiException
 	 */
 	public static void parseWorkTimeDataLv2(String anInputPath,
 			String anOutputPath) throws KadaiException {
 
-		// ‹Î–±ŠÔƒtƒ@ƒCƒ‹“Ç‚İ‘‚«§ŒäƒIƒuƒWƒFƒNƒg‚Ì¶¬
+		// ï¿½Î–ï¿½ï¿½ï¿½ï¿½Ôƒtï¿½@ï¿½Cï¿½ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½Ìï¿½ï¿½ï¿½
 		WorkTimeFileIOControl workTimeFile = new WorkTimeFileIOControl(
 				anInputPath, anOutputPath);
 
 		boolean controlErrFlag = false;
-		// ƒtƒ@ƒCƒ‹“Ç‚İ‚İ
+		// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
 		try {
-			// ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+			// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 			workTimeFile.readInputFileLv2();
 		} catch (KadaiException ex) {
-			// o—Íƒtƒ@ƒCƒ‹‚Ìì¬‚ª•K—v‚È‚¢ƒGƒ‰[ƒR[ƒh‚Ìê‡
+			// ï¿½oï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½Ìì¬ï¿½ï¿½ï¿½Kï¿½vï¿½È‚ï¿½ï¿½Gï¿½ï¿½ï¿½[ï¿½Rï¿½[ï¿½hï¿½Ìê‡
 			if (ErrorCode.NULL_INPUT_FILE_PATH.getErrorCode() == ex.getErrorCode()
 					|| ErrorCode.NOT_EXIST_INPUT_FILE.getErrorCode() == ex.getErrorCode()
 					|| ErrorCode.FAILE_READ_INPUT_FILE.getErrorCode() == ex.getErrorCode()) {
 				throw ex;
 			}
-			// §Œä•¶š‚ª¬“ü‚µ‚Ä‚¢‚½ê‡
+			// ï¿½ï¿½ï¿½ä•¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ê‡
 			if(ErrorCode.IS_CTRL_CODE.getErrorCode() == ex.getErrorCode()){
 				controlErrFlag = true;
 			}
 		}
-		// ‘‚«o‚µ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½
 		workTimeFile.writeOutPutFileLv2(anOutputPath);
 
 		if(controlErrFlag){
@@ -89,29 +89,29 @@ public class Kadai {
 	}
 
 	/**
-	 * oĞŠÔ‚Æ‘ŞĞŠÔ‚©‚çA‹Î–±ŠÔ‚ğ•Ô‚·ƒƒ\ƒbƒh
+	 * ï¿½oï¿½Ğï¿½ï¿½Ô‚Æ‘ŞĞï¿½ï¿½Ô‚ï¿½ï¿½ï¿½Aï¿½Î–ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½Ô‚ï¿½ï¿½ï¿½ï¿½\ï¿½bï¿½h
 	 *
 	 * @param aStartTime
-	 *            oĞŠÔ@HHmm
+	 *            ï¿½oï¿½Ğï¿½ï¿½Ô@HHmm
 	 * @param anEndTime
-	 *            ‘ŞĞŠÔ HHmm
-	 * @return ‹Î–±ŠÔ
+	 *            ï¿½ŞĞï¿½ï¿½ï¿½ HHmm
+	 * @return ï¿½Î–ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @throws KadaiException
 	 */
 	public static String calcWorkTime(String aStartTime, String anEndTime)
 			throws KadaiException {
 
-		// “ü—ÍƒGƒ‰[ƒ`ƒFƒbƒN
+		// ï¿½ï¿½ï¿½ÍƒGï¿½ï¿½ï¿½[ï¿½`ï¿½Fï¿½bï¿½N
 		ErrorUtil.checkStrTime(aStartTime, anEndTime);
 
-		// ŠÔƒNƒ‰ƒX‚Ì¶¬
+		// ï¿½ï¿½ï¿½ÔƒNï¿½ï¿½ï¿½Xï¿½Ìï¿½ï¿½ï¿½
 		KadaiTime startTime = new KadaiTime(aStartTime);
 		KadaiTime endTime = new KadaiTime(anEndTime);
 
-		// ‹Î–±ŠÔ§ŒäƒNƒ‰ƒX‚Ì¶¬
+		// ï¿½Î–ï¿½ï¿½ï¿½ï¿½Ôï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½Xï¿½Ìï¿½ï¿½ï¿½
 		WorkTimeControl workTimeCtrl = new WorkTimeControl(startTime, endTime);
 
-		// ‹Î–±ŠÔ‚ğæ“¾
+		// ï¿½Î–ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½æ“¾
 		return workTimeCtrl.returnWorkTime();
 
 	}

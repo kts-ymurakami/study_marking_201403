@@ -1,12 +1,12 @@
 package jp.ktsystem.kadai201403.y_murakami;
 
-import jp.ktsystem.kadai201403.y_murakami.Common.ErrorCode;
-import jp.ktsystem.kadai201403.y_murakami.Common.KadaiException;
-import jp.ktsystem.kadai201403.y_murakami.Common.SystemConstant;
-import jp.ktsystem.kadai201403.y_murakami.Util.ErrorUtil;
+import jp.ktsystem.kadai201403.y_murakami.common.ErrorCode;
+import jp.ktsystem.kadai201403.y_murakami.common.KadaiException;
+import jp.ktsystem.kadai201403.y_murakami.common.SystemConstant;
+import jp.ktsystem.kadai201403.y_murakami.util.ErrorUtil;
 
 /**
- * ‹Î–±ŠÔ§ŒäƒNƒ‰ƒX
+ * ï¿½Î–ï¿½ï¿½ï¿½ï¿½Ôï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½X
  *
  * @author y_murakami
  *
@@ -17,47 +17,47 @@ public class WorkTimeControl {
 	private KadaiTime endTime = null;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^ oĞ‚Æ‘ŞĞ‚ğƒƒ“ƒo‚Éİ’è‚·‚é
+	 * ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^ ï¿½oï¿½Ğï¿½ï¿½ï¿½ï¿½Æ‘ŞĞï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½Éİ’è‚·ï¿½ï¿½
 	 *
 	 * @param startTime
-	 *            oĞŠÔƒRƒ“ƒgƒ[ƒ‹
+	 *            ï¿½oï¿½Ğï¿½ï¿½ÔƒRï¿½ï¿½ï¿½gï¿½ï¿½ï¿½[ï¿½ï¿½
 	 * @param endTime
-	 *            ‘ŞĞŠÔƒRƒ“ƒgƒ[ƒ‹
+	 *            ï¿½ŞĞï¿½ï¿½ÔƒRï¿½ï¿½ï¿½gï¿½ï¿½ï¿½[ï¿½ï¿½
 	 * @throws KadaiException
 	 */
 	public WorkTimeControl(KadaiTime startTime, KadaiTime endTime)
 			throws KadaiException {
 
-		// ƒGƒ‰[ƒ`ƒFƒbƒN ‘ŞĞŠÔ‚ªoĞŠÔ‚æ‚è‘O‚©‚Ç‚¤‚©
+		// ï¿½Gï¿½ï¿½ï¿½[ï¿½`ï¿½Fï¿½bï¿½N ï¿½ŞĞï¿½ï¿½Ô‚ï¿½ï¿½oï¿½Ğï¿½ï¿½Ô‚ï¿½ï¿½Oï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½
 		if (!ErrorUtil.endTimeBeforeStartTime(startTime, endTime)) {
 			throw new KadaiException(ErrorCode.END_BEFOR_START);
 		}
 
-		// ƒƒ“ƒo‚Éİ’è
+		// ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½Éİ’ï¿½
 		this.startTime = startTime;
 		this.endTime = endTime;
 
-		// oĞ‚Æ‘ŞĞ‚Ì’²®‚ğs‚¤
+		// ï¿½oï¿½Ğï¿½ï¿½ï¿½ï¿½Æ‘ŞĞï¿½ï¿½ï¿½ï¿½Ì’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½
 		adjustStartEndTime();
 
 	}
 
 	/**
-	 * ‹Î–±ŠÔ‚ğ•¶š—ñ‚Å•Ô‚·@‘•ª‚ğ•Ô‚·
+	 * ï¿½Î–ï¿½ï¿½ï¿½ï¿½Ô‚ğ•¶ï¿½ï¿½ï¿½Å•Ô‚ï¿½ï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½
 	 *
-	 * @return ‹Î–±ŠÔ•¶š—ñ@HHmm
+	 * @return ï¿½Î–ï¿½ï¿½ï¿½ï¿½Ô•ï¿½ï¿½ï¿½ï¿½ï¿½@HHmm
 	 */
 	public String returnWorkTime() {
 
-		// ‹Î–±ŠÔ@
+		// ï¿½Î–ï¿½ï¿½ï¿½ï¿½Ô@ï¿½ï¿½
 		int workHour = returnIntWorkHour();
-		// ‹Î–±ŠÔ@•ª
+		// ï¿½Î–ï¿½ï¿½ï¿½ï¿½Ô@ï¿½ï¿½
 		int workMinute = returnIntWorkMinute();
-		// ‹Î–±‘‡ŠÔ@•ª
+		// ï¿½Î–ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô@ï¿½ï¿½
 		int workTime = workHour * SystemConstant.MINUTE_OF_ONE_HOUR
 				+ workMinute;
 
-		// ‹xŒeŠÔ‚ğ‚Ğ‚­
+		// ï¿½xï¿½eï¿½ï¿½ï¿½Ô‚ï¿½ï¿½Ğ‚ï¿½
 		workTime -= calcRestTime();
 
 		return String.valueOf(workTime);
@@ -65,25 +65,25 @@ public class WorkTimeControl {
 	}
 
 	/**
-	 * ‹Î–±ŠÔ‚Ìuv•”•ª‚ğ•Ô‚·
+	 * ï¿½Î–ï¿½ï¿½ï¿½ï¿½Ô‚Ìuï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½
 	 *
-	 * @return@‹Î–±ŠÔ@
+	 * @returnï¿½@ï¿½Î–ï¿½ï¿½ï¿½ï¿½Ô@ï¿½ï¿½
 	 */
 	private int returnIntWorkHour() {
 
-		// ‹Î–±ŠÔ@
+		// ï¿½Î–ï¿½ï¿½ï¿½ï¿½Ô@ï¿½ï¿½
 		int workHour = 0;
 
 		if (null != this.startTime && null != this.endTime) {
-			// oĞ‚Æ‘ŞĞ‚Ì·•ª‚ğ‚Æ‚é
+			// ï¿½oï¿½Ğï¿½ï¿½Æ‘ŞĞï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½
 			workHour = this.endTime.getIntHour() - this.startTime.getIntHour();
 
-			// “¯‚Ìê‡‚Í0‚ğ•Ô‚·
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ìê‡ï¿½ï¿½0ï¿½ï¿½Ô‚ï¿½
 			if (0 == workHour) {
 				return workHour;
 			}
 
-			// oĞ•ª‚Ì•û‚ª‘ŞĞ•ª‚æ‚è¬‚³‚¢ê‡‚Í1ƒfƒNƒŠƒƒ“ƒg‚·‚é
+			// ï¿½oï¿½Ğ•ï¿½ï¿½Ì•ï¿½ï¿½ï¿½ï¿½ŞĞ•ï¿½ï¿½ï¿½è¬ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½ï¿½1ï¿½fï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½
 			if (this.endTime.getIntMinute() < this.startTime.getIntMinute()) {
 				workHour--;
 			}
@@ -97,13 +97,13 @@ public class WorkTimeControl {
 	}
 
 	/**
-	 * ‹Î–±ŠÔ‚Ìu•ªv•”•ª‚ğ•Ô‚·
+	 * ï¿½Î–ï¿½ï¿½ï¿½ï¿½Ô‚Ìuï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½
 	 *
-	 * @return@‹Î–±ŠÔ@•ª
+	 * @returnï¿½@ï¿½Î–ï¿½ï¿½ï¿½ï¿½Ô@ï¿½ï¿½
 	 */
 	private int returnIntWorkMinute() {
 
-		// ‹Î–±ŠÔ@•ª
+		// ï¿½Î–ï¿½ï¿½ï¿½ï¿½Ô@ï¿½ï¿½
 		int workMinute = 0;
 
 		if (null != this.startTime && null != this.endTime) {
@@ -111,10 +111,10 @@ public class WorkTimeControl {
 			int startMinute = this.startTime.getIntMinute();
 			int endMinute = this.endTime.getIntMinute();
 
-			// oĞ‚Æ‘ŞĞ‚Ì·•ª‚ğ‚Æ‚é
+			// ï¿½oï¿½Ğ‚Æ‘ŞĞ‚Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½
 			workMinute = endMinute - startMinute;
 
-			// ·•ª‚ª•‰‚Ì”‚Ì‚Í60•ª‰Á‚¦‚Ä‹Î–±•ª‚ğ‹‚ß‚é
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½Ìï¿½ï¿½ï¿½60ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‹Î–ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß‚ï¿½
 			if (0 > workMinute) {
 				workMinute += SystemConstant.MINUTE_OF_ONE_HOUR;
 			}
@@ -128,40 +128,40 @@ public class WorkTimeControl {
 	}
 
 	/**
-	 * ‹xŒeŠÔ‚ğŒvZ‚·‚é
+	 * ï¿½xï¿½eï¿½ï¿½ï¿½Ô‚ï¿½ï¿½vï¿½Zï¿½ï¿½ï¿½ï¿½
 	 *
-	 * @return ‹xŒeŠÔ
+	 * @return ï¿½xï¿½eï¿½ï¿½ï¿½ï¿½
 	 */
 	private int calcRestTime() {
 
-		int restTime = 0;// ‹xŒeŠÔ
+		int restTime = 0;// ï¿½xï¿½eï¿½ï¿½ï¿½ï¿½
 
 		if (null != this.startTime && null != this.endTime) {
-			int startHour = this.startTime.getIntHour();// oĞ
-			int endHour = this.endTime.getIntHour();// ‘ŞĞ
-			int endMinute = this.endTime.getIntMinute();// ‘ŞĞ•ª
+			int startHour = this.startTime.getIntHour();// ï¿½oï¿½Ğï¿½
+			int endHour = this.endTime.getIntHour();// ï¿½ŞĞï¿½
+			int endMinute = this.endTime.getIntMinute();// ï¿½ŞĞ•ï¿½
 
-			// ‚¨’‹‹x‚İ‚æ‚èˆÈ‘O‚ÉoĞ‚µ‚Ä‚¢‚éê‡
+			// ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½İ‚ï¿½ï¿½È‘Oï¿½Éoï¿½Ğ‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ê‡
 			if (SystemConstant.START_REST_HOUR_NOON > startHour) {
-				// ‘ŞĞ‚ª‚¨’‹‹xŒe‚æ‚èŒã‚Ì
+				// ï¿½ŞĞï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½eï¿½ï¿½ï¿½ï¿½Ìï¿½
 				if (SystemConstant.START_HOUR_NOON <= endHour) {
-					// ‹xŒeŠÔ‚É‚¨’‹‹xŒeŠÔ‚ğ‘«‚·
+					// ï¿½xï¿½eï¿½ï¿½ï¿½Ô‚É‚ï¿½ï¿½ï¿½ï¿½xï¿½eï¿½ï¿½ï¿½Ô‚ğ‘«‚ï¿½
 					restTime += SystemConstant.REST_TIME_NOON;
 				}
-				// ‘ŞĞ‚ª—[•û‹xŒe‚æ‚èŒã‚Ì
+				// ï¿½ŞĞï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½xï¿½eï¿½ï¿½ï¿½ï¿½Ìï¿½
 				if ((SystemConstant.REST_HOUR_EVE == endHour && SystemConstant.START_EVE_MINUTE <= endMinute)
 						|| SystemConstant.REST_HOUR_EVE < endHour) {
-					// ‹xŒeŠÔ‚É—[•û‹xŒeŠÔ‚ğ‘«‚·
+					// ï¿½xï¿½eï¿½ï¿½ï¿½Ô‚É—[ï¿½ï¿½ï¿½xï¿½eï¿½ï¿½ï¿½Ô‚ğ‘«‚ï¿½
 					restTime += SystemConstant.REST_TIME_EVE;
 				}
 			}
 
 			else if (SystemConstant.REST_HOUR_EVE > startHour) {
-				// oĞ‚ª‚¨’‹‹x‚İ‚æ‚èŒãA—[•û‹xŒe‚æ‚è‘O
-				// ‘ŞĞ‚ª—[•û‹xŒe‚æ‚èŒã‚Ì
+				// ï¿½oï¿½Ğï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½İ‚ï¿½ï¿½ï¿½Aï¿½[ï¿½ï¿½ï¿½xï¿½eï¿½ï¿½ï¿½O
+				// ï¿½ŞĞï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½xï¿½eï¿½ï¿½ï¿½ï¿½Ìï¿½
 				if ((SystemConstant.REST_HOUR_EVE == endHour && SystemConstant.START_EVE_MINUTE <= endMinute)
 						|| SystemConstant.REST_HOUR_EVE < endHour) {
-					// ‹xŒeŠÔ‚É—[•û‹xŒeŠÔ‚ğ‘«‚·
+					// ï¿½xï¿½eï¿½ï¿½ï¿½Ô‚É—[ï¿½ï¿½ï¿½xï¿½eï¿½ï¿½ï¿½Ô‚ğ‘«‚ï¿½
 					restTime += SystemConstant.REST_TIME_EVE;
 				}
 			}
@@ -172,54 +172,54 @@ public class WorkTimeControl {
 	}
 
 	/**
-	 * oĞ‚Æ‘ŞĞ‚Ì’²®‚ğs‚¤
+	 * ï¿½oï¿½Ğï¿½ï¿½ï¿½ï¿½Æ‘ŞĞï¿½ï¿½ï¿½ï¿½Ì’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½
 	 */
 	private void adjustStartEndTime() {
 
 		if (null != this.startTime && null != this.endTime) {
 
-			/********** oĞ’²® **********/
-			int startHour = this.startTime.getIntHour();// oĞ@
-			int startMinute = this.startTime.getIntMinute();// oĞ@•ª
+			/********** ï¿½oï¿½Ğï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ **********/
+			int startHour = this.startTime.getIntHour();// ï¿½oï¿½Ğï¿½ï¿½@ï¿½ï¿½
+			int startMinute = this.startTime.getIntMinute();// ï¿½oï¿½Ğï¿½ï¿½@ï¿½ï¿½
 
-			// oĞ‚ªn‹ÆŠÔ‚æ‚è‘O‚Ì
+			// ï¿½oï¿½Ğï¿½ï¿½ï¿½ï¿½ï¿½ï¿½nï¿½Æï¿½ï¿½Ô‚ï¿½ï¿½Oï¿½Ìï¿½
 			if (SystemConstant.WORK_START_HOUR_MORNING > startHour) {
-				// oĞ‚ğn‹ÆŠÔ‚É’²®
+				// ï¿½oï¿½Ğï¿½ï¿½ï¿½ï¿½ï¿½ï¿½nï¿½Æï¿½ï¿½Ô‚É’ï¿½ï¿½ï¿½
 				this.startTime
 						.setIntHour(SystemConstant.WORK_START_HOUR_MORNING);
 				this.startTime.setIntMinute(SystemConstant.MINIMUM_TIME);
 
-				// oĞŠÔ‚ª‚¨’‹‹xŒeŠÔ’†‚Ì
+				// ï¿½oï¿½Ğï¿½ï¿½Ô‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½eï¿½ï¿½ï¿½Ô’ï¿½ï¿½Ìï¿½
 			} else if (SystemConstant.START_REST_HOUR_NOON == startHour) {
-				// oĞŠÔ‚ğ‚¨’‹‹xŒeŒã‚É’²®
+				// ï¿½oï¿½Ğï¿½ï¿½Ô‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½eï¿½ï¿½É’ï¿½ï¿½ï¿½
 				this.startTime.setIntHour(startHour + 1);
 				this.startTime.setIntMinute(SystemConstant.MINIMUM_TIME);
 
-				// oĞ‚ª—[•û‹xŒeŠÔ’†‚Ì
+				// ï¿½oï¿½Ğï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½xï¿½eï¿½ï¿½ï¿½Ô’ï¿½ï¿½Ìï¿½
 			} else if (SystemConstant.REST_HOUR_EVE == startHour
 					&& SystemConstant.START_EVE_MINUTE > startMinute) {
-				// oĞ‚ğ—[•û‹xŒeŒã‚É’²®
+				// ï¿½oï¿½Ğï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½xï¿½eï¿½ï¿½É’ï¿½ï¿½ï¿½
 				this.startTime.setIntMinute(SystemConstant.START_EVE_MINUTE);
 			}
 
-			/********** ‘ŞĞ’²® **********/
-			int endHour = this.endTime.getIntHour();// ‘ŞĞ@
-			int endMinute = this.endTime.getIntMinute();// ‘ŞĞ@•ª
+			/********** ï¿½ŞĞï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ **********/
+			int endHour = this.endTime.getIntHour();// ï¿½ŞĞ@ï¿½ï¿½
+			int endMinute = this.endTime.getIntMinute();// ï¿½ŞĞ@ï¿½ï¿½
 
 			if (SystemConstant.WORK_START_HOUR_MORNING > endHour) {
 				this.endTime.setIntHour(SystemConstant.WORK_START_HOUR_MORNING);
 				this.endTime.setIntMinute(SystemConstant.MINIMUM_TIME);
 			}
-			// ‚¨’‹‹xŒeŠÔ’†‚É‘ŞĞ‚µ‚½
+			// ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½eï¿½ï¿½ï¿½Ô’ï¿½ï¿½É‘ŞĞ‚ï¿½ï¿½ï¿½ï¿½ï¿½
 			else if (SystemConstant.START_REST_HOUR_NOON == endHour) {
-				// ‚¨’‹n‹ÆŠÔ‚É’²®
+				// ï¿½ï¿½ï¿½ï¿½ï¿½nï¿½Æï¿½ï¿½Ô‚É’ï¿½ï¿½ï¿½
 				this.endTime.setIntHour(endHour + 1);
 				this.endTime.setIntMinute(SystemConstant.MINIMUM_TIME);
 			}
-			// —[•û‹xŒeŠÔ’†‚É‘ŞĞ‚µ‚½
+			// ï¿½[ï¿½ï¿½ï¿½xï¿½eï¿½ï¿½ï¿½Ô’ï¿½ï¿½É‘ŞĞ‚ï¿½ï¿½ï¿½ï¿½ï¿½
 			else if (SystemConstant.REST_HOUR_EVE == endHour
 					&& SystemConstant.START_EVE_MINUTE > endMinute) {
-				// —[•ûn‹ÆŠÔ‚É’²®
+				// ï¿½[ï¿½ï¿½ï¿½nï¿½Æï¿½ï¿½Ô‚É’ï¿½ï¿½ï¿½
 				this.endTime.setIntMinute(SystemConstant.START_EVE_MINUTE);
 			}
 

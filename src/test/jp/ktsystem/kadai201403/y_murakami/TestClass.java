@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import jp.ktsystem.kadai201403.y_murakami.Kadai;
-import jp.ktsystem.kadai201403.y_murakami.Common.ErrorCode;
-import jp.ktsystem.kadai201403.y_murakami.Common.KadaiException;
+import jp.ktsystem.kadai201403.y_murakami.common.ErrorCode;
+import jp.ktsystem.kadai201403.y_murakami.common.KadaiException;
 
 import org.junit.Test;
 

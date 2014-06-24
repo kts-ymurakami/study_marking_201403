@@ -1,10 +1,10 @@
 package jp.ktsystem.kadai201403.y_murakami;
 
-import jp.ktsystem.kadai201403.y_murakami.Common.ErrorCode;
-import jp.ktsystem.kadai201403.y_murakami.Common.KadaiException;
+import jp.ktsystem.kadai201403.y_murakami.common.ErrorCode;
+import jp.ktsystem.kadai201403.y_murakami.common.KadaiException;
 
 /**
- * ŠÔ‚ğˆµ‚¤ƒNƒ‰ƒX
+ * ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½X
  * @author y_murakami
  */
 public class KadaiTime {
@@ -12,25 +12,25 @@ public class KadaiTime {
 	/**********Member**********/
 
 	/**
-	 * ŠÔ@@®”Œ^
+	 * ï¿½ï¿½ï¿½Ô@ï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½^
 	 */
 	private int intHour = 0;
 	/**
-	 * ŠÔ@•ª@•¶š—ñ
+	 * ï¿½ï¿½ï¿½Ô@ï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	private int intMinute = 0;
 
 	/**********Constructor**********/
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^@HHmm‚Ì•¶š—ñ‚ğó‚¯æ‚Á‚Äƒƒ“ƒo‚É’l‚ğİ’è‚·‚é
+	 * ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^ï¿½@HHmmï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó‚¯ï¿½ï¿½ï¿½Äƒï¿½ï¿½ï¿½ï¿½oï¿½É’lï¿½ï¿½İ’è‚·ï¿½ï¿½
 	 * @param strTime
 	 * @throws KadaiException
 	 */
 	public KadaiTime(String strTime) throws KadaiException {
 
-		String strHour = strTime.substring(0, 2);// HH‚ğæ‚èo‚·
-		String strMinute = strTime.substring(2, 4);// mm‚ğæ‚èo‚·
+		String strHour = strTime.substring(0, 2);// HHï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½
+		String strMinute = strTime.substring(2, 4);// mmï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½
 
 		try {
 			this.intHour = Integer.parseInt(strHour);
@@ -44,14 +44,14 @@ public class KadaiTime {
 	/**********Getter**********/
 
 	/**
-	 * ŠÔ®”Œ^æ“¾
+	 * ï¿½ï¿½ï¿½Ôï¿½ï¿½ï¿½ï¿½^ï¿½æ“¾
 	 */
 	public int getIntHour() {
 		return intHour;
 	}
 
 	/**
-	 * •ª®”Œ^æ“¾
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½^ï¿½æ“¾
 	 * @return
 	 */
 	public int getIntMinute() {
@@ -61,14 +61,14 @@ public class KadaiTime {
 	/**********Setter**********/
 
 	/**
-	 * ŠÔ®”Œ^İ’è
+	 * ï¿½ï¿½ï¿½Ôï¿½ï¿½ï¿½ï¿½^ï¿½İ’ï¿½
 	 */
 	public void setIntHour(int value) {
 		this.intHour = value;
 	}
 
 	/**
-	 * •ª®”Œ^İ’è
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½^ï¿½İ’ï¿½
 	 */
 	public void setIntMinute(int value) {
 		this.intMinute = value;

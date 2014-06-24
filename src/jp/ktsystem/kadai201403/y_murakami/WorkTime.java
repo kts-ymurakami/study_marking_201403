@@ -1,10 +1,10 @@
 package jp.ktsystem.kadai201403.y_murakami;
 
-import jp.ktsystem.kadai201403.y_murakami.Common.SystemConstant;
-import jp.ktsystem.kadai201403.y_murakami.Util.CommonUtil;
+import jp.ktsystem.kadai201403.y_murakami.common.SystemConstant;
+import jp.ktsystem.kadai201403.y_murakami.util.CommonUtil;
 
 /**
- * o—Íƒf[ƒ^Ši”[ƒ‚ƒfƒ‹
+ * ï¿½oï¿½Íƒfï¿½[ï¿½^ï¿½iï¿½[ï¿½ï¿½ï¿½fï¿½ï¿½
  *
  * @author y_murakami
  *
@@ -12,15 +12,15 @@ import jp.ktsystem.kadai201403.y_murakami.Util.CommonUtil;
 public class WorkTime {
 
 	/**
-	 * ‹Î–±“ú
+	 * ï¿½Î–ï¿½ï¿½ï¿½
 	 */
 	private String date;
 	/**
-	 * workTime ‹Î–±ŠÔ
+	 * workTime ï¿½Î–ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	private String workTime;
 	/**
-	 * ‘‹Î–±ŠÔ
+	 * ï¿½ï¿½ï¿½Î–ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	private String total;
 
@@ -33,21 +33,21 @@ public class WorkTime {
 	}
 
 	/**
-	 * ‘‹Î–±ŠÔ‚ğİ’è‚·‚é
+	 * ï¿½ï¿½ï¿½Î–ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½İ’è‚·ï¿½ï¿½
 	 */
 	public void setTotal(String total) {
 		this.total = total;
 	}
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	 * ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
 	 *
 	 * @param date
-	 *            ‹Î–±“ú
+	 *            ï¿½Î–ï¿½ï¿½ï¿½
 	 * @param workTime
-	 *            ‹Î–±ŠÔ
+	 *            ï¿½Î–ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param total
-	 *            ‘‹Î–±ŠÔ
+	 *            ï¿½ï¿½ï¿½Î–ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	public WorkTime(String date, String workTime, String total) {
 
@@ -58,12 +58,12 @@ public class WorkTime {
 	}
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^ total‚È‚µ@Lv‚Q—p
+	 * ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^ totalï¿½È‚ï¿½ï¿½@Lvï¿½Qï¿½p
 	 *
 	 * @param date
-	 *            ‹Î–±“ú
+	 *            ï¿½Î–ï¿½ï¿½ï¿½
 	 * @param workTime
-	 *            ‹Î–±ŠÔ
+	 *            ï¿½Î–ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	public WorkTime(String date, String workTime) {
 
@@ -73,22 +73,22 @@ public class WorkTime {
 	}
 
 	/**
-	 * ƒvƒƒpƒeƒB‚©‚ço—Í—p‚ÌJsonŒ`®‚Ì•¶š—ñ‚ğ•Ô‚·
+	 * ï¿½vï¿½ï¿½ï¿½pï¿½eï¿½Bï¿½ï¿½ï¿½ï¿½oï¿½Í—pï¿½ï¿½Jsonï¿½`ï¿½ï¿½ï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½
 	 *
 	 * @return
 	 */
 	public String createJsonStr() {
 
 		StringBuilder sb = new StringBuilder("{");
-		// “ú•t
+		// ï¿½ï¿½ï¿½t
 		sb.append(
 				CommonUtil.createJsonStr(SystemConstant.KEY_DATE, this.date,
 						true)).append(",");
-		// ‹Î–±ŠÔ
+		// ï¿½Î–ï¿½ï¿½ï¿½ï¿½ï¿½
 		sb.append(
 				CommonUtil.createJsonStr(SystemConstant.KEY_WORK_TIME,
 						this.workTime, false)).append(",");
-		// ‘‹Î–±ŠÔ
+		// ï¿½ï¿½ï¿½Î–ï¿½ï¿½ï¿½ï¿½ï¿½
 		sb.append(
 				CommonUtil.createJsonStr(SystemConstant.KEY_TOTAL, this.total,
 						false)).append("}");
