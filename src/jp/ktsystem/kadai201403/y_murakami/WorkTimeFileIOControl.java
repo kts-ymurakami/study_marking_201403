@@ -110,7 +110,7 @@ public class WorkTimeFileIOControl {
 		try {
 			// �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽI�ｿｽ[�ｿｽv�ｿｽ�ｿｽ
 			bfRead = new BufferedReader(new InputStreamReader(
-					new FileInputStream(this.inputFilePath)));
+					new FileInputStream(this.inputFilePath),"UTF-8"));
 
 			int readChar;// �ｿｽﾇみ搾ｿｽ�ｿｽﾝ包ｿｽ�ｿｽ�ｿｽ
 			this.readStr = new StringBuilder();// �ｿｽﾇみ搾ｿｽ�ｿｽﾝ包ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
@@ -238,7 +238,7 @@ public class WorkTimeFileIOControl {
 		try {
 			// �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽI�ｿｽ[�ｿｽv�ｿｽ�ｿｽ
 			bfRead = new BufferedReader(new InputStreamReader(
-					new FileInputStream(this.inputFilePath)));
+					new FileInputStream(this.inputFilePath),"UTF-8"));
 
 			StringBuilder sb = new StringBuilder();// �ｿｽL�ｿｽ[or�ｿｽo�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ[
 
