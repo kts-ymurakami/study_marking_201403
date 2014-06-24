@@ -385,7 +385,8 @@ public class WorkTimeFileIOControl {
 
 	/**
 	 * Lv2�ｿｽp�ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽo�ｿｽ�ｿｽ
-	 *
+	 * @param dirPath
+	 *          出力ディレクトリパス
 	 * @throws KadaiException
 	 */
 	public void writeOutPutFileLv2(String dirPath) throws KadaiException {
@@ -483,6 +484,8 @@ public class WorkTimeFileIOControl {
 	 *            �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ_�ｿｽ[
 	 * @param skipFlag
 	 *            �ｿｽs�ｿｽv�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾇみ費ｿｽﾎゑｿｽ�ｿｽ�ｿｽ�ｿｽﾇゑｿｽ�ｿｽ�ｿｽ�ｿｽ@
+	 * @param bomCheck
+	 *            Bomのチェックを行うかどうか
 	 * @return
 	 * @throws KadaiException
 	 * @throws IOException
