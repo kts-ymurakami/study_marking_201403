@@ -59,7 +59,8 @@ public class WorkTimeFileIOControl {
 	private ArrayList<WorkTime> workTimeList = null;
 
 	/**
-	 * �ｿｽ�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh�ｿｽﾌエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾇゑｿｽ�ｿｽ�ｿｽ
+	 * �ｿｽ�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh�ｿｽﾌエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾇゑｿｽ
+	 * �ｿｽ�ｿｽ
 	 */
 	private boolean controlCodeError = false;
 
@@ -98,7 +99,8 @@ public class WorkTimeFileIOControl {
 	}
 
 	/**
-	 * �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽﾇみ搾ｿｽ�ｿｽﾝゑｿｽ�ｿｽs�ｿｽ�ｿｽ�ｿｽA�ｿｽo�ｿｽﾍ包ｿｽ�ｿｽ�ｿｽ�ｿｽ潟X�ｿｽg�ｿｽ�ｿｽ�ｿｽ�成�ｿｽ�ｿｽ�ｿｽ�ｿｽ
+	 * �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽﾇみ搾ｿｽ�ｿｽﾝゑｿｽ�ｿｽs�ｿｽ�ｿｽ�ｿｽA�ｿｽo�ｿｽﾍ包ｿｽ�ｿｽ�ｿｽ�ｿｽ潟X�
+	 * ｿｽg�ｿｽ�ｿｽ�ｿｽ�成�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 	 *
 	 * @throws KadaiException
 	 */
@@ -110,7 +112,7 @@ public class WorkTimeFileIOControl {
 		try {
 			// �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽI�ｿｽ[�ｿｽv�ｿｽ�ｿｽ
 			bfRead = new BufferedReader(new InputStreamReader(
-					new FileInputStream(this.inputFilePath),"UTF-8"));
+					new FileInputStream(this.inputFilePath), "UTF-8"));
 
 			int readChar;// �ｿｽﾇみ搾ｿｽ�ｿｽﾝ包ｿｽ�ｿｽ�ｿｽ
 			this.readStr = new StringBuilder();// �ｿｽﾇみ搾ｿｽ�ｿｽﾝ包ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
@@ -137,7 +139,8 @@ public class WorkTimeFileIOControl {
 				this.readStr.append((char) readChar);
 			}
 
-			// Matcher�ｿｽ�ｿｽ�ｿｽ�ｿｽﾍ包ｿｽ�ｿｽ�ｿｽ�ｿｽｩら生�ｿｽ�ｿｽ �ｿｽu{�ｿｽv�ｿｽﾅはゑｿｽ�ｿｽﾜゑｿｽ�ｿｽﾄ「�ｿｽp�ｿｽv�ｿｽﾅ終�ｿｽ�ｿｽ髟費ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ謫ｾ
+			// Matcher�ｿｽ�ｿｽ�ｿｽ�ｿｽﾍ包ｿｽ�ｿｽ�ｿｽ�ｿｽｩら生�ｿｽ�ｿｽ
+			// �ｿｽu{�ｿｽv�ｿｽﾅはゑｿｽ�ｿｽﾜゑｿｽ�ｿｽﾄ「�ｿｽp�ｿｽv�ｿｽﾅ終�ｿｽ�ｿｽ髟費ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ謫ｾ
 			Matcher inputMatcher = this.SUBSTR_FILE_PATTERN
 					.matcher(this.readStr.toString());
 			ArrayList<String> dataList = new ArrayList<String>();
@@ -223,7 +226,8 @@ public class WorkTimeFileIOControl {
 	}
 
 	/**
-	 * �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽﾇみ搾ｿｽ�ｿｽﾝゑｿｽ�ｿｽs�ｿｽ�ｿｽ�ｿｽA�ｿｽo�ｿｽﾍ包ｿｽ�ｿｽ�ｿｽ�ｿｽ潟X�ｿｽg�ｿｽ�ｿｽ�ｿｽ�成�ｿｽ�ｿｽ�ｿｽ�ｿｽ@
+	 * �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽﾇみ搾ｿｽ�ｿｽﾝゑｿｽ�ｿｽs�ｿｽ�ｿｽ�ｿｽA�ｿｽo�ｿｽﾍ包ｿｽ�ｿｽ�ｿｽ�ｿｽ潟X�
+	 * ｿｽg�ｿｽ�ｿｽ�ｿｽ�成�ｿｽ�ｿｽ�ｿｽ�ｿｽ@
 	 *
 	 * @throws KadaiException
 	 */
@@ -236,7 +240,7 @@ public class WorkTimeFileIOControl {
 		try {
 			// �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽI�ｿｽ[�ｿｽv�ｿｽ�ｿｽ
 			bfRead = new BufferedReader(new InputStreamReader(
-					new FileInputStream(this.inputFilePath),"UTF-8"));
+					new FileInputStream(this.inputFilePath), "UTF-8"));
 
 			StringBuilder sb = new StringBuilder();// �ｿｽL�ｿｽ[or�ｿｽo�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ[
 
@@ -256,7 +260,7 @@ public class WorkTimeFileIOControl {
 							// "�ｿｽﾈ降�ｿｽﾍ包ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾇみ搾ｿｽ�ｿｽ�ｿｽ
 							skipFlag = !skipFlag;
 						}
-						readChar = scanInputChar(bfRead, skipFlag,false);
+						readChar = scanInputChar(bfRead, skipFlag, false);
 						continue;// �ｿｽﾇみ搾ｿｽ�ｿｽ�ｿｽﾅ趣ｿｽ�ｿｽﾌ包ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 					} else {
 						throw new KadaiException(ErrorCode.ILLEGAL_INPUT_TIME);
@@ -286,7 +290,7 @@ public class WorkTimeFileIOControl {
 					sb = new StringBuilder();
 
 					// �ｿｽ�ｿｽ�ｿｽﾌデ�ｿｽ[�ｿｽ^�ｿｽ�ｿｽﾇゑｿｽ
-					readChar = scanInputChar(bfRead, false,false);
+					readChar = scanInputChar(bfRead, false, false);
 					if (',' == readChar) {
 						// �ｿｽ�ｿｽ�ｿｽf�ｿｽ[�ｿｽ^�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ鼾�
 						jsonControlChar = ':';
@@ -329,7 +333,10 @@ public class WorkTimeFileIOControl {
 	 * �ｿｽﾇみ搾ｿｽ�ｿｽﾝ難ｿｽ�ｿｽe�ｿｽﾌ擾ｿｽ�ｿｽ�ｿｽ�ｿｽo�ｿｽ�ｿｽ
 	 *
 	 * @param errorCode
-	 *            �ｿｽﾇみ搾ｿｽ�ｿｽﾝ趣ｿｽ�ｿｽﾉエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ鼾�ｿｽﾌエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽR�ｿｽ[�ｿｽh(�ｿｽK�ｿｽv�ｿｽﾈゑｿｽ�ｿｽ鼾�ｿｽ�ｿｽ-1�ｿｽ�ｿｽﾝ定し�ｿｽﾄゑｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ)
+	 *            �ｿｽﾇみ搾ｿｽ�ｿｽﾝ趣ｿｽ�ｿｽﾉエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ鼾�
+	 *            ｿｽﾌエ
+	 *            �ｿｽ�ｿｽ�ｿｽ[�ｿｽR�ｿｽ[�ｿｽh(�ｿｽK�ｿｽv�ｿｽﾈゑｿｽ�ｿｽ鼾�ｿｽ�ｿｽ-1�ｿｽ�ｿｽﾝ定し
+	 *            �ｿｽﾄゑｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ)
 	 * @throws KadaiException
 	 */
 	public void writeOutputFile(int errorCode) throws KadaiException {
@@ -363,8 +370,11 @@ public class WorkTimeFileIOControl {
 			}
 
 			// �ｿｽﾇみ搾ｿｽ�ｿｽﾝ趣ｿｽ�ｿｽG�ｿｽ�ｿｽ�ｿｽ[�ｿｽR�ｿｽ[�ｿｽh�ｿｽﾌ擾ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ(6,7,8�ｿｽﾍ出�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌゑｿｽ�ｿｽ�ｿｽ�ｿｽﾝゑｿｽ�ｿｽﾈゑｿｽ�ｿｽ�ｿｽ�ｿｽﾟ記�ｿｽq�ｿｽ�ｿｽ�ｿｽﾈゑｿｽ)
-			if (-1 != errorCode && errorCode != 6 && errorCode != 7
-					&& errorCode != 8) {
+			if (-1 != errorCode
+					&& errorCode != ErrorCode.NULL_INPUT_FILE_PATH
+							.getErrorCode()
+					&& errorCode != ErrorCode.NOT_EXIST_INPUT_FILE
+							.getErrorCode() && errorCode != ErrorCode.FAILE_READ_INPUT_FILE.getErrorCode()) {
 				bfWrite.write(String.valueOf(errorCode));
 				bfWrite.newLine();
 			}
@@ -385,8 +395,9 @@ public class WorkTimeFileIOControl {
 
 	/**
 	 * Lv2�ｿｽp�ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽo�ｿｽ�ｿｽ
+	 *
 	 * @param dirPath
-	 *          出力ディレクトリパス
+	 *            出力ディレクトリパス
 	 * @throws KadaiException
 	 */
 	public void writeOutPutFileLv2(String dirPath) throws KadaiException {
@@ -451,8 +462,11 @@ public class WorkTimeFileIOControl {
 				}
 
 				// �ｿｽﾇみ搾ｿｽ�ｿｽﾝ趣ｿｽ�ｿｽG�ｿｽ�ｿｽ�ｿｽ[�ｿｽR�ｿｽ[�ｿｽh�ｿｽﾌ擾ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ(6,7,8�ｿｽﾍ出�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌゑｿｽ�ｿｽ�ｿｽ�ｿｽﾝゑｿｽ�ｿｽﾈゑｿｽ�ｿｽ�ｿｽ�ｿｽﾟ記�ｿｽq�ｿｽ�ｿｽ�ｿｽﾈゑｿｽ)
-				if (-1 != errorCode && errorCode != 6 && errorCode != 7
-						&& errorCode != 8) {
+				if (-1 != errorCode
+						&& errorCode != ErrorCode.NULL_INPUT_FILE_PATH
+								.getErrorCode()
+						&& errorCode != ErrorCode.NOT_EXIST_INPUT_FILE
+								.getErrorCode() && errorCode != ErrorCode.FAILE_READ_INPUT_FILE.getErrorCode()) {
 					bfWrite.write(String.valueOf(errorCode));
 					bfWrite.newLine();
 				}
@@ -506,8 +520,7 @@ public class WorkTimeFileIOControl {
 				// �ｿｽ�ｿｽ�ｿｽ�ｿｽﾌゑｿｽBOM�ｿｽ`�ｿｽF�ｿｽb�ｿｽN
 				if (bomCheck && 65533 == readChar) {
 					if (!CommonUtil.checkBom(bfRead)) {
-						throw new KadaiException(
-								ErrorCode.IS_CTRL_CODE);
+						throw new KadaiException(ErrorCode.IS_CTRL_CODE);
 					}
 					readChar = bfRead.read();
 				}
