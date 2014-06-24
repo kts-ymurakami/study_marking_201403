@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import jp.ktsystem.kadai201403.y_murakami.Common.ErrorCode;
-import jp.ktsystem.kadai201403.y_murakami.Common.KadaiException;
-import jp.ktsystem.kadai201403.y_murakami.Common.SystemConstant;
+import jp.ktsystem.kadai201403.y_murakami.common.ErrorCode;
+import jp.ktsystem.kadai201403.y_murakami.common.KadaiException;
+import jp.ktsystem.kadai201403.y_murakami.common.SystemConstant;
 
 /**
- * Œ‚Ì‹Î–±ŠÔ‚ğŠi”[‚·‚éƒ‚ƒfƒ‹
+ * ï¿½ï¿½ï¿½Ì‹Î–ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½éƒ‚ï¿½fï¿½ï¿½
  *
  * @author y_murakami
  *
@@ -17,28 +17,28 @@ import jp.ktsystem.kadai201403.y_murakami.Common.SystemConstant;
 public class WorkTimeMonth {
 
 	/**
-	 * ""“à•”æ‚èo‚µƒpƒ^ƒ“
+	 * ""ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½pï¿½^ï¿½ï¿½
 	 */
 	private final Pattern DOUBLE_QUOTE_PATTERN = Pattern
 			.compile(SystemConstant.REGULAR_EXPRESSION_DOUBLE_QUOTATION);
 
 	/**
-	 * Œ
+	 * ï¿½ï¿½
 	 */
 	private String month;
 
 	/**
-	 * Œ‚Ìƒf[ƒ^
+	 * ï¿½ï¿½ï¿½Ìƒfï¿½[ï¿½^
 	 */
 	private String inputData;
 
 	/**
-	 * “ú‚Ìƒ‚ƒfƒ‹@WorkTime
+	 * ï¿½ï¿½ï¿½Ìƒï¿½ï¿½fï¿½ï¿½ï¿½@WorkTime
 	 */
 	private List<WorkTime> workTimeList = new ArrayList<WorkTime>() {};
 
 	/**
-	 * ƒGƒ‰[ƒR[ƒh
+	 * ï¿½Gï¿½ï¿½ï¿½[ï¿½Rï¿½[ï¿½h
 	 */
 	private int errorCode = -1;
 
@@ -56,10 +56,10 @@ public class WorkTimeMonth {
 	}
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	 * ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
 	 *
 	 * @param month
-	 *            “ú•t
+	 *            ï¿½ï¿½ï¿½t
 	 */
 	public WorkTimeMonth(String month, String inputData) {
 		this.month = month;
@@ -67,19 +67,19 @@ public class WorkTimeMonth {
 	}
 
 	/**
-	 * “Ç‚İ‚İƒf[ƒ^ƒƒ“ƒo‚©‚çKadaiƒNƒ‰ƒX‚ÌparseWorkTimeData‚ğg—p‚·‚é‚½‚ß‚Ì
-	 * ƒtƒ@ƒCƒ‹‚ğì¬‚·‚éB
+	 * ï¿½Ç‚İï¿½ï¿½İƒfï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½Kadaiï¿½Nï¿½ï¿½ï¿½Xï¿½ï¿½parseWorkTimeDataï¿½ï¿½ï¿½gï¿½pï¿½ï¿½ï¿½é‚½ï¿½ß‚ï¿½
+	 * ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ì¬ï¿½ï¿½ï¿½ï¿½B
 	 * @throws KadaiException
 	 */
 	public void scanInputData() throws KadaiException{
 		Matcher dataMatcher = this.DOUBLE_QUOTE_PATTERN.matcher(this.inputData);
 
-		int count = 0;// find‰ñ”
+		int count = 0;// findï¿½ï¿½
 		String date = "";
 		String start = "";
 		String end = "";
 
-		// ƒJƒ‰ƒ€”•s³ƒ`ƒFƒbƒN
+		// ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½`ï¿½Fï¿½bï¿½N
 		int check = 0;
 		while(dataMatcher.find()){
 			check++;
@@ -88,11 +88,11 @@ public class WorkTimeMonth {
 			this.errorCode = ErrorCode.INPUT_FILE_ERROR.getErrorCode();
 		}
 
-		// ‰Šú‰»
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		dataMatcher = this.DOUBLE_QUOTE_PATTERN.matcher(this.inputData);
 
 		while (dataMatcher.find()) {
-			String str = dataMatcher.group(1);//""‚Ì’†g
+			String str = dataMatcher.group(1);//""ï¿½Ì’ï¿½ï¿½g
 			int subIndex = count % 5;
 
 			switch(subIndex){
@@ -120,7 +120,7 @@ public class WorkTimeMonth {
 				break;
 			}
 
-			// SWITCH•¶‚Ìˆ—‚ÅƒGƒ‰[ƒR[ƒh‚ªİ’è‚³‚ê‚½ê‡
+			// SWITCHï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ÅƒGï¿½ï¿½ï¿½[ï¿½Rï¿½[ï¿½hï¿½ï¿½ï¿½İ’è‚³ï¿½ê‚½ï¿½ê‡
 			if(0 < this.errorCode){
 				break;
 			}
@@ -130,7 +130,7 @@ public class WorkTimeMonth {
 				try {
 					workTime = Kadai.calcWorkTime(start, end);
 				} catch (KadaiException ex) {
-					// errorCode‚ğİ’è‚µ‚ÄI—¹
+					// errorCodeï¿½ï¿½İ’è‚µï¿½ÄIï¿½ï¿½
 					this.errorCode = ex.getErrorCode();
 					break;
 				}
@@ -144,7 +144,7 @@ public class WorkTimeMonth {
 
 
 	/**
-	 * “ú‚Ìƒf[ƒ^‚ğ’Ç‰Á
+	 * ï¿½ï¿½ï¿½Ìƒfï¿½[ï¿½^ï¿½ï¿½Ç‰ï¿½
 	 *
 	 * @param workTime
 	 */

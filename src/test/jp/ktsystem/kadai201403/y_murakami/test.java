@@ -3,7 +3,7 @@ package test.jp.ktsystem.kadai201403.y_murakami;
 import java.util.ArrayList;
 
 import jp.ktsystem.kadai201403.y_murakami.Kadai;
-import jp.ktsystem.kadai201403.y_murakami.Common.KadaiException;
+import jp.ktsystem.kadai201403.y_murakami.common.KadaiException;
 
 public class test {
 
@@ -43,7 +43,7 @@ public class test {
 			} catch (KadaiException ex) {
 				System.out.println(ex.getErrorCode());
 			}catch(Exception ex){
-				System.out.println("§Œä‚Å‚«‚Ä‚¢‚È‚¢");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½Å‚ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½");
 			}
 			i++;
 		}

@@ -1,125 +1,125 @@
-package jp.ktsystem.kadai201403.y_murakami.Common;
+package jp.ktsystem.kadai201403.y_murakami.common;
 
 /**
- * ’è”ƒNƒ‰ƒX
+ * ï¿½è”ï¿½Nï¿½ï¿½ï¿½X
  * @author y_murakami
  */
 public class SystemConstant {
 
 	/**
-	 * Žn‹ÆŽž
+	 * ï¿½nï¿½ÆŽï¿½ï¿½ï¿½
 	 */
 	public static final int WORK_START_HOUR_MORNING = 9;
 
 	/**
-	 * ‚¨’‹‹xŒeŠJŽnŽž
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½eï¿½Jï¿½nï¿½ï¿½
 	 */
 	public static final int START_REST_HOUR_NOON = 12;
 
 	/**
-	 * ‚¨’‹‹xŒeŽžI—¹Žž
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½eï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½
 	 */
 	public static final int START_HOUR_NOON = 13;
 
 	/**
-	 * —[•û‹xŒeŠJŽnŽž
+	 * ï¿½[ï¿½ï¿½ï¿½xï¿½eï¿½Jï¿½nï¿½ï¿½
 	 */
 	public static final int REST_HOUR_EVE = 18;
 
 	/**
-	 * —[Žn‹ÆŽž@•ª
+	 * ï¿½[ï¿½nï¿½ÆŽï¿½ï¿½@ï¿½ï¿½
 	 */
 	public static final int START_EVE_MINUTE = 30;
 
 	/**
-	 * ‚¨’‹‹xŒeŽžŠÔ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½eï¿½ï¿½ï¿½ï¿½
 	 */
 	public static final int REST_TIME_NOON = 60;
 
 	/**
-	 * —[•û‹xŒeŽžŠÔ
+	 * ï¿½[ï¿½ï¿½ï¿½xï¿½eï¿½ï¿½ï¿½ï¿½
 	 */
 	public static final int REST_TIME_EVE = 30;
 
 	/**
-	 * 1ŽžŠÔ‚Ì•ª
+	 * 1ï¿½ï¿½ï¿½Ô‚Ì•ï¿½
 	 */
 	public static final int MINUTE_OF_ONE_HOUR = 60;
 
 	/**
-	 * Å¬ŽžŠÔ
+	 * ï¿½Åï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	public static final int MINIMUM_TIME = 0;
 
 	/**
-	 * “ü—Í•¶Žš—ñƒ`ƒFƒbƒN@³‹K•\Œ»•¶Žš—ñ@Œ…”A”¼Šp‘SŠpA•s³•¶Žš—ñ‚ð”rœ‚·‚é—p
+	 * ï¿½ï¿½ï¿½Í•ï¿½ï¿½ï¿½ï¿½ï¿½`ï¿½Fï¿½bï¿½Nï¿½@ï¿½ï¿½ï¿½Kï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½pï¿½Sï¿½pï¿½Aï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½rï¿½ï¿½ï¿½ï¿½ï¿½ï¿½p
 	 */
 	public static final String REGULAR_EXPRESSION_STR = "^[0-9][0-9][0-9][0-9]$";
 
 	/**
-	 * oŽÐŽžŠÔƒ`ƒFƒbƒN@³‹K•\Œ»•¶Žš—ñ@HH 00~23(oŽÐ‚ª[–éˆµ‚¢‚É‚È‚é‚±‚Æ‚Í‚È‚¢‚½‚ß) mm 00~59(1ŽžŠÔ‚Ì•ª)
+	 * ï¿½oï¿½ÐŽï¿½ï¿½Ôƒ`ï¿½Fï¿½bï¿½Nï¿½@ï¿½ï¿½ï¿½Kï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@HH 00~23(ï¿½oï¿½Ð‚ï¿½ï¿½[ï¿½éˆµï¿½ï¿½ï¿½É‚È‚é‚±ï¿½Æ‚Í‚È‚ï¿½ï¿½ï¿½ï¿½ï¿½) mm 00~59(1ï¿½ï¿½ï¿½Ô‚Ì•ï¿½)
 	 */
 	public static final String REGULAR_EXPRESSION_STR_START_TIME = "^([0-1][0-9]|[2][0-3])[0-5][0-9]$";
 
 	/**
-	 * ‘ÞŽÐŽžŠÔƒ`ƒFƒbƒN@³‹K•\Œ»•¶Žš—ñ@HH 00~32 mm 00~59(1ŽžŠÔ‚Ì•ª)
+	 * ï¿½ÞŽÐŽï¿½ï¿½Ôƒ`ï¿½Fï¿½bï¿½Nï¿½@ï¿½ï¿½ï¿½Kï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@HH 00~32 mm 00~59(1ï¿½ï¿½ï¿½Ô‚Ì•ï¿½)
 	 */
 	public static final String REGULAR_EXPRESSION_STR_END_TIME = "^([0-2][0-9]|[3][0-2])[0-5][0-9]$";
 
 	/**
-	 * “ü—Íƒtƒ@ƒCƒ‹‚©‚çA‘ÎÛƒf[ƒ^‚ÌŽæ‚èo‚µ—p@³‹K•\Œ»•¶Žš—ñ@op‚Å‚­‚­‚ç‚ê‚½‚à‚Ì‚·‚×‚Ä
+	 * ï¿½ï¿½ï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ÎÛƒfï¿½[ï¿½^ï¿½ÌŽï¿½ï¿½oï¿½ï¿½ï¿½pï¿½@ï¿½ï¿½ï¿½Kï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½oï¿½pï¿½Å‚ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½×‚ï¿½
 	 */
 	public static final String REGULAR_EXPRESSION_STR_INPUT_FILE = "\\{[\\s\\S]*?\\}";
 
 	/**
-	 * ‘ÎÛƒf[ƒ^‚ÌŽæ‚èo‚µ—p@³‹K•\Œ»•¶Žš—ñ
+	 * ï¿½ÎÛƒfï¿½[ï¿½^ï¿½ÌŽï¿½ï¿½oï¿½ï¿½ï¿½pï¿½@ï¿½ï¿½ï¿½Kï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	public static final String REGULAR_EXPRESSION_DATA = "[\\s]*\"([a-zA-z]*)\"[\\s]*:[\\s]*\"(.*?)\"";
 
 
 	/**
-	 * ""“à‚Ìƒf[ƒ^‚ðŽæ‚èo‚·@³‹K•\Œ»•¶Žš—ñ
+	 * ""ï¿½ï¿½ï¿½Ìƒfï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½Kï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	public static final String REGULAR_EXPRESSION_DOUBLE_QUOTATION = "\"(.*?)\"";
 
 
 	/**
-	 * “ü—Íƒtƒ@ƒCƒ‹‚Ì€–Ú”@“ú•t@oŽÐŽž@‘ÞŽÐŽž@
+	 * ï¿½ï¿½ï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½Ìï¿½ï¿½Úï¿½ï¿½@ï¿½ï¿½ï¿½tï¿½@ï¿½oï¿½ÐŽï¿½ï¿½ï¿½ï¿½@ï¿½ÞŽÐŽï¿½ï¿½ï¿½ï¿½@
 	 */
 	public static final int INPUT_FILE_COLUMN_NUM = 3;
 
 	/**
-	 * o—Íƒtƒ@ƒCƒ‹‚Ì€–Ú”@“ú•t@‹Î–±ŽžŠÔ@‘‹Î–±ŽžŠÔ
+	 * ï¿½oï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½Ìï¿½ï¿½Úï¿½ï¿½@ï¿½ï¿½ï¿½tï¿½@ï¿½Î–ï¿½ï¿½ï¿½ï¿½Ô@ï¿½ï¿½ï¿½Î–ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	public static final int OUTPUT_FILE_COLUMN_NUM = 3;
 
 	/**
-	 * “ü—Íƒtƒ@ƒCƒ‹“ú•t•¶Žš—ñƒtƒH[ƒ}ƒbƒg
+	 * ï¿½ï¿½ï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½tï¿½Hï¿½[ï¿½}ï¿½bï¿½g
 	 */
 	public static final String INPUT_DATA_FORMAT = "yyyyMMdd";
 
 	/**
-	 * ƒL[•¶Žš—ñ date
+	 * ï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ date
 	 */
 	public static final String KEY_DATE = "date";
 
 	/**
-	 * ƒL[•¶Žš—ñ start
+	 * ï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ start
 	 */
 	public static final String KEY_START = "start";
 
 	/**
-	 * ƒL[•¶Žš—ñ end
+	 * ï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ end
 	 */
 	public static final String KEY_END = "end";
 
 	/**
-	 * ƒL[•¶Žš—ñ workTime
+	 * ï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ workTime
 	 */
 	public static final String KEY_WORK_TIME = "workTime";
 
 	/**
-	 * ƒL[•¶Žš—ñ total
+	 * ï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ total
 	 */
 	public static final String KEY_TOTAL = "total";
 

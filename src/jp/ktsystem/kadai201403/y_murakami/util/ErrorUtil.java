@@ -1,4 +1,4 @@
-package jp.ktsystem.kadai201403.y_murakami.Util;
+package jp.ktsystem.kadai201403.y_murakami.util;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -7,37 +7,37 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import jp.ktsystem.kadai201403.y_murakami.KadaiTime;
-import jp.ktsystem.kadai201403.y_murakami.Common.ErrorCode;
-import jp.ktsystem.kadai201403.y_murakami.Common.KadaiException;
-import jp.ktsystem.kadai201403.y_murakami.Common.SystemConstant;
+import jp.ktsystem.kadai201403.y_murakami.common.ErrorCode;
+import jp.ktsystem.kadai201403.y_murakami.common.KadaiException;
+import jp.ktsystem.kadai201403.y_murakami.common.SystemConstant;
 
 /**
- * ƒGƒ‰[ƒ`ƒFƒbƒN
+ * ï¿½Gï¿½ï¿½ï¿½[ï¿½`ï¿½Fï¿½bï¿½N
  *
  * @author y_murakami
  */
 public class ErrorUtil {
 
 	/**
-	 * “ü—Íƒ`ƒFƒbƒN—p@³‹K•\Œ»Pattern
+	 * ï¿½ï¿½ï¿½Íƒ`ï¿½Fï¿½bï¿½Nï¿½pï¿½@ï¿½ï¿½ï¿½Kï¿½\ï¿½ï¿½Pattern
 	 */
 	public static final Pattern INPUT_TIME_PATTERN = Pattern
 			.compile(SystemConstant.REGULAR_EXPRESSION_STR);
 
 	/**
-	 * oŽÐŽžŠÔ“ü—Íƒ`ƒFƒbƒN—p@³‹K•\Œ»Pattern
+	 * ï¿½oï¿½ÐŽï¿½ï¿½Ô“ï¿½ï¿½Íƒ`ï¿½Fï¿½bï¿½Nï¿½pï¿½@ï¿½ï¿½ï¿½Kï¿½\ï¿½ï¿½Pattern
 	 */
 	public static final Pattern INPUT_TIME_START_PATTERN = Pattern
 			.compile(SystemConstant.REGULAR_EXPRESSION_STR_START_TIME);
 
 	/**
-	 * ‘ÞŽÐŽžŠÔ“ü—Íƒ`ƒFƒbƒN—p@³‹K•\Œ»Pattern
+	 * ï¿½ÞŽÐŽï¿½ï¿½Ô“ï¿½ï¿½Íƒ`ï¿½Fï¿½bï¿½Nï¿½pï¿½@ï¿½ï¿½ï¿½Kï¿½\ï¿½ï¿½Pattern
 	 */
 	public static final Pattern INPUT_TIME_END_PATTERN = Pattern
 			.compile(SystemConstant.REGULAR_EXPRESSION_STR_END_TIME);
 
 	/**
-	 * ³‹K•\Œ»‚ð—p‚¢‚Ä“ü—ÍŽž•¶Žš—ñ‚ªŽd—l’Ê‚è‚©ƒ`ƒFƒbƒN‚·‚é
+	 * ï¿½ï¿½ï¿½Kï¿½\ï¿½ï¿½ï¿½ï¿½pï¿½ï¿½ï¿½Ä“ï¿½ï¿½ÍŽï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ñ‚ªŽdï¿½lï¿½Ê‚è‚©ï¿½`ï¿½Fï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½
 	 *
 	 * @param strTime
 	 * @return true/false
@@ -46,18 +46,18 @@ public class ErrorUtil {
 	public static boolean checkStrTime(String startTime, String endTime)
 			throws KadaiException {
 
-		// null or ‹ó•¶Žš@ƒ`ƒFƒN
+		// null or ï¿½ó•¶Žï¿½ï¿½@ï¿½`ï¿½Fï¿½N
 		if (!checkNullOrEmpty(startTime) || !checkNullOrEmpty(endTime)) {
 			throw new KadaiException(ErrorCode.NULL_OR_EMPTY);
 		}
 
-		// “ü—Í•¶Žš—ñ•s³•¶Žšƒ`ƒFƒbƒN
+		// ï¿½ï¿½ï¿½Í•ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½`ï¿½Fï¿½bï¿½N
 		if (!checkMatches(INPUT_TIME_PATTERN, startTime)
 				|| !checkMatches(INPUT_TIME_PATTERN, endTime)) {
 			throw new KadaiException(ErrorCode.ILLEGAL_INPUT_TIME);
 		}
 
-		// oŽÐŽžƒ`ƒFƒbƒN ‘ÞŽÐŽžƒ`ƒFƒbƒN
+		// ï¿½oï¿½ÐŽï¿½ï¿½ï¿½ï¿½`ï¿½Fï¿½bï¿½N ï¿½ÞŽÐŽï¿½ï¿½ï¿½ï¿½`ï¿½Fï¿½bï¿½N
 		if (!checkMatches(INPUT_TIME_START_PATTERN, startTime)
 				|| !checkMatches(INPUT_TIME_END_PATTERN, endTime)) {
 			throw new KadaiException(ErrorCode.ILLEGAL_START_OR_END_TIME);
@@ -67,21 +67,21 @@ public class ErrorUtil {
 	}
 
 	/**
-	 * oŽÐŽž‚ª‘ÞŽÐŽž‚æ‚è‘O‚©‚Ç‚¤‚©
+	 * ï¿½oï¿½ÐŽï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÞŽÐŽï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½
 	 *
 	 * @return
 	 * @throws KadaiException
-	 *             @ƒGƒ‰[ƒR[ƒh3
+	 *             ï¿½@ï¿½Gï¿½ï¿½ï¿½[ï¿½Rï¿½[ï¿½h3
 	 */
 	public static boolean endTimeBeforeStartTime(KadaiTime startTime,
 			KadaiTime endTime) throws KadaiException {
 
-		int startHour = startTime.getIntHour();// oŽÐŽž
-		int startMinute = startTime.getIntMinute();// oŽÐ•ª
-		int endHour = endTime.getIntHour();// ‘ÞŽÐŽž
-		int endMinute = endTime.getIntMinute();// ‘ÞŽÐ•ª
+		int startHour = startTime.getIntHour();// ï¿½oï¿½ÐŽï¿½
+		int startMinute = startTime.getIntMinute();// ï¿½oï¿½Ð•ï¿½
+		int endHour = endTime.getIntHour();// ï¿½ÞŽÐŽï¿½
+		int endMinute = endTime.getIntMinute();// ï¿½ÞŽÐ•ï¿½
 
-		// 2014/1/25 ’Ç‰Á@oŽÐŽžA‘ÞŽÐŽž‚Æ‚à‚ÉŽn‹ÆŽž‘O‚ÌŽž‚Í“¯—l‚ÌƒGƒ‰[ƒR[ƒh‚ðo—Í‚·‚é‚½‚ßB
+		// 2014/1/25 ï¿½Ç‰ï¿½ï¿½@ï¿½oï¿½ÐŽï¿½ï¿½ï¿½ï¿½Aï¿½ÞŽÐŽï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ÉŽnï¿½ÆŽï¿½ï¿½ï¿½ï¿½Oï¿½ÌŽï¿½ï¿½Í“ï¿½ï¿½lï¿½ÌƒGï¿½ï¿½ï¿½[ï¿½Rï¿½[ï¿½hï¿½ï¿½ï¿½oï¿½Í‚ï¿½ï¿½é‚½ï¿½ßB
 		if (SystemConstant.WORK_START_HOUR_MORNING > startHour
 				&& SystemConstant.WORK_START_HOUR_MORNING > endHour) {
 			return false;
@@ -97,7 +97,7 @@ public class ErrorUtil {
 	}
 
 	/**
-	 * nullƒ`ƒFƒbƒN
+	 * nullï¿½`ï¿½Fï¿½bï¿½N
 	 *
 	 * @param checkStr
 	 * @return
@@ -108,7 +108,7 @@ public class ErrorUtil {
 	}
 
 	/**
-	 * “ü—Í“ú•t‚Ìƒ`ƒFƒbƒN
+	 * ï¿½ï¿½ï¿½Í“ï¿½ï¿½tï¿½Ìƒ`ï¿½Fï¿½bï¿½N
 	 *
 	 * @return
 	 */
@@ -119,7 +119,7 @@ public class ErrorUtil {
 		}
 
 		DateFormat df = new SimpleDateFormat(SystemConstant.INPUT_DATA_FORMAT);
-		df.setLenient(false);// Œµ–§‚Éƒ`ƒFƒbƒN
+		df.setLenient(false);// ï¿½ï¿½ï¿½ï¿½ï¿½Éƒ`ï¿½Fï¿½bï¿½N
 
 		try {
 			df.parse(inputDate);
@@ -131,38 +131,38 @@ public class ErrorUtil {
 	}
 
 	/**
-	 * null or Empty ƒ`ƒFƒbƒN
+	 * null or Empty ï¿½`ï¿½Fï¿½bï¿½N
 	 *
 	 * @param checkStr
 	 * @return true/false
 	 */
 	public static boolean checkNullOrEmpty(String checkStr) {
 
-		// null‚¾‚Á‚½‚çfalse
+		// nullï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½false
 		if (!checkNull(checkStr)) {
 			return false;
 		}
-		// ‹ó‚¾‚Á‚½‚çfalse
+		// ï¿½ó‚¾‚ï¿½ï¿½ï¿½ï¿½ï¿½false
 
 		return !checkStr.isEmpty();
 
 	}
 
 	/**
-	 * •¶Žš‚ª§Œä•¶Žši‰üsA‹ó”’Aƒ^ƒu‚ðœ‚­j‚©‚Ç‚¤‚©‚ð”»’f‚·‚é
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä•¶ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½sï¿½Aï¿½ó”’Aï¿½^ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ð”»’fï¿½ï¿½ï¿½ï¿½
 	 *
 	 * @param ch
-	 *            ƒ`ƒFƒbƒN•¶Žš
+	 *            ï¿½`ï¿½Fï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½
 	 * @return true/false
 	 */
 	public static boolean isControlCode(char ch) {
 
-		// §ŒäƒR[ƒh•¶Žš‚©‚Ç‚¤‚©
+		// ï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½
 		if (0x1f >= ch && 0x00 <= ch) {
-			int tab = 0x09; // …•½ƒ^ƒu
-			int newline = 0x0A; // ‰üs
-			int space = 0x20; // ‹ó”’
-			int cr = 0x0D; // ƒLƒƒƒŠƒbƒWƒŠƒ^[ƒ“
+			int tab = 0x09; // ï¿½ï¿½ï¿½ï¿½ï¿½^ï¿½u
+			int newline = 0x0A; // ï¿½ï¿½ï¿½s
+			int space = 0x20; // ï¿½ï¿½
+			int cr = 0x0D; // ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½bï¿½Wï¿½ï¿½ï¿½^ï¿½[ï¿½ï¿½
 
 			if (tab == ch || newline == ch || space == ch || cr == ch) {
 				return false;
@@ -174,7 +174,7 @@ public class ErrorUtil {
 	}
 
 	/**
-	 * null‚Æ‹ó•¶Žš‚ðƒ`ƒFƒbƒN‚·‚é
+	 * nullï¿½Æ‹ó•¶Žï¿½ï¿½ï¿½ï¿½`ï¿½Fï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½
 	 * @param str
 	 * @return
 	 */
@@ -183,17 +183,17 @@ public class ErrorUtil {
 	}
 
 	/**
-	 * ƒpƒ^[ƒ“‚Æ•¶Žš—ñ‚©‚çMatches‚ÌŒ‹‰Ê‚ð•Ô‚·
+	 * ï¿½pï¿½^ï¿½[ï¿½ï¿½ï¿½Æ•ï¿½ï¿½ï¿½ï¿½ñ‚©‚ï¿½Matchesï¿½ÌŒï¿½ï¿½Ê‚ï¿½Ô‚ï¿½
 	 *
 	 * @param ptr
-	 *            “ü—Íƒpƒ^[ƒ“
+	 *            ï¿½ï¿½ï¿½Íƒpï¿½^ï¿½[ï¿½ï¿½
 	 * @param checkStr
-	 *            ƒ`ƒFƒbƒN•¶Žš—ñ
+	 *            ï¿½`ï¿½Fï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @return true/false
 	 */
 	private static boolean checkMatches(Pattern pattern, String checkStr) {
 
-		// Matcher‚ð“ü—Í•¶Žš—ñ‚©‚ç¶¬
+		// Matcherï¿½ï¿½ï¿½ï¿½Í•ï¿½ï¿½ï¿½ï¿½ñ‚©‚ç¶ï¿½ï¿½
 		Matcher inputMatcher = pattern.matcher(checkStr);
 
 		return inputMatcher.matches();

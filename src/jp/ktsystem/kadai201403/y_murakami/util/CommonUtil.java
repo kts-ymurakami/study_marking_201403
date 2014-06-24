@@ -1,10 +1,10 @@
-package jp.ktsystem.kadai201403.y_murakami.Util;
+package jp.ktsystem.kadai201403.y_murakami.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
 /**
- * ‹¤’ÊUtillƒNƒ‰ƒX
+ * ï¿½ï¿½ï¿½ï¿½Utillï¿½Nï¿½ï¿½ï¿½X
  *
  * @author y_murakami
  *
@@ -12,14 +12,14 @@ import java.io.IOException;
 public class CommonUtil {
 
 	/**
-	 * ƒL[‚ÆƒoƒŠƒ…[‚©‚çJsonŒ`®•¶š—ñ‚ğ•Ô‚·
+	 * ï¿½Lï¿½[ï¿½Æƒoï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½Jsonï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½
 	 *
 	 * @param key
-	 *            ƒL[•¶š—ñ
+	 *            ï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param value
-	 *            ’l•¶š—ñ
+	 *            ï¿½lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param isStr
-	 *            •¶š—ñ‚©‚Ç‚¤‚©
+	 *            ï¿½ï¿½ï¿½ï¿½ï¿½ñ‚©‚Ç‚ï¿½ï¿½ï¿½
 	 * @return "key":"value" or "key":value
 	 */
 	public static String createJsonStr(String key, String value, boolean isStr) {
@@ -33,16 +33,16 @@ public class CommonUtil {
 	}
 
 	/**
-	 *@“Ç‚İ”ò‚Î‚µ‚Ì‘ÎÛ•¶š—ñ‚©‚Ç‚¤‚©ƒ`ƒFƒbƒN‚·‚é
-	 * @param ch •¶š
+	 *ï¿½@ï¿½Ç‚İ”ï¿½Î‚ï¿½ï¿½Ì‘ÎÛ•ï¿½ï¿½ï¿½ï¿½ñ‚©‚Ç‚ï¿½ï¿½ï¿½ï¿½`ï¿½Fï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½
+	 * @param ch ï¿½ï¿½ï¿½ï¿½
 	 * @return
 	 */
 	public static boolean isSkipCode(int ch) {
 
-		int tab = 0x09; // …•½ƒ^ƒu
-		int ret = 0x0A; // ‰üs
-		int cr = 0x0D; // ƒLƒƒƒŠƒbƒWƒŠƒ^[ƒ“
-		int s = 0x20; // ƒXƒy[ƒX
+		int tab = 0x09; // ï¿½ï¿½ï¿½ï¿½ï¿½^ï¿½u
+		int ret = 0x0A; // ï¿½ï¿½ï¿½s
+		int cr = 0x0D; // ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½bï¿½Wï¿½ï¿½ï¿½^ï¿½[ï¿½ï¿½
+		int s = 0x20; // ï¿½Xï¿½yï¿½[ï¿½X
 
 		if (tab == ch || ret == ch || cr == ch || s == ch) {
 			return true;
@@ -53,7 +53,7 @@ public class CommonUtil {
 	}
 
 	/**
-	 * BOM‚Ì“Ç‚İ”ò‚Î‚µ
+	 * BOMï¿½Ì“Ç‚İ”ï¿½Î‚ï¿½
 	 * @param bfRead
 	 * @return
 	 * @throws IOException

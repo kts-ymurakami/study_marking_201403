@@ -13,113 +13,113 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import jp.ktsystem.kadai201403.y_murakami.Common.ErrorCode;
-import jp.ktsystem.kadai201403.y_murakami.Common.KadaiException;
-import jp.ktsystem.kadai201403.y_murakami.Common.SystemConstant;
-import jp.ktsystem.kadai201403.y_murakami.Util.CommonUtil;
-import jp.ktsystem.kadai201403.y_murakami.Util.ErrorUtil;
+import jp.ktsystem.kadai201403.y_murakami.common.ErrorCode;
+import jp.ktsystem.kadai201403.y_murakami.common.KadaiException;
+import jp.ktsystem.kadai201403.y_murakami.common.SystemConstant;
+import jp.ktsystem.kadai201403.y_murakami.util.CommonUtil;
+import jp.ktsystem.kadai201403.y_murakami.util.ErrorUtil;
 
 /**
- * ‹Î–±ŠÔ‚Ìƒtƒ@ƒCƒ‹“üo—Í‚ğ§Œä‚·‚éƒNƒ‰ƒX
+ * ï¿½Î–ï¿½ï¿½ï¿½ï¿½Ô‚Ìƒtï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½oï¿½Í‚ğ§Œä‚·ï¿½ï¿½Nï¿½ï¿½ï¿½X
  *
  * @author y_murakami
  */
 public class WorkTimeFileIOControl {
 
 	/**
-	 * “ü—Íƒ`ƒFƒbƒN—p@³‹K•\Œ»Pattern
+	 * ï¿½ï¿½ï¿½Íƒ`ï¿½Fï¿½bï¿½Nï¿½pï¿½@ï¿½ï¿½ï¿½Kï¿½\ï¿½ï¿½Pattern
 	 */
 	private final Pattern SUBSTR_FILE_PATTERN = Pattern
 			.compile(SystemConstant.REGULAR_EXPRESSION_STR_INPUT_FILE);
 
 	/**
-	 * “ü—Íƒ`ƒFƒbƒN—p@³‹K•\Œ»Pattern
+	 * ï¿½ï¿½ï¿½Íƒ`ï¿½Fï¿½bï¿½Nï¿½pï¿½@ï¿½ï¿½ï¿½Kï¿½\ï¿½ï¿½Pattern
 	 */
 	private final Pattern DATA_PATTERN = Pattern
 			.compile(SystemConstant.REGULAR_EXPRESSION_DATA);
 
 	/**
-	 * “ü—Íƒtƒ@ƒCƒ‹ƒpƒX
+	 * ï¿½ï¿½ï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½pï¿½X
 	 */
 	private String inputFilePath = null;
 
 	/**
-	 * o—Íƒtƒ@ƒCƒ‹ƒpƒX
+	 * ï¿½oï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½pï¿½X
 	 */
 	private String outputFilePath = null;
 
 	/**
-	 * “Ç‚İ‚İƒtƒ@ƒCƒ‹•¶š—ñ
+	 * ï¿½Ç‚İï¿½ï¿½İƒtï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	private StringBuilder readStr = null;
 
 	/**
-	 * “Ç‚İ‚İƒf[ƒ^‚ÌƒŠƒXƒg
+	 * ï¿½Ç‚İï¿½ï¿½İƒfï¿½[ï¿½^ï¿½Ìƒï¿½ï¿½Xï¿½g
 	 */
 	private ArrayList<WorkTime> workTimeList = null;
 
 	/**
-	 * §ŒäƒR[ƒh‚ÌƒGƒ‰[‚ª‚ ‚Á‚½‚©‚Ç‚¤‚©
+	 * ï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½hï¿½ÌƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½
 	 */
 	private boolean controlCodeError = false;
 
 	/**
-	 * “Ç‚İ‚İƒf[ƒ^‚ÌƒŠƒXƒgiƒŒƒxƒ‹‚Qj
+	 * ï¿½Ç‚İï¿½ï¿½İƒfï¿½[ï¿½^ï¿½Ìƒï¿½ï¿½Xï¿½gï¿½iï¿½ï¿½ï¿½xï¿½ï¿½ï¿½Qï¿½j
 	 */
 	private List<WorkTimeMonth> WorkTimeMonthList = new ArrayList<WorkTimeMonth>();
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	 * ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
 	 *
 	 * @param inputFilePath
-	 *            “ü—Íƒtƒ@ƒCƒ‹ƒpƒX
+	 *            ï¿½ï¿½ï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½pï¿½X
 	 * @param outputFilePath
-	 *            o—Íƒtƒ@ƒCƒ‹ƒpƒX
+	 *            ï¿½oï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½pï¿½X
 	 * @throws KadaiException
-	 *             ‰Û‘è—áŠO
+	 *             ï¿½Û‘ï¿½ï¿½O
 	 */
 	public WorkTimeFileIOControl(String inputFilePath, String outputFilePath)
 			throws KadaiException {
 
-		// “ü—Íƒtƒ@ƒCƒ‹ƒpƒX‚ªnullA‚à‚µ‚­‚Í‹ó•¶š‚Ì
+		// ï¿½ï¿½ï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½pï¿½Xï¿½ï¿½nullï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í‹ó•¶ï¿½ï¿½Ìï¿½
 		if (!ErrorUtil.checkNullOrEmpty(inputFilePath)) {
 			throw new KadaiException(ErrorCode.NULL_INPUT_FILE_PATH);
 		}
 
-		// o—Íƒtƒ@ƒCƒ‹ƒpƒX‚ªnull‚à‚µ‚­‚Í‹ó•¶š‚Ì
+		// ï¿½oï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½pï¿½Xï¿½ï¿½nullï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í‹ó•¶ï¿½ï¿½Ìï¿½
 		if (!ErrorUtil.checkNullOrEmpty(outputFilePath)) {
 			throw new KadaiException(ErrorCode.NULL_OUTPUT_FILE_PATH);
 		}
 
-		// ƒtƒ@ƒCƒ‹ƒpƒX‚ğƒƒ“ƒo‚Éİ’è
+		// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½pï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½Éİ’ï¿½
 		this.inputFilePath = inputFilePath;
 		this.outputFilePath = outputFilePath;
 
 	}
 
 	/**
-	 * ƒtƒ@ƒCƒ‹“Ç‚İ‚İ‚ğs‚¢Ao—Í•¶š—ñƒŠƒXƒg‚ğì¬‚·‚é
+	 * ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ç‚İï¿½ï¿½İ‚ï¿½ï¿½sï¿½ï¿½ï¿½Aï¿½oï¿½Í•ï¿½ï¿½ï¿½ï¿½ñƒŠƒXï¿½gï¿½ï¿½ï¿½ì¬ï¿½ï¿½ï¿½ï¿½
 	 *
 	 * @throws KadaiException
 	 */
 	public void readInputFile() throws KadaiException {
 
-		// “ü—Íƒtƒ@ƒCƒ‹“Ç‚İ‚İ—p•Ï”
+		// ï¿½ï¿½ï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½Ç‚İï¿½ï¿½İ—pï¿½Ïï¿½
 		BufferedReader bfRead = null;
 
 		try {
-			// ƒtƒ@ƒCƒ‹ƒI[ƒvƒ“
+			// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Iï¿½[ï¿½vï¿½ï¿½
 			bfRead = new BufferedReader(new InputStreamReader(
 					new FileInputStream(this.inputFilePath)));
 
-			int readChar;// “Ç‚İ‚İ•¶š
-			this.readStr = new StringBuilder();// “Ç‚İ‚İ•¶š—ñ
+			int readChar;// ï¿½Ç‚İï¿½ï¿½İ•ï¿½ï¿½ï¿½
+			this.readStr = new StringBuilder();// ï¿½Ç‚İï¿½ï¿½İ•ï¿½ï¿½ï¿½ï¿½ï¿½
 			boolean bomCheck = true;
 
-			// “ü—Íƒtƒ@ƒCƒ‹“Ç‚İ‚İ@i§ŒäƒR[ƒhƒGƒ‰[‚ªo‚½‚ç‚»‚±‚Å‘Å‚¿Ø‚èj
+			// ï¿½ï¿½ï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½Ç‚İï¿½ï¿½İ@ï¿½iï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½hï¿½Gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ç‚»ï¿½ï¿½ï¿½Å‘Å‚ï¿½ï¿½Ø‚ï¿½j
 			while (-1 != (readChar = bfRead.read())) {
 
-				// BOM“Ç‚İ”ò‚Î‚µ
+				// BOMï¿½Ç‚İ”ï¿½Î‚ï¿½
 				if (bomCheck && 65533 == readChar) {
 					if (!CommonUtil.checkBom(bfRead)) {
 						this.controlCodeError = true;
@@ -129,7 +129,7 @@ public class WorkTimeFileIOControl {
 				}
 				bomCheck = false;
 
-				// §Œä•¶šƒGƒ‰[ƒ`ƒFƒbƒN
+				// ï¿½ï¿½ï¿½ä•¶ï¿½ï¿½ï¿½Gï¿½ï¿½ï¿½[ï¿½`ï¿½Fï¿½bï¿½N
 				if (ErrorUtil.isControlCode((char) readChar)) {
 					this.controlCodeError = true;
 					break;
@@ -137,7 +137,7 @@ public class WorkTimeFileIOControl {
 				this.readStr.append((char) readChar);
 			}
 
-			// Matcher‚ğ“ü—Í•¶š—ñ‚©‚ç¶¬ u{v‚Å‚Í‚¶‚Ü‚Á‚Äupv‚ÅI‚í‚é•”•ª‚ğæ“¾
+			// Matcherï¿½ï¿½ï¿½ï¿½Í•ï¿½ï¿½ï¿½ï¿½ñ‚©‚ç¶ï¿½ï¿½ ï¿½u{ï¿½vï¿½Å‚Í‚ï¿½ï¿½Ü‚ï¿½ï¿½Äuï¿½pï¿½vï¿½ÅIï¿½ï¿½é•”ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
 			Matcher inputMatcher = this.SUBSTR_FILE_PATTERN
 					.matcher(this.readStr.toString());
 			ArrayList<String> dataList = new ArrayList<String>();
@@ -145,11 +145,11 @@ public class WorkTimeFileIOControl {
 				dataList.add(inputMatcher.group());
 			}
 
-			// workTimeList‚ğ¶¬
+			// workTimeListï¿½ğ¶ï¿½
 			this.workTimeList = new ArrayList<WorkTime>();
-			int sumWorkTime = 0;// ‘‹Î–±ŠÔ
+			int sumWorkTime = 0;// ï¿½ï¿½ï¿½Î–ï¿½ï¿½ï¿½ï¿½ï¿½
 
-			// æ“¾ƒf[ƒ^‚©‚çAdate,start,end‚ğ’Šo‚·‚é
+			// ï¿½æ“¾ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½Adate,start,endï¿½ğ’Šoï¿½ï¿½ï¿½ï¿½
 			for (String data : dataList) {
 
 				String date = null;
@@ -158,12 +158,12 @@ public class WorkTimeFileIOControl {
 
 				Matcher dataMatcher = this.DATA_PATTERN.matcher(data);
 
-				int count = 0;// find‰ñ”
+				int count = 0;// findï¿½ï¿½
 				while (dataMatcher.find()) {
 					count++;
 					String key = dataMatcher.group(1);
 					String value = dataMatcher.group(2);
-					// key‚É‚æ‚éê‡•ª‚¯
+					// keyï¿½É‚ï¿½ï¿½ê‡ï¿½ï¿½ï¿½ï¿½
 					if (SystemConstant.KEY_DATE.equals(key)) {
 						date = value;
 						if (!ErrorUtil.checkDate(date)) {
@@ -179,36 +179,36 @@ public class WorkTimeFileIOControl {
 					}
 				}
 
-				// Œ©‚Â‚©‚Á‚½ƒL[‚Ì”‚ª3ˆÈŠO‚È‚çƒGƒ‰[
+				// ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Lï¿½[ï¿½Ìï¿½ï¿½ï¿½3ï¿½ÈŠOï¿½È‚ï¿½Gï¿½ï¿½ï¿½[
 				if (3 != count) {
 					throw new KadaiException(ErrorCode.INPUT_FILE_ERROR);
 				}
 
-				// ‹Î–±ŠÔ@ƒGƒ‰[‚ª‚ ‚éê‡‚Í‚±‚±‚Å‚àKadaiException‚ªƒXƒ[‚³‚ê‚é
+				// ï¿½Î–ï¿½ï¿½ï¿½ï¿½Ô@ï¿½Gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½Í‚ï¿½ï¿½ï¿½ï¿½Å‚ï¿½KadaiExceptionï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½
 				String workTime = Kadai.calcWorkTime(start, end);
-				// ‘‹Î–±ŠÔ
+				// ï¿½ï¿½ï¿½Î–ï¿½ï¿½ï¿½ï¿½ï¿½
 				sumWorkTime += Integer.parseInt(workTime);
 
-				// workTimeƒIƒuƒWƒFƒNƒg‚ğ¶¬‚µ‚Äo—Í—p‚ÉƒŠƒXƒg‚Ö’Ç‰Á
+				// workTimeï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ğ¶ï¿½ï¿½ï¿½ï¿½Äoï¿½Í—pï¿½Éƒï¿½ï¿½Xï¿½gï¿½Ö’Ç‰ï¿½
 				WorkTime workTimeModel = new WorkTime(date, workTime,
 						String.valueOf(sumWorkTime));
 				this.workTimeList.add(workTimeModel);
 			}
 
 		} catch (FileNotFoundException ex) {
-			// “ü—Íƒtƒ@ƒCƒ‹‚ª‘¶İ‚µ‚Ä‚¢‚é
+			// ï¿½ï¿½ï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ‚ï¿½ï¿½Ä‚ï¿½ï¿½é
 			File f = new File(this.inputFilePath);
 			if (f.exists()) {
 				throw new KadaiException(ErrorCode.FAILE_READ_INPUT_FILE);
 			}
 			throw new KadaiException(ErrorCode.NOT_EXIST_INPUT_FILE);
 		} catch (KadaiException ex) {
-			throw ex; // ‘¶İ‚µ‚È‚¢ƒL[A§ŒäƒR[ƒh
+			throw ex; // ï¿½ï¿½ï¿½İ‚ï¿½ï¿½È‚ï¿½ï¿½Lï¿½[ï¿½Aï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½h
 		} catch (Exception ex) {
-			// ƒtƒ@ƒCƒ‹“Ç‚İ‚İ‚É¸”s‚µ‚½
+			// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ç‚İï¿½ï¿½İ‚Éï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			throw new KadaiException(ErrorCode.FAILE_READ_INPUT_FILE);
 		} finally {
-			// ƒtƒ@ƒCƒ‹ƒNƒ[ƒY
+			// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½[ï¿½Y
 			if (null != bfRead) {
 				try {
 					bfRead.close();
@@ -218,82 +218,82 @@ public class WorkTimeFileIOControl {
 			}
 		}
 
-		// §ŒäƒR[ƒh‚Å‚ÌƒGƒ‰[‚ª‚ ‚Á‚½ê‡
+		// ï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½hï¿½Å‚ÌƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡
 		if (this.controlCodeError) {
 			throw new KadaiException(ErrorCode.IS_CTRL_CODE);
 		}
 	}
 
 	/**
-	 * ƒtƒ@ƒCƒ‹“Ç‚İ‚İ‚ğs‚¢Ao—Í•¶š—ñƒŠƒXƒg‚ğì¬‚·‚é@
+	 * ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ç‚İï¿½ï¿½İ‚ï¿½ï¿½sï¿½ï¿½ï¿½Aï¿½oï¿½Í•ï¿½ï¿½ï¿½ï¿½ñƒŠƒXï¿½gï¿½ï¿½ï¿½ì¬ï¿½ï¿½ï¿½ï¿½@
 	 *
 	 * @throws KadaiException
 	 */
 	public void readInputFileLv2() throws KadaiException {
 
 		BufferedReader bfRead = null;
-		String month = null;// Œ
+		String month = null;// ï¿½ï¿½
 
-		// “ü—Íƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+		// ï¿½ï¿½ï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 		try {
-			// ƒtƒ@ƒCƒ‹ƒI[ƒvƒ“
+			// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Iï¿½[ï¿½vï¿½ï¿½
 			bfRead = new BufferedReader(new InputStreamReader(
 					new FileInputStream(this.inputFilePath)));
 
-			StringBuilder sb = new StringBuilder();// ƒL[orƒoƒŠƒ…[
+			StringBuilder sb = new StringBuilder();// ï¿½Lï¿½[orï¿½oï¿½ï¿½ï¿½ï¿½ï¿½[
 
-			// Ÿ‚ÌJsonƒRƒ“ƒgƒ[ƒ‹•¶š
+			// ï¿½ï¿½ï¿½ï¿½Jsonï¿½Rï¿½ï¿½ï¿½gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			int jsonControlChar = '{';
 
-			// “Ç‚İ‚İ
+			// ï¿½Ç‚İï¿½ï¿½ï¿½
 			int readChar = scanInputChar(bfRead, false, true);
 			boolean skipFlag = false;
 			while (-1 != readChar) {
-				// Json§Œä•¶š‚ª—ˆ‚½ê‡
+				// Jsonï¿½ï¿½ï¿½ä•¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡
 				if (readChar != jsonControlChar) {
 					if (':' == jsonControlChar || ']' == jsonControlChar) {
-						// ’Ç‰Á
+						// ï¿½Ç‰ï¿½
 						sb.append((char) readChar);
 						if (readChar == '"') {
-							// "ˆÈ~‚Í•¶š—ñ“Ç‚İ‚İ
+							// "ï¿½È~ï¿½Í•ï¿½ï¿½ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
 							skipFlag = !skipFlag;
 						}
 						readChar = scanInputChar(bfRead, skipFlag,false);
-						continue;// “Ç‚İ‚ñ‚ÅŸ‚Ì•¶š‚Ö
+						continue;// ï¿½Ç‚İï¿½ï¿½ï¿½Åï¿½ï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½
 					} else {
 						throw new KadaiException(ErrorCode.ILLEGAL_INPUT_TIME);
 					}
 				}
 
-				// Json§Œä•¶š‚É‚æ‚é•ªŠò
+				// Jsonï¿½ï¿½ï¿½ä•¶ï¿½ï¿½ï¿½É‚ï¿½é•ªï¿½ï¿½
 				if ('{' == jsonControlChar) {
 					jsonControlChar = ':';
 				} else if (':' == jsonControlChar) {
-					// Œ‚ğæ“¾
+					// ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
 					month = sb.toString().replace('"', ' ').trim();
-					sb = new StringBuilder();// @‰Šú‰»
+					sb = new StringBuilder();// ï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					jsonControlChar = '[';
 				} else if ('[' == jsonControlChar) {
 					jsonControlChar = ']';
 				} else if (']' == jsonControlChar) {
 
-					// ˆê‚©Œ•ª‚Ìƒf[ƒ^‚ğˆ—‚·‚é
+					// ï¿½ê‚©ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒfï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					WorkTimeMonth monthData = new WorkTimeMonth(month,
 							sb.toString());
-					monthData.scanInputData();// ƒf[ƒ^‚Ì“Ç‚İ‚İ
+					monthData.scanInputData();// ï¿½fï¿½[ï¿½^ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 
-					// “Ç‚İ‚İÏ‚İƒf[ƒ^‚É’Ç‰Á
+					// ï¿½Ç‚İï¿½ï¿½İÏ‚İƒfï¿½[ï¿½^ï¿½É’Ç‰ï¿½
 					this.WorkTimeMonthList.add(monthData);
 
 					sb = new StringBuilder();
 
-					// Ÿ‚Ìƒf[ƒ^‚ğ“Ç‚Ş
+					// ï¿½ï¿½ï¿½Ìƒfï¿½[ï¿½^ï¿½ï¿½Ç‚ï¿½
 					readChar = scanInputChar(bfRead, false,false);
 					if (',' == readChar) {
-						// Ÿƒf[ƒ^‚ª‚ ‚éê‡
+						// ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡
 						jsonControlChar = ':';
 					} else if ('}' == readChar) {
-						// 1ƒŒƒR[ƒh“Ç‚İ‚İI—¹
+						// 1ï¿½ï¿½ï¿½Rï¿½[ï¿½hï¿½Ç‚İï¿½ï¿½İIï¿½ï¿½
 						jsonControlChar = '{';
 					} else {
 						throw new KadaiException(ErrorCode.ILLEGAL_INPUT_TIME);
@@ -302,23 +302,23 @@ public class WorkTimeFileIOControl {
 					throw new KadaiException(ErrorCode.ILLEGAL_INPUT_TIME);
 				}
 
-				// Ÿ‚Ì•¶š‚ğ“Ç‚İ‚İ
+				// ï¿½ï¿½ï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
 				readChar = scanInputChar(bfRead, false, false);
 			}
 		} catch (FileNotFoundException ex) {
-			// “ü—Íƒtƒ@ƒCƒ‹‚ª‘¶İ‚µ‚Ä‚¢‚é
+			// ï¿½ï¿½ï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ‚ï¿½ï¿½Ä‚ï¿½ï¿½é
 			File f = new File(this.inputFilePath);
 			if (f.exists()) {
 				throw new KadaiException(ErrorCode.FAILE_READ_INPUT_FILE);
 			}
 			throw new KadaiException(ErrorCode.NOT_EXIST_INPUT_FILE);
 		} catch (KadaiException ex) {
-			throw ex;// §ŒäƒR[ƒh
+			throw ex;// ï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½h
 		} catch (Exception ex) {
-			// ƒtƒ@ƒCƒ‹“Ç‚İ‚İ‚É¸”s‚µ‚½
+			// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ç‚İï¿½ï¿½İ‚Éï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			throw new KadaiException(ErrorCode.FAILE_READ_INPUT_FILE);
 		} finally {
-			// ƒtƒ@ƒCƒ‹ƒNƒ[ƒY
+			// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½[ï¿½Y
 			if (null != bfRead) {
 				try {
 					bfRead.close();
@@ -330,10 +330,10 @@ public class WorkTimeFileIOControl {
 	}
 
 	/**
-	 * “Ç‚İ‚İ“à—e‚Ì‘‚«o‚µ
+	 * ï¿½Ç‚İï¿½ï¿½İ“ï¿½ï¿½eï¿½Ìï¿½ï¿½ï¿½ï¿½oï¿½ï¿½
 	 *
 	 * @param errorCode
-	 *            “Ç‚İ‚İ‚ÉƒGƒ‰[‚ª‚ ‚Á‚½ê‡‚ÌƒGƒ‰[ƒR[ƒh(•K—v‚È‚¢ê‡‚Í-1‚ğİ’è‚µ‚Ä‚­‚¾‚³‚¢)
+	 *            ï¿½Ç‚İï¿½ï¿½İï¿½ï¿½ÉƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½ÌƒGï¿½ï¿½ï¿½[ï¿½Rï¿½[ï¿½h(ï¿½Kï¿½vï¿½È‚ï¿½ï¿½ê‡ï¿½ï¿½-1ï¿½ï¿½İ’è‚µï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 	 * @throws KadaiException
 	 */
 	public void writeOutputFile(int errorCode) throws KadaiException {
@@ -342,11 +342,11 @@ public class WorkTimeFileIOControl {
 			return;
 		}
 
-		BufferedWriter bfWrite = null;// o—Íƒtƒ@ƒCƒ‹§Œä—p•Ï”
+		BufferedWriter bfWrite = null;// ï¿½oï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½pï¿½Ïï¿½
 
 		try {
 			bfWrite = new BufferedWriter(new FileWriter(this.outputFilePath));
-			// o—Í—p•¶š—ñƒŠƒXƒg‚Ìì¬
+			// ï¿½oï¿½Í—pï¿½ï¿½ï¿½ï¿½ï¿½ñƒŠƒXï¿½gï¿½Ìì¬
 			ArrayList<String> outList = new ArrayList<String>();
 			outList.add("[");
 			for (int i = 0; i < this.workTimeList.size(); ++i) {
@@ -359,24 +359,24 @@ public class WorkTimeFileIOControl {
 			}
 			outList.add("]");
 
-			// o—Í
+			// ï¿½oï¿½ï¿½
 			for (String line : outList) {
-				// ‘‚«‚İ
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				bfWrite.write(line);
 				bfWrite.newLine();
 			}
 
-			// “Ç‚İ‚İƒGƒ‰[ƒR[ƒh‚Ì‘‚«‚İ(6,7,8‚Ío—Íƒtƒ@ƒCƒ‹©‘Ì‚ª‘¶İ‚µ‚È‚¢‚½‚ß‹Lq‚µ‚È‚¢)
+			// ï¿½Ç‚İï¿½ï¿½İï¿½ï¿½Gï¿½ï¿½ï¿½[ï¿½Rï¿½[ï¿½hï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(6,7,8ï¿½Íoï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½İ‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ß‹Lï¿½qï¿½ï¿½ï¿½È‚ï¿½)
 			if (-1 != errorCode && errorCode != 6 && errorCode != 7
 					&& errorCode != 8) {
 				bfWrite.write(String.valueOf(errorCode));
 				bfWrite.newLine();
 			}
 		} catch (Exception ex) {
-			// o—Í¸”s
+			// ï¿½oï¿½Íï¿½ï¿½s
 			throw new KadaiException(ErrorCode.FAILE_FILE_OUT);
 		} finally {
-			// ƒtƒ@ƒCƒ‹ƒNƒ[ƒY
+			// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½[ï¿½Y
 			if (null != bfWrite) {
 				try {
 					bfWrite.close();
@@ -388,7 +388,7 @@ public class WorkTimeFileIOControl {
 	}
 
 	/**
-	 * Lv2—pƒtƒ@ƒCƒ‹‘‚«o‚µ
+	 * Lv2ï¿½pï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½
 	 *
 	 * @throws KadaiException
 	 */
@@ -398,12 +398,12 @@ public class WorkTimeFileIOControl {
 
 			BufferedWriter bfWrite = null;
 			String month = workTimeMonth.getMonth();
-			String fullPath = String.format("%s//%s.txt", dirPath, month);// ‘‚«‚İƒpƒX
-			int errorCode = workTimeMonth.getErrorCode();// errorCode‚Ìæ“¾
+			String fullPath = String.format("%s//%s.txt", dirPath, month);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İƒpï¿½X
+			int errorCode = workTimeMonth.getErrorCode();// errorCodeï¿½Ìæ“¾
 
 			try {
 
-				// ƒfƒBƒŒƒNƒgƒŠ‚ª‘¶İ‚µ‚È‚¢ê‡‚Íì¬‚·‚é
+				// ï¿½fï¿½Bï¿½ï¿½ï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ‚ï¿½ï¿½È‚ï¿½ï¿½ê‡ï¿½Íì¬ï¿½ï¿½ï¿½ï¿½
 				File dir = new File(dirPath);
 				if (!dir.exists()) {
 					dir.mkdirs();
@@ -411,11 +411,11 @@ public class WorkTimeFileIOControl {
 
 				bfWrite = new BufferedWriter(new FileWriter(fullPath));
 
-				// o—Í—p•¶š—ñƒŠƒXƒg‚Ìì¬
+				// ï¿½oï¿½Í—pï¿½ï¿½ï¿½ï¿½ï¿½ñƒŠƒXï¿½gï¿½Ìì¬
 				ArrayList<String> outList = new ArrayList<String>();
 				List<WorkTime> workTimeList = workTimeMonth.getWorkTimeList();
 
-				// “ú•t‡‚Åƒ\[ƒg
+				// ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½Åƒ\ï¿½[ï¿½g
 				for (int i = 0; i < workTimeList.size() - 1; ++i) {
 					WorkTime wt1 = workTimeList.get(i);
 					WorkTime wt2 = workTimeList.get(i + 1);
@@ -426,17 +426,17 @@ public class WorkTimeFileIOControl {
 					}
 				}
 
-				// o—Í•¶š—ñ‚Ìì¬
+				// ï¿½oï¿½Í•ï¿½ï¿½ï¿½ï¿½ï¿½Ìì¬
 				int total = 0;
 				outList.add("[");
 				for (int i = 0; i < workTimeList.size(); ++i) {
 
-					// total‚ğİ’è‚·‚é
+					// totalï¿½ï¿½İ’è‚·ï¿½ï¿½
 					WorkTime wt = workTimeList.get(i);
 					int workTime = Integer.parseInt(wt.getWorkTime());
 					wt.setTotal(String.valueOf(total += workTime));
 
-					// ‘‚«‚İJson•¶š—ñ‚Ìì¬
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Jsonï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìì¬
 					StringBuilder line = new StringBuilder(workTimeList.get(i)
 							.createJsonStr());
 					if (workTimeList.size() - 1 != i) {
@@ -446,14 +446,14 @@ public class WorkTimeFileIOControl {
 				}
 				outList.add("]");
 
-				// o—Í
+				// ï¿½oï¿½ï¿½
 				for (String line : outList) {
-					// ‘‚«‚İ
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					bfWrite.write(line);
 					bfWrite.newLine();
 				}
 
-				// “Ç‚İ‚İƒGƒ‰[ƒR[ƒh‚Ì‘‚«‚İ(6,7,8‚Ío—Íƒtƒ@ƒCƒ‹©‘Ì‚ª‘¶İ‚µ‚È‚¢‚½‚ß‹Lq‚µ‚È‚¢)
+				// ï¿½Ç‚İï¿½ï¿½İï¿½ï¿½Gï¿½ï¿½ï¿½[ï¿½Rï¿½[ï¿½hï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(6,7,8ï¿½Íoï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½İ‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ß‹Lï¿½qï¿½ï¿½ï¿½È‚ï¿½)
 				if (-1 != errorCode && errorCode != 6 && errorCode != 7
 						&& errorCode != 8) {
 					bfWrite.write(String.valueOf(errorCode));
@@ -461,10 +461,10 @@ public class WorkTimeFileIOControl {
 				}
 
 			} catch (Exception ex) {
-				// o—Í¸”s
+				// ï¿½oï¿½Íï¿½ï¿½s
 				throw new KadaiException(ErrorCode.FAILE_FILE_OUT);
 			} finally {
-				// ƒtƒ@ƒCƒ‹ƒNƒ[ƒY
+				// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½[ï¿½Y
 				if (null != bfWrite) {
 					try {
 						bfWrite.close();
@@ -473,7 +473,7 @@ public class WorkTimeFileIOControl {
 					}
 				}
 			}
-			// error‚ª‘¶İ‚µ‚½‚çI—¹
+			// errorï¿½ï¿½ï¿½ï¿½ï¿½İ‚ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½
 			if (0 < errorCode) {
 				break;
 			}
@@ -481,12 +481,12 @@ public class WorkTimeFileIOControl {
 	}
 
 	/**
-	 * Ÿ‚Ì•¶š‚ğ“Ç‚Ş
+	 * ï¿½ï¿½ï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½Ç‚ï¿½
 	 *
 	 * @param bfRead
-	 *            ƒtƒ@ƒCƒ‹ƒŠ[ƒ_[
+	 *            ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½_ï¿½[
 	 * @param skipFlag
-	 *            •s—v•¶š‚ğ“Ç‚İ”ò‚Î‚·‚©‚Ç‚¤‚©@
+	 *            ï¿½sï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‚İ”ï¿½Î‚ï¿½ï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½@
 	 * @return
 	 * @throws KadaiException
 	 * @throws IOException
@@ -494,17 +494,17 @@ public class WorkTimeFileIOControl {
 	private int scanInputChar(BufferedReader bfRead, boolean skipFlag,
 			boolean bomCheck) throws KadaiException, IOException {
 
-		int readChar = bfRead.read(); // “Ç‚İ‚İ
+		int readChar = bfRead.read(); // ï¿½Ç‚İï¿½ï¿½ï¿½
 		if (skipFlag) {
-			// §ŒäƒR[ƒhƒ`ƒFƒbƒN
+			// ï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½hï¿½`ï¿½Fï¿½bï¿½N
 			if (ErrorUtil.isControlCode((char) readChar)) {
 				throw new KadaiException(ErrorCode.ILLEGAL_INPUT_TIME);
 			}
 			return readChar;
 		} else {
-			// ‹ó”’‚ğ“Ç‚İ”ò‚Î‚·
+			// ï¿½ó”’‚ï¿½Ç‚İ”ï¿½Î‚ï¿½
 			while (-1 != readChar) {
-				// ‰‰ñ‚Ì‚İBOMƒ`ƒFƒbƒN
+				// ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½BOMï¿½`ï¿½Fï¿½bï¿½N
 				if (bomCheck && 65533 == readChar) {
 					if (!CommonUtil.checkBom(bfRead)) {
 						throw new KadaiException(
@@ -512,9 +512,9 @@ public class WorkTimeFileIOControl {
 					}
 					readChar = bfRead.read();
 				}
-				// ‹ó”’ƒR[ƒhƒ`ƒFƒbƒN
+				// ï¿½ó”’ƒRï¿½[ï¿½hï¿½`ï¿½Fï¿½bï¿½N
 				if (!CommonUtil.isSkipCode(readChar)) {
-					// §ŒäƒR[ƒhƒ`ƒFƒbƒN
+					// ï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½hï¿½`ï¿½Fï¿½bï¿½N
 					if (ErrorUtil.isControlCode((char) readChar)) {
 						throw new KadaiException(ErrorCode.IS_CTRL_CODE);
 					}
