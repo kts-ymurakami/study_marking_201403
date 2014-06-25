@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -423,17 +424,7 @@ public class WorkTimeFileIOControl {
 				// �ｿｽo�ｿｽﾍ用�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ潟X�ｿｽg�ｿｽﾌ作成
 				ArrayList<String> outList = new ArrayList<String>();
 				List<WorkTime> workTimeList = workTimeMonth.getWorkTimeList();
-
-				// �ｿｽ�ｿｽ�ｿｽt�ｿｽ�ｿｽ�ｿｽﾅソ�ｿｽ[�ｿｽg
-				for (int i = 0; i < workTimeList.size() - 1; ++i) {
-					WorkTime wt1 = workTimeList.get(i);
-					WorkTime wt2 = workTimeList.get(i + 1);
-					if (0 < wt1.getDate().compareTo(wt2.getDate())) {
-						WorkTime wtTemp = wt1;
-						workTimeList.set(i, wt2);
-						workTimeList.set(i + 1, wtTemp);
-					}
-				}
+				Collections.sort(workTimeList,new WorktTimeComparator());
 
 				// �ｿｽo�ｿｽﾍ包ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌ作成
 				int total = 0;

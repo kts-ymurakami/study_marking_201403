@@ -1,10 +1,12 @@
 package jp.ktsystem.kadai201403.y_murakami;
 
+import java.util.Comparator;
+
 import jp.ktsystem.kadai201403.y_murakami.common.SystemConstant;
 import jp.ktsystem.kadai201403.y_murakami.util.CommonUtil;
 
 /**
- * �o�̓f�[�^�i�[���f��
+ * �ｿｽo�ｿｽﾍデ�ｿｽ[�ｿｽ^�ｿｽi�ｿｽ[�ｿｽ�ｿｽ�ｿｽf�ｿｽ�ｿｽ
  *
  * @author y_murakami
  *
@@ -12,15 +14,15 @@ import jp.ktsystem.kadai201403.y_murakami.util.CommonUtil;
 public class WorkTime {
 
 	/**
-	 * �Ζ���
+	 * �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ
 	 */
 	private String date;
 	/**
-	 * workTime �Ζ�����
+	 * workTime �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 	 */
 	private String workTime;
 	/**
-	 * ���Ζ�����
+	 * �ｿｽ�ｿｽ�ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 	 */
 	private String total;
 
@@ -33,21 +35,21 @@ public class WorkTime {
 	}
 
 	/**
-	 * ���Ζ����Ԃ�ݒ肷��
+	 * �ｿｽ�ｿｽ�ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔゑｿｽﾝ定す�ｿｽ�ｿｽ
 	 */
 	public void setTotal(String total) {
 		this.total = total;
 	}
 
 	/**
-	 * �R���X�g���N�^
+	 * �ｿｽR�ｿｽ�ｿｽ�ｿｽX�ｿｽg�ｿｽ�ｿｽ�ｿｽN�ｿｽ^
 	 *
 	 * @param date
-	 *            �Ζ���
+	 *            �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ
 	 * @param workTime
-	 *            �Ζ�����
+	 *            �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 	 * @param total
-	 *            ���Ζ�����
+	 *            �ｿｽ�ｿｽ�ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 	 */
 	public WorkTime(String date, String workTime, String total) {
 
@@ -58,12 +60,12 @@ public class WorkTime {
 	}
 
 	/**
-	 * �R���X�g���N�^ total�Ȃ��@Lv�Q�p
+	 * �ｿｽR�ｿｽ�ｿｽ�ｿｽX�ｿｽg�ｿｽ�ｿｽ�ｿｽN�ｿｽ^ total�ｿｽﾈゑｿｽ�ｿｽ@Lv�ｿｽQ�ｿｽp
 	 *
 	 * @param date
-	 *            �Ζ���
+	 *            �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ
 	 * @param workTime
-	 *            �Ζ�����
+	 *            �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 	 */
 	public WorkTime(String date, String workTime) {
 
@@ -73,26 +75,50 @@ public class WorkTime {
 	}
 
 	/**
-	 * �v���p�e�B����o�͗p��Json�`���̕������Ԃ�
+	 * �ｿｽv�ｿｽ�ｿｽ�ｿｽp�ｿｽe�ｿｽB�ｿｽ�ｿｽ�ｿｽ�ｿｽo�ｿｽﾍ用�ｿｽ�ｿｽJson�ｿｽ`�ｿｽ�ｿｽ�ｿｽﾌ包ｿｽ�ｿｽ�ｿｽ
+	 * �ｿｽ�ｿｽ�ｿｽﾔゑｿｽ
 	 *
 	 * @return
 	 */
 	public String createJsonStr() {
 
 		StringBuilder sb = new StringBuilder("{");
-		// ���t
+		// �ｿｽ�ｿｽ�ｿｽt
 		sb.append(
 				CommonUtil.createJsonStr(SystemConstant.KEY_DATE, this.date,
 						true)).append(",");
-		// �Ζ�����
+		// �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		sb.append(
 				CommonUtil.createJsonStr(SystemConstant.KEY_WORK_TIME,
 						this.workTime, false)).append(",");
-		// ���Ζ�����
+		// �ｿｽ�ｿｽ�ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		sb.append(
 				CommonUtil.createJsonStr(SystemConstant.KEY_TOTAL, this.total,
 						false)).append("}");
 
 		return sb.toString();
 	}
+}
+
+/**
+ * WorkTimeソート用Comparatorクラス
+ *
+ */
+class WorktTimeComparator implements Comparator<WorkTime> {
+
+	public int compare(WorkTime arg0, WorkTime arg1) {
+		String str1 = arg0.getDate();
+		String str2 = arg1.getDate();
+
+		int comp = str1.compareTo(str2);
+		if (0 < comp) {
+			return 1;
+		} else if (0 == comp) {
+			return 0;
+		} else {
+			return -1;
+		}
+
+	}
+
 }
