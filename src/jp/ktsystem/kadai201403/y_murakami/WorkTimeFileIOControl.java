@@ -348,7 +348,6 @@ public class WorkTimeFileIOControl {
 		BufferedWriter bfWrite = null;// �ｿｽo�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽp�ｿｽﾏ撰ｿｽ
 
 		try {
-			bfWrite = new BufferedWriter(new FileWriter(this.outputFilePath));
 			// �ｿｽo�ｿｽﾍ用�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ潟X�ｿｽg�ｿｽﾌ作成
 			ArrayList<String> outList = new ArrayList<String>();
 			outList.add("[");
@@ -361,6 +360,8 @@ public class WorkTimeFileIOControl {
 				outList.add(line.toString());
 			}
 			outList.add("]");
+
+			bfWrite = new BufferedWriter(new FileWriter(this.outputFilePath));
 
 			// �ｿｽo�ｿｽ�ｿｽ
 			for (String line : outList) {
