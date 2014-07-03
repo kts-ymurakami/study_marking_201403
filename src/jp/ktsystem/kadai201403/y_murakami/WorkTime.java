@@ -6,7 +6,7 @@ import jp.ktsystem.kadai201403.y_murakami.common.SystemConstant;
 import jp.ktsystem.kadai201403.y_murakami.util.CommonUtil;
 
 /**
- * �ｿｽo�ｿｽﾍデ�ｿｽ[�ｿｽ^�ｿｽi�ｿｽ[�ｿｽ�ｿｽ�ｿｽf�ｿｽ�ｿｽ
+ * 勤務時間クラス
  *
  * @author y_murakami
  *
@@ -14,15 +14,15 @@ import jp.ktsystem.kadai201403.y_murakami.util.CommonUtil;
 public class WorkTime {
 
 	/**
-	 * �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ
+	 * 日付
 	 */
 	private String date;
 	/**
-	 * workTime �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
+	 * workTime 勤務時間
 	 */
 	private String workTime;
 	/**
-	 * �ｿｽ�ｿｽ�ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
+	 * 総勤務時間
 	 */
 	private String total;
 
@@ -34,22 +34,19 @@ public class WorkTime {
 		return this.workTime;
 	}
 
-	/**
-	 * �ｿｽ�ｿｽ�ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔゑｿｽﾝ定す�ｿｽ�ｿｽ
-	 */
 	public void setTotal(String total) {
 		this.total = total;
 	}
 
 	/**
-	 * �ｿｽR�ｿｽ�ｿｽ�ｿｽX�ｿｽg�ｿｽ�ｿｽ�ｿｽN�ｿｽ^
+	 * コンストラクタ
 	 *
 	 * @param date
-	 *            �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ
+	 *            日付
 	 * @param workTime
-	 *            �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
+	 *            勤務時間
 	 * @param total
-	 *            �ｿｽ�ｿｽ�ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
+	 *            総勤務時間
 	 */
 	public WorkTime(String date, String workTime, String total) {
 
@@ -60,12 +57,12 @@ public class WorkTime {
 	}
 
 	/**
-	 * �ｿｽR�ｿｽ�ｿｽ�ｿｽX�ｿｽg�ｿｽ�ｿｽ�ｿｽN�ｿｽ^ total�ｿｽﾈゑｿｽ�ｿｽ@Lv�ｿｽQ�ｿｽp
+	 * コンストラクタ
 	 *
 	 * @param date
-	 *            �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ
+	 *            日付
 	 * @param workTime
-	 *            �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
+	 *            勤務時間
 	 */
 	public WorkTime(String date, String workTime) {
 
@@ -75,27 +72,23 @@ public class WorkTime {
 	}
 
 	/**
-	 * �ｿｽv�ｿｽ�ｿｽ�ｿｽp�ｿｽe�ｿｽB�ｿｽ�ｿｽ�ｿｽ�ｿｽo�ｿｽﾍ用�ｿｽ�ｿｽJson�ｿｽ`�ｿｽ�ｿｽ�ｿｽﾌ包ｿｽ�ｿｽ�ｿｽ
-	 * �ｿｽ�ｿｽ�ｿｽﾔゑｿｽ
+	 * 出力用Json文字列作成
 	 *
 	 * @return
 	 */
 	public String createJsonStr() {
 
+		// 日付、時間、合計時間を出力
 		StringBuilder sb = new StringBuilder("{");
-		// �ｿｽ�ｿｽ�ｿｽt
 		sb.append(
 				CommonUtil.createJsonStr(SystemConstant.KEY_DATE, this.date,
 						true)).append(",");
-		// �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		sb.append(
 				CommonUtil.createJsonStr(SystemConstant.KEY_WORK_TIME,
 						this.workTime, false)).append(",");
-		// �ｿｽ�ｿｽ�ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		sb.append(
 				CommonUtil.createJsonStr(SystemConstant.KEY_TOTAL, this.total,
 						false)).append("}");
-
 		return sb.toString();
 	}
 }

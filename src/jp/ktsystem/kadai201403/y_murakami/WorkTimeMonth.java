@@ -9,7 +9,7 @@ import jp.ktsystem.kadai201403.y_murakami.common.KadaiException;
 import jp.ktsystem.kadai201403.y_murakami.common.SystemConstant;
 
 /**
- * ���̋Ζ����Ԃ��i�[���郂�f��
+ * 月ごとのデータ
  *
  * @author y_murakami
  *
@@ -17,28 +17,28 @@ import jp.ktsystem.kadai201403.y_murakami.common.SystemConstant;
 public class WorkTimeMonth {
 
 	/**
-	 * ""�������o���p�^��
+	 * ""取り出し用
 	 */
 	private final Pattern DOUBLE_QUOTE_PATTERN = Pattern
 			.compile(SystemConstant.REGULAR_EXPRESSION_DOUBLE_QUOTATION);
 
 	/**
-	 * ��
+	 * 月
 	 */
 	private String month;
 
 	/**
-	 * ���̃f�[�^
+	 * 入力データ
 	 */
 	private String inputData;
 
 	/**
-	 * ���̃��f���@WorkTime
+	 * 勤務時間コントロールリスト
 	 */
 	private List<WorkTime> workTimeList = new ArrayList<WorkTime>() {};
 
 	/**
-	 * �G���[�R�[�h
+	 * エラーコード
 	 */
 	private int errorCode = -1;
 
@@ -56,30 +56,30 @@ public class WorkTimeMonth {
 	}
 
 	/**
-	 * �R���X�g���N�^
+	 * コンストラクタ
 	 *
 	 * @param month
-	 *            ���t
-	 */
+	 *            月
+	 *            	 */
 	public WorkTimeMonth(String month, String inputData) {
 		this.month = month;
 		this.inputData = inputData;
 	}
 
 	/**
-	 * �ǂݍ��݃f�[�^�����o����Kadai�N���X��parseWorkTimeData���g�p���邽�߂�
-	 * �t�@�C�����쐬����B
+	 * データ読み込み
+	 *
 	 * @throws KadaiException
 	 */
 	public void scanInputData() throws KadaiException{
 		Matcher dataMatcher = this.DOUBLE_QUOTE_PATTERN.matcher(this.inputData);
 
-		int count = 0;// find��
+		int count = 0;// find回数
 		String date = "";
 		String start = "";
 		String end = "";
 
-		// �J�������s���`�F�b�N
+		// 見つかった回数
 		int check = 0;
 		while(dataMatcher.find()){
 			check++;
@@ -88,11 +88,10 @@ public class WorkTimeMonth {
 			this.errorCode = ErrorCode.INPUT_FILE_ERROR.getErrorCode();
 		}
 
-		// ������
 		dataMatcher = this.DOUBLE_QUOTE_PATTERN.matcher(this.inputData);
 
 		while (dataMatcher.find()) {
-			String str = dataMatcher.group(1);//""�̒��g
+			String str = dataMatcher.group(1);//　キーの取り出し
 			int subIndex = count % 5;
 
 			switch(subIndex){
@@ -120,7 +119,6 @@ public class WorkTimeMonth {
 				break;
 			}
 
-			// SWITCH���̏����ŃG���[�R�[�h���ݒ肳�ꂽ�ꍇ
 			if(0 < this.errorCode){
 				break;
 			}
@@ -130,7 +128,6 @@ public class WorkTimeMonth {
 				try {
 					workTime = Kadai.calcWorkTime(start, end);
 				} catch (KadaiException ex) {
-					// errorCode��ݒ肵�ďI��
 					this.errorCode = ex.getErrorCode();
 					break;
 				}
@@ -144,7 +141,7 @@ public class WorkTimeMonth {
 
 
 	/**
-	 * ���̃f�[�^��ǉ�
+	 * データの追加
 	 *
 	 * @param workTime
 	 */

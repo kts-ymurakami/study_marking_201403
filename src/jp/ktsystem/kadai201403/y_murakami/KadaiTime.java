@@ -4,7 +4,7 @@ import jp.ktsystem.kadai201403.y_murakami.common.ErrorCode;
 import jp.ktsystem.kadai201403.y_murakami.common.KadaiException;
 
 /**
- * ���Ԃ������N���X
+ * 課題クラス
  * @author y_murakami
  */
 public class KadaiTime {
@@ -12,18 +12,18 @@ public class KadaiTime {
 	/**********Member**********/
 
 	/**
-	 * ���ԁ@���@�����^
+	 * 時間
 	 */
 	private int intHour = 0;
 	/**
-	 * ���ԁ@���@������
+	 * 分
 	 */
 	private int intMinute = 0;
 
 	/**********Constructor**********/
 
 	/**
-	 * �R���X�g���N�^�@HHmm�̕�������󂯎���ă����o�ɒl��ݒ肷��
+	 * コンストラクタ
 	 * @param strTime
 	 * @throws KadaiException
 	 */
@@ -43,33 +43,20 @@ public class KadaiTime {
 
 	/**********Getter**********/
 
-	/**
-	 * ���Ԑ����^�擾
-	 */
 	public int getIntHour() {
 		return intHour;
 	}
 
-	/**
-	 * �������^�擾
-	 * @return
-	 */
 	public int getIntMinute() {
 		return intMinute;
 	}
 
 	/**********Setter**********/
 
-	/**
-	 * ���Ԑ����^�ݒ�
-	 */
 	public void setIntHour(int value) {
 		this.intHour = value;
 	}
 
-	/**
-	 * �������^�ݒ�
-	 */
 	public void setIntMinute(int value) {
 		this.intMinute = value;
 	}

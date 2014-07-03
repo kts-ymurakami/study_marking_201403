@@ -43,7 +43,7 @@ public class test {
 			} catch (KadaiException ex) {
 				System.out.println(ex.getErrorCode());
 			}catch(Exception ex){
-				System.out.println("����ł��Ă��Ȃ�");
+				System.out.println("予期せぬエラー");
 			}
 			i++;
 		}

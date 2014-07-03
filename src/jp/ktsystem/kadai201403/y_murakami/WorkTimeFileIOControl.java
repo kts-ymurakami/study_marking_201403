@@ -19,8 +19,7 @@ import jp.ktsystem.kadai201403.y_murakami.util.CommonUtil;
 import jp.ktsystem.kadai201403.y_murakami.util.ErrorUtil;
 
 /**
- * �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔのフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽo�ｿｽﾍを制御す�ｿｽ�ｿｽN�ｿｽ�ｿｽ�ｿｽX
- *
+ * 勤務時間のファイル入出力を制御するクラス
  * @author y_murakami
  */
 public class WorkTimeFileIOControl {
@@ -65,58 +64,49 @@ public class WorkTimeFileIOControl {
 
 
 	/**
-	 * �ｿｽR�ｿｽ�ｿｽ�ｿｽX�ｿｽg�ｿｽ�ｿｽ�ｿｽN�ｿｽ^
-	 *
-	 * @param inputFilePath
-	 *            �ｿｽ�ｿｽ�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽp�ｿｽX
-	 * @param outputFilePath
-	 *            �ｿｽo�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽp�ｿｽX
-	 * @throws KadaiException
-	 *             �ｿｽﾛ托ｿｽ�ｿｽO
+	 * コンストラクタ
+	 * @param inputFilePath　入力ファイルパス
+	 * @param outputFilePath　出力ファイルパス
+	 * @throws KadaiException 課題例外
 	 */
 	public WorkTimeFileIOControl(String inputFilePath, String outputFilePath)
 			throws KadaiException {
 
-		// �ｿｽ�ｿｽ�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽp�ｿｽX�ｿｽ�ｿｽnull�ｿｽA�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾍ空文趣ｿｽ�ｿｽﾌ趣ｿｽ
+		// null空文字チェック
 		if (null == inputFilePath || inputFilePath.isEmpty()) {
 			throw new KadaiException(ErrorCode.NULL_INPUT_FILE_PATH);
 		}
 
-		// �ｿｽo�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽp�ｿｽX�ｿｽ�ｿｽnull�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾍ空文趣ｿｽ�ｿｽﾌ趣ｿｽ
 		if (null == outputFilePath || outputFilePath.isEmpty()) {
 			throw new KadaiException(ErrorCode.NULL_OUTPUT_FILE_PATH);
 		}
 
-		// �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽp�ｿｽX�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽo�ｿｽﾉ設抵ｿｽ
 		this.inputFilePath = inputFilePath;
 		this.outputFilePath = outputFilePath;
 
 	}
 
 	/**
-	 * �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽﾇみ搾ｿｽ�ｿｽﾝゑｿｽ�ｿｽs�ｿｽ�ｿｽ�ｿｽA�ｿｽo�ｿｽﾍ包ｿｽ�ｿｽ�ｿｽ�ｿｽ潟X�
-	 * ｿｽg�ｿｽ�ｿｽ�ｿｽ�成�ｿｽ�ｿｽ�ｿｽ�ｿｽ
-	 *
+	 * ファイル読み込みを行い、出力文字列リストを作成する
 	 * @throws KadaiException
 	 */
 	public void readInputFile() throws KadaiException {
 
-		// �ｿｽ�ｿｽ�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽﾇみ搾ｿｽ�ｿｽﾝ用�ｿｽﾏ撰ｿｽ
+		// 入力ファイル読み込み用変数
 		BufferedReader bfRead = null;
 
 		try {
-			// �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽI�ｿｽ[�ｿｽv�ｿｽ�ｿｽ
 			bfRead = new BufferedReader(new InputStreamReader(
 					new FileInputStream(this.inputFilePath), "UTF-8"));
 
-			int readChar;// �ｿｽﾇみ搾ｿｽ�ｿｽﾝ包ｿｽ�ｿｽ�ｿｽ
-			this.readStr = new StringBuilder();// �ｿｽﾇみ搾ｿｽ�ｿｽﾝ包ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
+			int readChar;
+			this.readStr = new StringBuilder();
 			boolean bomCheck = true;
 
-			// �ｿｽ�ｿｽ�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽﾇみ搾ｿｽ�ｿｽﾝ　�ｿｽi�ｿｽ�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh�ｿｽG�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽo�ｿｽ�ｿｽ�ｿｽ轤ｻ�ｿｽ�ｿｽ�ｿｽﾅ打ゑｿｽ�ｿｽﾘゑｿｽj
+			// ファイル読み込み
 			while (-1 != (readChar = bfRead.read())) {
 
-				// BOM�ｿｽﾇみ費ｿｽﾎゑｿｽ
+				// BOMチェック
 				if (bomCheck && 65533 == readChar) {
 					if (!CommonUtil.checkBom(bfRead)) {
 						this.controlCodeError = true;
@@ -126,7 +116,7 @@ public class WorkTimeFileIOControl {
 				}
 				bomCheck = false;
 
-				// �ｿｽ�ｿｽ�ｿｽ苺ｶ�ｿｽ�ｿｽ�ｿｽG�ｿｽ�ｿｽ�ｿｽ[�ｿｽ`�ｿｽF�ｿｽb�ｿｽN
+				// 制御コード
 				if (ErrorUtil.isControlCode((char) readChar)) {
 					this.controlCodeError = true;
 					break;
@@ -134,8 +124,7 @@ public class WorkTimeFileIOControl {
 				this.readStr.append((char) readChar);
 			}
 
-			// Matcher�ｿｽ�ｿｽ�ｿｽ�ｿｽﾍ包ｿｽ�ｿｽ�ｿｽ�ｿｽｩら生�ｿｽ�ｿｽ
-			// �ｿｽu{�ｿｽv�ｿｽﾅはゑｿｽ�ｿｽﾜゑｿｽ�ｿｽﾄ「�ｿｽp�ｿｽv�ｿｽﾅ終�ｿｽ�ｿｽ髟費ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ謫ｾ
+			// 対象データを読み込み
 			Matcher inputMatcher = this.SUBSTR_FILE_PATTERN
 					.matcher(this.readStr.toString());
 			ArrayList<String> dataList = new ArrayList<String>();
@@ -143,11 +132,11 @@ public class WorkTimeFileIOControl {
 				dataList.add(inputMatcher.group());
 			}
 
-			// workTimeList�ｿｽｶ撰ｿｽ
+			// workTimeList
 			this.workTimeList = new ArrayList<WorkTime>();
-			int sumWorkTime = 0;// �ｿｽ�ｿｽ�ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
+			int sumWorkTime = 0;// 合計時間
 
-			// �ｿｽ謫ｾ�ｿｽf�ｿｽ[�ｿｽ^�ｿｽ�ｿｽ�ｿｽ�ｿｽAdate,start,end�ｿｽ鰹o�ｿｽ�ｿｽ�ｿｽ�ｿｽ
+			// 対象キーから値を取り出し
 			for (String data : dataList) {
 
 				String date = null;
@@ -156,12 +145,11 @@ public class WorkTimeFileIOControl {
 
 				Matcher dataMatcher = this.DATA_PATTERN.matcher(data);
 
-				int count = 0;// find�ｿｽ�ｿｽ
+				int count = 0;// find回数
 				while (dataMatcher.find()) {
 					count++;
 					String key = dataMatcher.group(1);
 					String value = dataMatcher.group(2);
-					// key�ｿｽﾉゑｿｽ�ｿｽ鼾�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 					if (SystemConstant.KEY_DATE.equals(key)) {
 						date = value;
 						if (!ErrorUtil.checkDate(date)) {
@@ -177,34 +165,29 @@ public class WorkTimeFileIOControl {
 					}
 				}
 
-				// �ｿｽ�ｿｽ�ｿｽﾂゑｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽL�ｿｽ[�ｿｽﾌ撰ｿｽ�ｿｽ�ｿｽ3�ｿｽﾈ外�ｿｽﾈゑｿｽG�ｿｽ�ｿｽ�ｿｽ[
+				// find回数チェック
 				if (3 != count) {
 					throw new KadaiException(ErrorCode.INPUT_FILE_ERROR);
 				}
 
-				// �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔ　�ｿｽG�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ鼾�ｿｽﾍゑｿｽ�ｿｽ�ｿｽ�ｿｽﾅゑｿｽKadaiException�ｿｽ�ｿｽ�ｿｽX�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
+				// 勤務時間
 				String workTime = Kadai.calcWorkTime(start, end);
-				// �ｿｽ�ｿｽ�ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 				sumWorkTime += Integer.parseInt(workTime);
 
-				// workTime�ｿｽI�ｿｽu�ｿｽW�ｿｽF�ｿｽN�ｿｽg�ｿｽｶ撰ｿｽ�ｿｽ�ｿｽ�ｿｽﾄ出�ｿｽﾍ用�ｿｽﾉ�ｿｽ�ｿｽX�ｿｽg�ｿｽﾖ追会ｿｽ
 				WorkTime workTimeModel = new WorkTime(date, workTime,
 						String.valueOf(sumWorkTime));
 				this.workTimeList.add(workTimeModel);
 			}
 
 		} catch (FileNotFoundException ex) {
-			// �ｿｽ�ｿｽ�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾝゑｿｽ�ｿｽﾄゑｿｽ�ｿｽ骼�
 			File f = new File(this.inputFilePath);
 			if (f.exists()) {
 				throw new KadaiException(ErrorCode.FAILE_READ_INPUT_FILE);
 			}
 			throw new KadaiException(ErrorCode.NOT_EXIST_INPUT_FILE);
 		} catch (IOException ex) {
-			// �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽﾇみ搾ｿｽ�ｿｽﾝに趣ｿｽ�ｿｽs�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 			throw new KadaiException(ErrorCode.FAILE_READ_INPUT_FILE);
 		} finally {
-			// �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽN�ｿｽ�ｿｽ�ｿｽ[�ｿｽY
 			if (null != bfRead) {
 				try {
 					bfRead.close();
@@ -214,7 +197,7 @@ public class WorkTimeFileIOControl {
 			}
 		}
 
-		// �ｿｽ�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh�ｿｽﾅのエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ鼾�
+		// 制御コードエラーの時
 		if (this.controlCodeError) {
 			throw new KadaiException(ErrorCode.IS_CTRL_CODE);
 		}
@@ -222,14 +205,10 @@ public class WorkTimeFileIOControl {
 
 
 	/**
-	 * �ｿｽﾇみ搾ｿｽ�ｿｽﾝ難ｿｽ�ｿｽe�ｿｽﾌ擾ｿｽ�ｿｽ�ｿｽ�ｿｽo�ｿｽ�ｿｽ
+	 * ファイル書き出し
 	 *
-	 * @param errorCode
-	 *            �ｿｽﾇみ搾ｿｽ�ｿｽﾝ趣ｿｽ�ｿｽﾉエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ鼾�
-	 *            ｿｽﾌエ
-	 *            �ｿｽ�ｿｽ�ｿｽ[�ｿｽR�ｿｽ[�ｿｽh(�ｿｽK�ｿｽv�ｿｽﾈゑｿｽ�ｿｽ鼾�ｿｽ�ｿｽ-1�ｿｽ�ｿｽﾝ定し
-	 *            �ｿｽﾄゑｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ)
-	 * @throws KadaiException
+	 * @param errorCode　エラーコード　出力用　
+	 * @throws KadaiException　
 	 */
 	public void writeOutputFile(int errorCode) throws KadaiException {
 
@@ -237,10 +216,9 @@ public class WorkTimeFileIOControl {
 			return;
 		}
 
-		BufferedWriter bfWrite = null;// �ｿｽo�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽp�ｿｽﾏ撰ｿｽ
+		BufferedWriter bfWrite = null;
 
 		try {
-			// �ｿｽo�ｿｽﾍ用�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ潟X�ｿｽg�ｿｽﾌ作成
 			ArrayList<String> outList = new ArrayList<String>();
 			outList.add("[");
 			for (int i = 0; i < this.workTimeList.size(); ++i) {
@@ -255,14 +233,12 @@ public class WorkTimeFileIOControl {
 
 			bfWrite = new BufferedWriter(new FileWriter(this.outputFilePath));
 
-			// �ｿｽo�ｿｽ�ｿｽ
 			for (String line : outList) {
-				// �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 				bfWrite.write(line);
 				bfWrite.newLine();
 			}
 
-			// �ｿｽﾇみ搾ｿｽ�ｿｽﾝ趣ｿｽ�ｿｽG�ｿｽ�ｿｽ�ｿｽ[�ｿｽR�ｿｽ[�ｿｽh�ｿｽﾌ擾ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ(6,7,8�ｿｽﾍ出�ｿｽﾍフ�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌゑｿｽ�ｿｽ�ｿｽ�ｿｽﾝゑｿｽ�ｿｽﾈゑｿｽ�ｿｽ�ｿｽ�ｿｽﾟ記�ｿｽq�ｿｽ�ｿｽ�ｿｽﾈゑｿｽ)
+			// 必要なエラーコードの書き出し
 			if (-1 != errorCode
 					&& errorCode != ErrorCode.NULL_INPUT_FILE_PATH
 							.getErrorCode()
@@ -272,10 +248,8 @@ public class WorkTimeFileIOControl {
 				bfWrite.newLine();
 			}
 		} catch (Exception ex) {
-			// �ｿｽo�ｿｽﾍ趣ｿｽ�ｿｽs
 			throw new KadaiException(ErrorCode.FAILE_FILE_OUT);
 		} finally {
-			// �ｿｽt�ｿｽ@�ｿｽC�ｿｽ�ｿｽ�ｿｽN�ｿｽ�ｿｽ�ｿｽ[�ｿｽY
 			if (null != bfWrite) {
 				try {
 					bfWrite.close();

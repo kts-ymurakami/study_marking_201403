@@ -1,14 +1,11 @@
 package jp.ktsystem.kadai201403.y_murakami.common;
 
 /**
- * �ۑ�pException
+ * 課題Exception
  * @author y_murakami
  */
 public class KadaiException extends Exception {
 
-	/**
-	 * �V���A���C�YVerID
-	 */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -17,15 +14,15 @@ public class KadaiException extends Exception {
 	private ErrorCode errorCode;
 
 	/**
-	 * �R���X�g���N�^�@�G���[�R�[�h�������o�ɐݒ肷��
-	 * @param errorCode
+	 * コンストラクタ
+	 * @param errorCode　エラーコード
 	 */
 	public KadaiException(ErrorCode errorCode) {
 		this.errorCode = errorCode;
 	}
 
 	/**
-	 * errorCode��Ԃ�
+	 * errorCodeを返す
 	 * @return errorCode
 	 */
 	public int getErrorCode() {

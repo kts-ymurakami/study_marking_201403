@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 /**
- * �ｿｽ�ｿｽ�ｿｽ�ｿｽUtill�ｿｽN�ｿｽ�ｿｽ�ｿｽX
+ * Utilクラス
  *
  * @author y_murakami
  *
@@ -12,14 +12,14 @@ import java.io.IOException;
 public class CommonUtil {
 
 	/**
-	 * �ｿｽL�ｿｽ[�ｿｽﾆバ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽJson�ｿｽ`�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾔゑｿｽ
+	 * Jsonを作成する
 	 *
 	 * @param key
-	 *            �ｿｽL�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
+	 *            キー
 	 * @param value
-	 *            �ｿｽl�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
+	 *            値
 	 * @param isStr
-	 *            �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽｩどゑｿｽ�ｿｽ�ｿｽ
+	 *            文字列かどうか
 	 * @return "key":"value" or "key":value
 	 */
 	public static String createJsonStr(String key, String value, boolean isStr) {
@@ -33,16 +33,16 @@ public class CommonUtil {
 	}
 
 	/**
-	 *�ｿｽ@�ｿｽﾇみ費ｿｽﾎゑｿｽ�ｿｽﾌ対象包ｿｽ�ｿｽ�ｿｽ�ｿｽｩどゑｿｽ�ｿｽ�ｿｽ�ｿｽ`�ｿｽF�ｿｽb�ｿｽN�ｿｽ�ｿｽ�ｿｽ�ｿｽ
-	 * @param ch �ｿｽ�ｿｽ�ｿｽ�ｿｽ
+	 *　許可された制御コードかどうか
+	 * @param ch チェック文字
 	 * @return
 	 */
 	public static boolean isSkipCode(int ch) {
 
-		int tab = 0x09; // �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ^�ｿｽu
-		int ret = 0x0A; // �ｿｽ�ｿｽ�ｿｽs
-		int cr = 0x0D; // �ｿｽL�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽb�ｿｽW�ｿｽ�ｿｽ�ｿｽ^�ｿｽ[�ｿｽ�ｿｽ
-		int s = 0x20; // �ｿｽX�ｿｽy�ｿｽ[�ｿｽX
+		int tab = 0x09; // タブ
+		int ret = 0x0A; // 解消
+		int cr = 0x0D; // キャリッジリターン
+		int s = 0x20; // スペース
 
 		if (tab == ch || ret == ch || cr == ch || s == ch) {
 			return true;
@@ -53,7 +53,7 @@ public class CommonUtil {
 	}
 
 	/**
-	 * BOM�ｿｽﾌ読み費ｿｽﾎゑｿｽ
+	 * BOMチェック
 	 * @param bfRead
 	 * @return
 	 * @throws IOException

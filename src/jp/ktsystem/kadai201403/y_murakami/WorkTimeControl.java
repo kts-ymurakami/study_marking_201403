@@ -6,7 +6,7 @@ import jp.ktsystem.kadai201403.y_murakami.common.SystemConstant;
 import jp.ktsystem.kadai201403.y_murakami.util.ErrorUtil;
 
 /**
- * �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔ撰ｿｽ�ｿｽ�ｿｽN�ｿｽ�ｿｽ�ｿｽX
+ *　勤務時間コントロールクラス
  *
  * @author y_murakami
  *
@@ -17,49 +17,43 @@ public class WorkTimeControl {
 	private KadaiTime endTime = null;
 
 	/**
-	 * �ｿｽR�ｿｽ�ｿｽ�ｿｽX�ｿｽg�ｿｽ�ｿｽ�ｿｽN�ｿｽ^
-	 * �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ�ｿｽ�ｿｽﾆ退社趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽo�ｿｽﾉ設定す�ｿｽ�ｿｽ
+	 * コンストラクタ
 	 *
 	 * @param startTime
-	 *            �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽﾔコ�ｿｽ�ｿｽ�ｿｽg�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ
+	 *            出社時間
 	 * @param endTime
-	 *            �ｿｽﾞ社趣ｿｽ�ｿｽﾔコ�ｿｽ�ｿｽ�ｿｽg�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ
+	 *            退社時間
 	 * @throws KadaiException
 	 */
 	public WorkTimeControl(KadaiTime startTime, KadaiTime endTime)
 			throws KadaiException {
 
-		// �ｿｽG�ｿｽ�ｿｽ�ｿｽ[�ｿｽ`�ｿｽF�ｿｽb�ｿｽN
-		// �ｿｽﾞ社趣ｿｽ�ｿｽﾔゑｿｽ�ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽﾔゑｿｽ�ｿｽO�ｿｽ�ｿｽ�ｿｽﾇゑｿｽ�ｿｽ�ｿｽ
+		// 出社時間と退社時間の前後チェック
 		if (!ErrorUtil.startTimeBeforeEndTime(startTime, endTime)) {
 			throw new KadaiException(ErrorCode.END_BEFOR_START);
 		}
 
-		// �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽo�ｿｽﾉ設抵ｿｽ
 		this.startTime = startTime;
 		this.endTime = endTime;
 
-		// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ�ｿｽ�ｿｽﾆ退社趣ｿｽ�ｿｽ�ｿｽ�ｿｽﾌ抵ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽs�ｿｽ�ｿｽ
+		// 出社時間と退社時間の調整
 		adjustStartEndTime();
 
 	}
 
 	/**
-	 * �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔを文趣ｿｽ�ｿｽ�ｿｽﾅ返ゑｿｽ�ｿｽ@�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾔゑｿｽ
+	 * 勤務時間の文字列を返す
 	 *
-	 * @return 勤務時間を返す
+	 * @return 勤務時間
 	 */
 	public String returnWorkTime() {
 
-		// �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔ　�ｿｽ�ｿｽ
 		int workHour = returnIntWorkHour();
-		// �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔ　�ｿｽ�ｿｽ
 		int workMinute = returnIntWorkMinute();
-		// �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾔ　�ｿｽ�ｿｽ
 		int workTime = workHour * SystemConstant.MINUTE_OF_ONE_HOUR
 				+ workMinute;
 
-		// �ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔゑｿｽ�ｿｽﾐゑｿｽ
+		// 休憩時間をひく
 		workTime -= calcRestTime();
 
 		return String.valueOf(workTime);
@@ -67,24 +61,20 @@ public class WorkTimeControl {
 	}
 
 	/**
-	 * �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔの「�ｿｽ�ｿｽ�ｿｽv�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾔゑｿｽ
+	 * 勤務時間を分で返す
 	 *
-	 * @return�ｿｽ@�ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔ　�ｿｽ�ｿｽ
+	 * @return　勤務時間　分
 	 */
 	private int returnIntWorkHour() {
 
-		// �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔ　�ｿｽ�ｿｽ
 		int workHour = 0;
 
-		// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽﾆ退社趣ｿｽ�ｿｽﾌ搾ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾆゑｿｽ
 		workHour = this.endTime.getIntHour() - this.startTime.getIntHour();
 
-		// �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌ場合�ｿｽ�ｿｽ0�ｿｽ�ｿｽﾔゑｿｽ
 		if (0 == workHour) {
 			return workHour;
 		}
 
-		// �ｿｽo�ｿｽﾐ包ｿｽ�ｿｽﾌ包ｿｽ�ｿｽ�ｿｽ�ｿｽﾞ社包ｿｽ�ｿｽ�ｿｽ闖ｬ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ鼾�ｿｽ�ｿｽ1�ｿｽf�ｿｽN�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽg�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		if (this.endTime.getIntMinute() < this.startTime.getIntMinute()) {
 			workHour--;
 		}
@@ -94,22 +84,20 @@ public class WorkTimeControl {
 	}
 
 	/**
-	 * �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔの「�ｿｽ�ｿｽ�ｿｽv�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾔゑｿｽ
+	 * 勤務時間　分を返す
 	 *
-	 * @return�ｿｽ@�ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔ　�ｿｽ�ｿｽ
+	 * @return　分
 	 */
 	private int returnIntWorkMinute() {
 
-		// �ｿｽﾎ厄ｿｽ�ｿｽ�ｿｽ�ｿｽﾔ　�ｿｽ�ｿｽ
 		int workMinute = 0;
 
 		int startMinute = this.startTime.getIntMinute();
 		int endMinute = this.endTime.getIntMinute();
 
-		// �ｿｽo�ｿｽﾐと退社の搾ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾆゑｿｽ
+		// 勤務分
 		workMinute = endMinute - startMinute;
 
-		// �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌ撰ｿｽ�ｿｽﾌ趣ｿｽ�ｿｽ�ｿｽ60�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾄ勤厄ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾟゑｿｽ
 		if (0 > workMinute) {
 			workMinute += SystemConstant.MINUTE_OF_ONE_HOUR;
 		}
@@ -119,39 +107,31 @@ public class WorkTimeControl {
 	}
 
 	/**
-	 * �ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔゑｿｽ�ｿｽv�ｿｽZ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
+	 * 休憩時間を計算する
 	 *
-	 * @return �ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽ�ｿｽ
+	 * @return 休憩時間
 	 */
 	private int calcRestTime() {
 
-		int restTime = 0;// �ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽ�ｿｽ
+		int restTime = 0;
 
-		int startHour = this.startTime.getIntHour();// �ｿｽo�ｿｽﾐ趣ｿｽ
-		int endHour = this.endTime.getIntHour();// �ｿｽﾞ社趣ｿｽ
-		int endMinute = this.endTime.getIntMinute();// �ｿｽﾞ社包ｿｽ
+		int startHour = this.startTime.getIntHour();// 出社時
+		int endHour = this.endTime.getIntHour();// 退社時
+		int endMinute = this.endTime.getIntMinute();// 退社分
 
-		// �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽx�ｿｽﾝゑｿｽ�ｿｽﾈ前�ｿｽﾉ出�ｿｽﾐゑｿｽ�ｿｽﾄゑｿｽ�ｿｽ�ｿｽ鼾�
+		// 休憩時間の計算
 		if (SystemConstant.START_REST_HOUR_NOON > startHour) {
-			// �ｿｽﾞ社趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌ趣ｿｽ
 			if (SystemConstant.START_HOUR_NOON <= endHour) {
-				// �ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔにゑｿｽ�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔを足ゑｿｽ
 				restTime += SystemConstant.REST_TIME_NOON;
 			}
-			// �ｿｽﾞ社趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌ趣ｿｽ
 			if ((SystemConstant.REST_HOUR_EVE == endHour && SystemConstant.START_EVE_MINUTE <= endMinute)
 					|| SystemConstant.REST_HOUR_EVE < endHour) {
-				// �ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔに夕�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔを足ゑｿｽ
 				restTime += SystemConstant.REST_TIME_EVE;
 			}
 		}
-
 		else if (SystemConstant.REST_HOUR_EVE > startHour) {
-			// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽx�ｿｽﾝゑｿｽ�ｿｽ�ｿｽA�ｿｽ[�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽO
-			// �ｿｽﾞ社趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌ趣ｿｽ
 			if ((SystemConstant.REST_HOUR_EVE == endHour && SystemConstant.START_EVE_MINUTE <= endMinute)
 					|| SystemConstant.REST_HOUR_EVE < endHour) {
-				// �ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔに夕�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔを足ゑｿｽ
 				restTime += SystemConstant.REST_TIME_EVE;
 			}
 		}
@@ -161,51 +141,42 @@ public class WorkTimeControl {
 	}
 
 	/**
-	 * �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ�ｿｽ�ｿｽﾆ退社趣ｿｽ�ｿｽ�ｿｽ�ｿｽﾌ抵ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽs�ｿｽ�ｿｽ
+	 * 出社時間、退社時間調整
 	 */
 	private void adjustStartEndTime() {
 
-		/********** �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ **********/
-		int startHour = this.startTime.getIntHour();// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ@�ｿｽ�ｿｽ
-		int startMinute = this.startTime.getIntMinute();// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ@�ｿｽ�ｿｽ
+		int startHour = this.startTime.getIntHour();
+		int startMinute = this.startTime.getIntMinute();
 
-		// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽn�ｿｽﾆ趣ｿｽ�ｿｽﾔゑｿｽ�ｿｽO�ｿｽﾌ趣ｿｽ
+		// 始業時間より前
 		if (SystemConstant.WORK_START_HOUR_MORNING > startHour) {
-			// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽn�ｿｽﾆ趣ｿｽ�ｿｽﾔに抵ｿｽ�ｿｽ�ｿｽ
 			this.startTime.setIntHour(SystemConstant.WORK_START_HOUR_MORNING);
 			this.startTime.setIntMinute(SystemConstant.MINIMUM_TIME);
 
-			// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽﾔゑｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔ抵ｿｽ�ｿｽﾌ趣ｿｽ
+			// お昼休み
 		} else if (SystemConstant.START_REST_HOUR_NOON == startHour) {
-			// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽﾔゑｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽﾉ抵ｿｽ�ｿｽ�ｿｽ
 			this.startTime.setIntHour(startHour + 1);
 			this.startTime.setIntMinute(SystemConstant.MINIMUM_TIME);
 
-			// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔ抵ｿｽ�ｿｽﾌ趣ｿｽ
+			// 夕方休み
 		} else if (SystemConstant.REST_HOUR_EVE == startHour
 				&& SystemConstant.START_EVE_MINUTE > startMinute) {
-			// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽﾉ抵ｿｽ�ｿｽ�ｿｽ
 			this.startTime.setIntMinute(SystemConstant.START_EVE_MINUTE);
 		}
 
-		/********** �ｿｽﾞ社趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ **********/
-		int endHour = this.endTime.getIntHour();// �ｿｽﾞ社　�ｿｽ�ｿｽ
-		int endMinute = this.endTime.getIntMinute();// �ｿｽﾞ社　�ｿｽ�ｿｽ
+		int endHour = this.endTime.getIntHour();
+		int endMinute = this.endTime.getIntMinute();
 
 		if (SystemConstant.WORK_START_HOUR_MORNING > endHour) {
 			this.endTime.setIntHour(SystemConstant.WORK_START_HOUR_MORNING);
 			this.endTime.setIntMinute(SystemConstant.MINIMUM_TIME);
 		}
-		// �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔ抵ｿｽ�ｿｽﾉ退社ゑｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		else if (SystemConstant.START_REST_HOUR_NOON == endHour) {
-			// �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽn�ｿｽﾆ趣ｿｽ�ｿｽﾔに抵ｿｽ�ｿｽ�ｿｽ
 			this.endTime.setIntHour(endHour + 1);
 			this.endTime.setIntMinute(SystemConstant.MINIMUM_TIME);
 		}
-		// �ｿｽ[�ｿｽ�ｿｽ�ｿｽx�ｿｽe�ｿｽ�ｿｽ�ｿｽﾔ抵ｿｽ�ｿｽﾉ退社ゑｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		else if (SystemConstant.REST_HOUR_EVE == endHour
 				&& SystemConstant.START_EVE_MINUTE > endMinute) {
-			// �ｿｽ[�ｿｽ�ｿｽ�ｿｽn�ｿｽﾆ趣ｿｽ�ｿｽﾔに抵ｿｽ�ｿｽ�ｿｽ
 			this.endTime.setIntMinute(SystemConstant.START_EVE_MINUTE);
 		}
 

@@ -15,9 +15,9 @@ import org.junit.Test;
 
 public class TestClass {
 
-	private static final String INPUT_DIR_PATH = "testInput\\";// ���̓f�B���N�g���p�X
-	private static final String OUTPUT_DIR_PATH = "testOutput\\";// �o�̓f�B���N�g���p�X
-	private static final String EXPECTED_DIR_PATH = "testExpected\\";// ���Ҍ��ʃf�B���N�g���p�X
+	private static final String INPUT_DIR_PATH = "testInput\\";
+	private static final String OUTPUT_DIR_PATH = "testOutput\\";
+	private static final String EXPECTED_DIR_PATH = "testExpected\\";
 
 	private InputStream createExpectedStream(String fileName)
 			throws IOException {
@@ -66,32 +66,6 @@ public class TestClass {
 			fail("" + ex.getMessage());
 		}
 	}
-
-	/**
-	 * �ُ�n�e�X�g�N���X
-	 *
-	 * @param inputPath
-	 * @param outPutFilePath
-	 * @param expectedErrCode
-	 */
-	/*private void executeInValidTest(String inputPath, String outPutFilePath,
-			int expectedErrCode, boolean isLv1) {
-		try {
-			if (isLv1) {
-				Kadai.parseWorkTimeData(INPUT_DIR_PATH + inputPath,
-						OUTPUT_DIR_PATH + outPutFilePath);
-			} else {
-				Kadai.parseWorkTimeDataLv2(INPUT_DIR_PATH + inputPath,
-						OUTPUT_DIR_PATH + outPutFilePath);
-			}
-			fail("�\�����ʃG���[");// �G���[�R�[�h��throw�����͂��Ȃ̂ł�����fail
-		} catch (KadaiException ex) {
-			assertEquals(expectedErrCode, ex.getErrorCode());
-		} catch (Exception ex) {
-			fail("�\�����ʃG���[�B�G���[���b�Z�[�W�F" + ex.getMessage());
-		}
-	}*/
-
 
 
 	/**

@@ -6,18 +6,17 @@ package jp.ktsystem.kadai201403.y_murakami.common;
  */
 public enum ErrorCode {
 
-	//�G���[�R�[�h
-	NULL_OR_EMPTY(1), //1�F���͕�����null�A�܂��͋󕶎�
-	ILLEGAL_INPUT_TIME(2), //2�F���͕����񂪕s��
-	ILLEGAL_START_OR_END_TIME(3), // 	3�F���͕����񂪏o�Ў����A�ގЎ����Ƃ��ĕs��
-	END_BEFOR_START(4), // 	4�F�ގЎ������o�Ў����ȑO
-	INPUT_FILE_ERROR(5), // 5 : �s���t�@�C��
-	NULL_INPUT_FILE_PATH(6), // 6�F���̓t�@�C���̃p�X��null
-	NOT_EXIST_INPUT_FILE(7), // 7�F���̓t�@�C�������݂��Ȃ�
-	FAILE_READ_INPUT_FILE(8), // 8�F���̓t�@�C���̓ǂݍ��݂Ɏ��s����
-	NULL_OUTPUT_FILE_PATH(9), // 9�F�o�̓t�@�C���̃p�X��null
-	FAILE_FILE_OUT(10),// 10�F�t�@�C���̏o�͂Ɏ��s����
-	IS_CTRL_CODE(11);// 11�F�t�@�C�����ɐ��䕶�������݂���
+	NULL_OR_EMPTY(1), //　入力ファイルがnull
+	ILLEGAL_INPUT_TIME(2), //　不正な入力文字列
+	ILLEGAL_START_OR_END_TIME(3), // 勤務時間文字列不正
+	END_BEFOR_START(4), // 	退社のほうが前
+	INPUT_FILE_ERROR(5), // 入力ファイルが不正
+	NULL_INPUT_FILE_PATH(6), // 入力パスがnull
+	NOT_EXIST_INPUT_FILE(7), // 入力ファイルが存在しない
+	FAILE_READ_INPUT_FILE(8), // 読み込み失敗
+	NULL_OUTPUT_FILE_PATH(9), // 出力パスがnull
+	FAILE_FILE_OUT(10),// 出力失敗
+	IS_CTRL_CODE(11);// 制御コードを含む
 
 	private int errorCode;
 
