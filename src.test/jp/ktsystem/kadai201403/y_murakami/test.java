@@ -1,4 +1,4 @@
-package test.jp.ktsystem.kadai201403.y_murakami;
+package jp.ktsystem.kadai201403.y_murakami;
 
 import java.util.ArrayList;
 
