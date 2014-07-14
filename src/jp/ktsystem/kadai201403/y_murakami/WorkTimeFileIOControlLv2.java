@@ -176,7 +176,7 @@ public class WorkTimeFileIOControlLv2 {
 
 				ArrayList<String> outList = new ArrayList<String>();
 				List<WorkTime> workTimeList = workTimeMonth.getWorkTimeList();
-				Collections.sort(workTimeList,new WorktTimeComparator());
+				Collections.sort(workTimeList,new WorkTimeComparator());
 
 				int total = 0;
 				outList.add("[");

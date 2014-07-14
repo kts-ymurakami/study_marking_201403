@@ -97,20 +97,13 @@ public class WorkTime {
  * WorkTimeソート用Comparatorクラス
  *
  */
-class WorktTimeComparator implements Comparator<WorkTime> {
+class WorkTimeComparator implements Comparator<WorkTime> {
 
 	public int compare(WorkTime arg0, WorkTime arg1) {
 		String str1 = arg0.getDate();
 		String str2 = arg1.getDate();
 
-		int comp = str1.compareTo(str2);
-		if (0 < comp) {
-			return 1;
-		} else if (0 == comp) {
-			return 0;
-		} else {
-			return -1;
-		}
+		return str1.compareTo(str2);
 
 	}
 
