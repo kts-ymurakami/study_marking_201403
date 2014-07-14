@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -135,6 +136,7 @@ public class WorkTimeFileIOControl {
 			// workTimeList
 			this.workTimeList = new ArrayList<WorkTime>();
 			int sumWorkTime = 0;// 合計時間
+			SimpleDateFormat df = new SimpleDateFormat(SystemConstant.INPUT_DATA_FORMAT);
 
 			// 対象キーから値を取り出し
 			for (String data : dataList) {
@@ -152,7 +154,7 @@ public class WorkTimeFileIOControl {
 					String value = dataMatcher.group(2);
 					if (SystemConstant.KEY_DATE.equals(key)) {
 						date = value;
-						if (!ErrorUtil.checkDate(date)) {
+						if (!ErrorUtil.checkDate(date,df)) {
 							throw new KadaiException(
 									ErrorCode.ILLEGAL_INPUT_TIME);
 						}

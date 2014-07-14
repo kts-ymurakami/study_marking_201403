@@ -1,6 +1,5 @@
 package jp.ktsystem.kadai201403.y_murakami.util;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
@@ -19,27 +18,6 @@ import jp.ktsystem.kadai201403.y_murakami.common.SystemConstant;
 public class ErrorUtil {
 
 	/**
-	 * �ｿｽ�ｿｽ�ｿｽﾍチ�ｿｽF�ｿｽb�ｿｽN�ｿｽp�ｿｽ@�ｿｽ�ｿｽ�ｿｽK�ｿｽ\�ｿｽ�ｿｽPattern
-	 */
-	public static final Pattern INPUT_TIME_PATTERN = Pattern
-			.compile("^[0-9][0-9][0-9][0-9]$");
-
-	/**
-	 * �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽﾔ難ｿｽ�ｿｽﾍチ�ｿｽF�ｿｽb�ｿｽN�ｿｽp�ｿｽ@�ｿｽ�ｿｽ�ｿｽK�ｿｽ\�ｿｽ�ｿｽPattern
-	 */
-	public static final Pattern INPUT_TIME_START_PATTERN = Pattern
-			.compile("^([0-1][0-9]|[2][0-3])[0-5][0-9]$");
-
-	/**
-	 * �ｿｽﾞ社趣ｿｽ�ｿｽﾔ難ｿｽ�ｿｽﾍチ�ｿｽF�ｿｽb�ｿｽN�ｿｽp�ｿｽ@�ｿｽ�ｿｽ�ｿｽK�ｿｽ\�ｿｽ�ｿｽPattern
-	 */
-	public static final Pattern INPUT_TIME_END_PATTERN = Pattern
-			.compile("^([0-2][0-9]|[3][0-2])[0-5][0-9]$");
-
-	private static DateFormat df = new SimpleDateFormat(SystemConstant.INPUT_DATA_FORMAT);
-
-
-	/**
 	 * 出勤時間と退勤時間のエラーチェック
 	 * @param startTime
 	 * @param endTime
@@ -55,14 +33,14 @@ public class ErrorUtil {
 		}
 
 		// �ｿｽ�ｿｽ�ｿｽﾍ包ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽs�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ`�ｿｽF�ｿｽb�ｿｽN
-		if (!checkMatches(INPUT_TIME_PATTERN, startTime)
-				|| !checkMatches(INPUT_TIME_PATTERN, endTime)) {
+		if (!checkMatches(SystemConstant.INPUT_TIME_END_PATTERN, startTime)
+				|| !checkMatches(SystemConstant.INPUT_TIME_PATTERN, endTime)) {
 			throw new KadaiException(ErrorCode.ILLEGAL_INPUT_TIME);
 		}
 
 		// �ｿｽo�ｿｽﾐ趣ｿｽ�ｿｽ�ｿｽ�ｿｽ`�ｿｽF�ｿｽb�ｿｽN �ｿｽﾞ社趣ｿｽ�ｿｽ�ｿｽ�ｿｽ`�ｿｽF�ｿｽb�ｿｽN
-		if (!checkMatches(INPUT_TIME_START_PATTERN, startTime)
-				|| !checkMatches(INPUT_TIME_END_PATTERN, endTime)) {
+		if (!checkMatches(SystemConstant.INPUT_TIME_START_PATTERN, startTime)
+				|| !checkMatches(SystemConstant.INPUT_TIME_END_PATTERN, endTime)) {
 			throw new KadaiException(ErrorCode.ILLEGAL_START_OR_END_TIME);
 		}
 
@@ -104,12 +82,12 @@ public class ErrorUtil {
 	 * @param inputDate　チェック対象文字列
 	 * @return
 	 */
-	public static boolean checkDate(String inputDate) {
+	public static boolean checkDate(String inputDate, SimpleDateFormat df) {
 
 		if (null == inputDate) {
 			return false;
 		}
-		df.setLenient(false);// �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾉチ�ｿｽF�ｿｽb�ｿｽN
+		df.setLenient(false);// 厳密チェック
 
 		try {
 			df.parse(inputDate);

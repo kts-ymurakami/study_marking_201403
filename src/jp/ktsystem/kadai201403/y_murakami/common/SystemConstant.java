@@ -1,5 +1,7 @@
 package jp.ktsystem.kadai201403.y_murakami.common;
 
+import java.util.regex.Pattern;
+
 /**
  * 定数
  * @author y_murakami
@@ -52,19 +54,22 @@ public class SystemConstant {
 	public static final int MINIMUM_TIME = 0;
 
 	/**
-	 * 正規表現　4桁数字
+	 * 時間のパターン
 	 */
-	public static final String REGULAR_EXPRESSION_STR = "^[0-9][0-9][0-9][0-9]$";
+	public static final Pattern INPUT_TIME_PATTERN = Pattern
+			.compile("^[0-9][0-9][0-9][0-9]$");
 
 	/**
-	 * HH 00~23　mm 00~59
+	 * 出社時間　パターン
 	 */
-	public static final String REGULAR_EXPRESSION_STR_START_TIME = "^([0-1][0-9]|[2][0-3])[0-5][0-9]$";
+	public static final Pattern INPUT_TIME_START_PATTERN = Pattern
+			.compile("^([0-1][0-9]|[2][0-3])[0-5][0-9]$");
 
 	/**
-	 * HH 00~32 mm 00~59
+	 * 退社時間　パターン
 	 */
-	public static final String REGULAR_EXPRESSION_STR_END_TIME = "^([0-2][0-9]|[3][0-2])[0-5][0-9]$";
+	public static final Pattern INPUT_TIME_END_PATTERN = Pattern
+			.compile("^([0-2][0-9]|[3][0-2])[0-5][0-9]$");
 
 	/**
 	 * ｛｝で囲まれたもの
