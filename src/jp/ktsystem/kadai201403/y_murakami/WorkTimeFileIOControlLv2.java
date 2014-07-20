@@ -157,6 +157,10 @@ public class WorkTimeFileIOControlLv2 {
 	 */
 	public void writeOutPutFileLv2(String dirPath) throws KadaiException {
 
+		if(0 == this.WorkTimeMonthList.size()){
+			throw new KadaiException(ErrorCode.FAILE_READ_INPUT_FILE);
+		}
+
 		for (WorkTimeMonth workTimeMonth : this.WorkTimeMonthList) {
 
 			BufferedWriter bfWrite = null;

@@ -55,7 +55,7 @@ public class WorkTimeFileIOControl {
 	/**
 	 * �ｿｽﾇみ搾ｿｽ�ｿｽﾝデ�ｿｽ[�ｿｽ^�ｿｽﾌ�ｿｽ�ｿｽX�ｿｽg
 	 */
-	private ArrayList<WorkTime> workTimeList = null;
+	private ArrayList<WorkTime> workTimeList = null ;
 
 	/**
 	 * �ｿｽ�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh�ｿｽﾌエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾇゑｿｽ
@@ -131,6 +131,10 @@ public class WorkTimeFileIOControl {
 			ArrayList<String> dataList = new ArrayList<String>();
 			while (inputMatcher.find()) {
 				dataList.add(inputMatcher.group());
+			}
+
+			if(0 == dataList.size()){
+				throw new KadaiException(ErrorCode.INPUT_FILE_ERROR);
 			}
 
 			// workTimeList
@@ -215,7 +219,7 @@ public class WorkTimeFileIOControl {
 	public void writeOutputFile(int errorCode) throws KadaiException {
 
 		if (null == this.workTimeList) {
-			return;
+			this.workTimeList = new ArrayList<WorkTime>();
 		}
 
 		BufferedWriter bfWrite = null;
